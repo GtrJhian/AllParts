@@ -107,15 +107,15 @@
 
 									</div>
 									<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-										<div class="row" style="padding-bottom: 15px">
+										<div class="row" style="padding-bottom: 10px">
 											<div class="col-2">
-												<button class="btn btn-md btn-warning" data-target="#store_items" data-toggle="modal"><i class="fa fa-list"></i> Items</button>
+												<button class="btn btn-md btn-primary" data-target="#store_items" data-toggle="modal"><i class="fa fa-list"></i> Items</button>
 											</div>
 										</div>
 										<hr>
 										<div class="row">
 											<div class="col">
-												<table class="table table-bordered">
+												<table class="table table-bordered" id="items_added">
 													<thead>
 														<th>Item</th>
 														<th>Quantity</th>
@@ -184,7 +184,7 @@
 						<button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
 						<legend class="text-center">ITEMS</legend>
 						<div class="table-responsive">
-							<table class="table table-striped">
+							<table class="table table-striped" id="itemlist">
 								<thead>
 									<th>Item</th>
 									<th>Unit Price</th>
@@ -223,7 +223,11 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('.table').DataTable();
+		$('#itemlist').DataTable();
+		$('#items_added').DataTable({
+        "bFilter": false,
+        "bInfo": false
+                 } );
 	});
 </script>
 @stop
