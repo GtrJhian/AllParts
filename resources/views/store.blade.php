@@ -107,22 +107,52 @@
 
 									</div>
 									<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-										<table class="table table-bordered">
-											<thead>
-												<th>Quantity</th>
-												<th>Unit</th>
-												<th>Item</th>
-												<th>Unit Price</th>
-												<th>Amount</th>
-											</thead>
-											<tbody>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tbody>
-										</table>
+										<div class="row" style="padding-bottom: 15px">
+											<div class="col-2">
+												<button class="btn btn-md btn-warning" data-target="#store_items" data-toggle="modal"><i class="fa fa-list"></i> Items</button>
+											</div>
+										</div>
+										<hr>
+										<div class="row">
+											<div class="col">
+												<table class="table table-bordered">
+													<thead>
+														<th>Item</th>
+														<th>Quantity</th>
+														<th>UOM</th>
+														<th>Unit Price</th>
+														<th>Amount</th>
+														<th></th>
+													</thead>
+													<tbody>
+														<tr>
+															<td>Gauge Hose</td>
+															<td>3</td>
+															<td>per Meter</td>
+															<td>50</td>
+															<td>150</td>
+															<td class="text-center">
+																<a><span><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></span></a>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<hr>
+										<div class="row">
+											<div class="offset-7 col-3">
+												<h6 style="font-weight: normal;">Total Amount Rendered:</h6>
+												<h6 style="font-weight: normal;">Amount Received:</h6>
+												<h6 style="font-weight: normal;">Change:</h6>
+											</div>
+											<div class="col-2 text-right">
+												<h6 style="font-weight: normal;">1000</h6>
+												<h6 style="font-weight: normal;">800</h6>
+												<h6 style="font-weight: normal;">200</h6>
+											</div>
+										</div>
+										<hr>
 										<div class="row">
 											<div class="col-2 offset-5" style="float:right">
 												<input type="submit" name="Pay" class="btn btn-success">
@@ -146,6 +176,40 @@
 		<!-- /.content-wrapper -->
 
 	</div>
+	<div class="modal fade" id="store_items" tabindex="-1" role="dialog" aria-labelledby="items" aria-hidden="true">
+		<div class="modal-dialog" style="min-width: 1000px">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="container">
+						<button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+						<legend class="text-center">ITEMS</legend>
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<th>Item</th>
+									<th>Unit Price</th>
+									<th>UOM</th>
+									<th>Remaining Stock</th>
+									<th></th>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Gauge Hose</td>
+										<td>50</td>
+										<td>per Meter</td>
+										<td>50</td>
+										<td class="text-center">
+											<a><span><button class="btn btn-primary"><i class="fa fa-plus"></i></button></span></a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- /#wrapper -->
 
 	<!-- Scroll to Top Button-->
@@ -154,4 +218,12 @@
 	</a>
 
 </body>
+@stop
+@section('script')
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.table').DataTable();
+	});
+</script>
 @stop
