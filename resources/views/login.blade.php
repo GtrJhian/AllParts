@@ -12,7 +12,7 @@
 					<div class="card-body">
 						<div class="container-fluid">
 							<div class="row">
-								<img src="{{asset('vendor/img/allparts.png')}}" style="width: 300px;height: 200px;" class="centering">	
+								<img src="{{asset('vendor/img/allparts.png')}}" style="width: 300px;height: 250px;" class="centering">	
 							</div>
 							<form>
 								<div class="form-group" style="padding-top: 10px">

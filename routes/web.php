@@ -16,14 +16,14 @@ Route::get('/',function(){
 	return view('home');
 });
 Route::get('/customers',function(){
-	return view('customers');
+	return view('sales_templates.customers');
 });
 Route::get('/login',function(){
 	return view('login');
 });
 Route::get('/store',function(){
-	return view('store');
+	return view('sales_templates.store');
 });
 Route::get('/items',function(){
-	return view('items');
+	return view('sales_templates.items');
 });

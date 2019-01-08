@@ -3,12 +3,12 @@
 @section('content')
 <body id="page-top">
 
-	@include('components.nav2')
+	@include('components.nav_sales')
 
 	<div id="wrapper">
 
 		<!-- Sidebar -->
-		@include('components.menu2')
+		@include('components.menu_sales')
 
 		<div id="content-wrapper">
 
