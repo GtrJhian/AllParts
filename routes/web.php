@@ -27,3 +27,5 @@ Route::get('/store',function(){
 Route::get('/items',function(){
 	return view('items');
 });
+
+Route::resource('Billing', 'BillingController');
