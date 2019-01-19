@@ -4,6 +4,12 @@
 <!-- <div class="text3 hi-icon-effect-1 hi-icon-effect-1a" style="padding-top: 20px"> -->
 	<ul class="sidebar navbar-nav text4 hi-icon-effect-1 hi-icon-effect-1a" style="padding-top: 20px;background-color: #fff;border-right: 1px #e9ecef solid">
 		<li class="nav-item" style="padding: 20px">
+			<a class="hi-icon" href="/inventory">
+				<i class="fa fa-archive" style="padding: 20%"></i><!-- store to -->
+				<span class="tooltiptext">Inventory</span>
+			</a>
+		</li>
+		<li class="nav-item" style="padding: 20px">
 			<a class="hi-icon" href="/store">
 				<i class="fa fa-store" style="padding: 20%"></i><!-- store to -->
 				<span class="tooltiptext">Store</span>

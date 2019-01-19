@@ -1,0 +1,280 @@
+.zoom {
+  position: fixed;
+  bottom: 45px;
+  right: 24px;
+  height: 70px;
+}
+
+.zoom-fab {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 50%;
+  background-color: #007bff;
+  vertical-align: middle;
+  text-decoration: none;
+  text-align: center;
+  transition: 0.2s ease-out;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  color: #FFF !important;
+}
+
+.zoom-fab:hover {
+  background-color: #185da7;
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2);
+}
+
+.zoom-btn-large {
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+}
+
+.zoom-btn-red { background-color: #F44336; }
+
+.zoom-btn-red:hover { background-color: #e57373; }
+
+.zoom-btn-green { background-color: #4CAF50; }
+
+.zoom-btn-green:hover { background-color: #81c784; }
+
+.zoom-btn-blue { background-color: #2196F3; }
+
+.zoom-btn-blue:hover { background-color: #64b5f6; }
+
+.zoom-btn-violet { background-color: #9c27b0; }
+
+.zoom-btn-violet:hover { background-color: #ba68c8; }
+
+.zoom-menu {
+  position: absolute;
+  right: 70px;
+  left: auto;
+  top:70%;
+  transform: translateY(-50%);
+  height: 100%;
+  width: 500px;
+  list-style: none;
+  text-align: right;
+}
+
+.zoom-menu li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.zoom-card {
+  position: absolute;
+  right: 150px;
+  bottom: 70px;
+  transition: box-shadow 0.25s;
+  padding: 5px;
+  border-radius: 2px;
+  background-color: #009688;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  color: #FFF;
+}
+
+.zoom-card ul {
+  -webkit-padding-start: 0;
+  list-style: none;
+  text-align: center;
+  margin-bottom: 0px !important;
+}
+
+.scale-transition { transition: transform 0.3s cubic-bezier(0.53, 0.01, 0.36, 1.63) !important; }
+
+.scale-transition.scale-out {
+  transform: scale(0);
+  transition: transform 0.2s !important;
+}
+
+.scale-transition.scale-in { transform: scale(1); }
+
+
+
+.tooltip-iventory {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip-iventory .tooltip-iventorytext {
+  visibility: hidden;
+  width: 80px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 110%;
+  left: 50%;
+  margin-left: -40px;
+}
+
+.tooltip-iventory .tooltip-iventorytext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+.tooltip-iventory:hover .tooltip-iventorytext {
+  visibility: visible;
+}
+
+
+/*------------RED-----------*/
+.tooltip-iventory-red {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted #F44336;
+}
+
+.tooltip-iventory-red .tooltip-iventorytext-red {
+  visibility: hidden;
+  width: 80px;
+  background-color: #F44336;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 110%;
+  left: 50%;
+  margin-left: -40px;
+}
+
+.tooltip-iventory-red .tooltip-iventorytext-red::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #F44336 transparent transparent transparent;
+}
+
+.tooltip-iventory-red:hover .tooltip-iventorytext-red {
+  visibility: visible;
+}
+
+
+
+/*------------GREEN-----------*/
+.tooltip-iventory-green {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted #4CAF50;
+}
+
+.tooltip-iventory-green .tooltip-iventorytext-green {
+  visibility: hidden;
+  width: 80px;
+  background-color: #4CAF50;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 110%;
+  left: 50%;
+  margin-left: -40px;
+}
+
+.tooltip-iventory-green .tooltip-iventorytext-green::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #4CAF50 transparent transparent transparent;
+}
+
+.tooltip-iventory-green:hover .tooltip-iventorytext-green {
+  visibility: visible;
+}
+
+
+/*------------LIGHTBLUE-----------*/
+.tooltip-iventory-blue {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted #2196F3;
+}
+
+.tooltip-iventory-blue .tooltip-iventorytext-blue {
+  visibility: hidden;
+  width: 80px;
+  background-color: #2196F3;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 110%;
+  left: 50%;
+  margin-left: -40px;
+}
+
+.tooltip-iventory-blue .tooltip-iventorytext-blue::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #2196F3 transparent transparent transparent;
+}
+
+.tooltip-iventory-blue:hover .tooltip-iventorytext-blue {
+  visibility: visible;
+}
+
+/*------------VIOLET-----------*/
+.tooltip-iventory-violet {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted #9c27b0;
+}
+
+.tooltip-iventory-violet .tooltip-iventorytext-violet {
+  visibility: hidden;
+  width: 80px;
+  background-color: #9c27b0;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 110%;
+  left: 50%;
+  margin-left: -40px;
+}
+
+.tooltip-iventory-violet .tooltip-iventorytext-violet::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #9c27b0 transparent transparent transparent;
+}
+
+.tooltip-iventory-violet:hover .tooltip-iventorytext-violet {
+  visibility: visible;
+}
+

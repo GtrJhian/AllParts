@@ -1,5 +1,5 @@
 <div class="text6 hi-icon-effect-1 hi-icon-effect-1a">
-	<a class="hi-icon" href="">
+	<a class="hi-icon" href="/inventory">
 		<i class="fa fa-archive" style="padding: 25%"></i><!-- inventory -->
 		<span class="tooltiptext">Inventory</span>
 	</a>
