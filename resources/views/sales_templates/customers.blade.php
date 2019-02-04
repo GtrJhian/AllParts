@@ -2,9 +2,9 @@
 
 @section('content')
 <body>
-	@include('components.nav2')
+	@include('components.nav_sales')
 	<div id="wrapper">
-		@include('components.menu2')
+		@include('components.menu_sales')
 		<div id="content-wrapper">
 			<div class="container-fluid">
 				<ol class="breadcrumb" style="border-radius: 0px">
