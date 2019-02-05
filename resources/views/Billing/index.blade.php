@@ -1,7 +1,5 @@
 @extends('components/main')
 
-@extends('components/main')
-
 @section('content')
 <body>
 	@include('components.nav_sales')
@@ -14,40 +12,117 @@
 						<a href="#" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">Billing</a>
 					</li>
 				</ol>
-				<div class="card mb-3">
-					<div class="card-body">
-						<div class="row">
-							<div class="col">
-								<div class="table-responsive">
-									<table class="table table-striped" id="itemlist" width="100%" cellspacing="0">
-										<thead>
-											<th>Billing_ID</th>
-											<th>Name</th>
-											<th>Bill</th>
-										</thead>
-                                        <tbody>
-                                            @if(count($billingposts) > 0)
-                                                @foreach($billingposts as $post)
+				<!-- <div class="container"> -->
+				<div class="row">
+					<div class="col-md-12">
+						<button type="button" href="#" class="btn btn-danger btn-suc btn-wd float-right" role="button">Delete</button>
+					  	<button type="button" href="#" class="btn btn-success btn-suc float-right" role="button">Select</button>
+	
+  					<div class="nav nav-tabs" id="nav-tab" role="tablist">
+    					<a class="nav-item nav-link active" id="bill" data-toggle="tab" href="#billing" role="tab"  aria-selected="true">Billing <i class="fa fa-check"></i></a>
+    					<a class="nav-item nav-link" id="tab1" data-toggle="tab" href="#tab1" role="tab"  aria-selected="false">Tab1 <i class="fa fa-check"></i></a>
+    					<a class="nav-item nav-link" id="tab2" data-toggle="tab" href="#tab2" role="tab"  aria-selected="false">Tab2 <i class="fa fa-check"></i></a>
+					</div>
+					</div>
+				</div>
+				<!-- </div> -->
+				
+			
+<!-- tab contents -->
+						<div class="tab-content" id="nav-tabContent">
+ 							 <div class="tab-pane fade show active" id="billing" role="tabpanel" aria-labelledby="nav-home-tab">
+								<div class="card mb-3">
+									<div class="card-body">
+										<div class="row">
+											<div class="col">
+												<div class="table-responsive">
+												<table class="table table-striped" id="itemlist" width="100%" cellspacing="0">
+												<thead>
+													<th width=20%>Billing_ID</th>
+													<th width=30%>Name</th>
+													<th width=35%>Address</th>
+													<th width=15%>Bill</th>
+												</thead>
+                                        		<tbody>
+                                          			  @if(count($billingposts) > 0)
+                                               		  @foreach($billingposts as $post)
                                                     <tr index="{{$post->Bill_ID}}">
                                                         <td>{{$post->Bill_ID}}</td>
                                                         <td>{{$post->Name}}</td>
-                                                        <td>{{$post->Bill}}</td>
+                                                        <td>{{$post->Address}}</td>
+														<td>{{$post->Bill}}</td>
                                                     </tr>
                                                 @endforeach
                                             @endif
-                                        </tbody>
-									</table>
+                                       			 </tbody>
+												</table>	
+											</div>
+										</div>
+									</div>
 								</div>
+							</div> 
+						</div> 
+<!-- end of content 1 -->
+
+  						 	<div class="tab-pane fade" id="tab1" role="tabpanel" aria-labelledby="nav-profile-tab">
+						   		<div class="card mb-3">
+									<div class="card-body">
+										<div class="row">
+											<div class="col">
+												<div class="table-responsive">
+												<table class="table table-striped" id="itemlist" width="100%" cellspacing="0">
+												<thead>
+													<th width=20%>Billing_ID</th>
+													<th width=30%>Name</th>
+													<th width=35%>Address</th>
+													<th width=15%>Bill</th>
+												</thead>
+                                        		<tbody>
+                                            		
+                                                    
+                                       			 </tbody>
+												</table>	
+												</div>
+											</div>
+										</div>
+									</div>
+								</div> 
 							</div>
-						</div>
-					</div>
-				</div>
+<!-- end of content 2 -->
+
+  						 <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="nav-contact-tab">
+						   <div class="card mb-3">
+						   <div class="card-body">
+							   <div class="row">
+								   <div class="col">
+									   <div class="table-responsive">
+									   <table class="table table-striped" id="itemlist" width="100%" cellspacing="0">
+									   <thead>
+										   <th width=20%>Billing_ID</th>
+										   <th width=30%>Name</th>
+										   <th width=35%>Address</th>
+										   <th width=15%>Bill</th>
+									   </thead>
+									   <tbody>
+										   
+										   
+										   </tbody>
+									   </table>	
+									   </div>
+								   </div>
+							   </div>
+						   </div>
+					   </div> 
+				   </div>  
+		<!-- end of content 3 -->		
+		</div>
 			</div>
 			@include('components.footer2')
 		</div>
 	</div>
 </body>
 @stop
+
 
 @section('script')
 <script type="text/javascript">

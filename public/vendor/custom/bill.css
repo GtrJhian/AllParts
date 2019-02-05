@@ -1,0 +1,18 @@
+#itemlist th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #1E90EF;
+  opacity: 100%;
+  color: black;
+}
+.btn-length {padding: 10px 35px;}
+.btn-suc {padding: 7px 30px;}
+.btn-wd {margin-left: 5px;}
+
+.parag {margin-left: 300px;}
+.parag1 {margin-left: 200px;}
+.parag2 {margin-left: 150px;}
+.parag3 {margin-left: 140px;}
+.parag4 {margin-left: 145px;}
+
