@@ -17,11 +17,23 @@
 		@include('components.menu2')
 		<div id="content-wrapper">
 			<div class="container-fluid">
-				<ol class="breadcrumb" style="border-radius: 0px">
-					<li class="breadcrumb-item">
-						<a href="#" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">CATEGORY & BRANDS</a>
-					</li>
-				</ol>
+				<div class="row">
+					<div class="col-sm-1">
+						<a href="/selectInventory" class="btn btn-secondary d-block mx-auto back-btn">
+							<i class="fa fa-arrow-left back-btn-icon"></i>
+						</a>
+					</div>
+					<div class="col-sm-11">
+						<ol class="breadcrumb" style="border-radius: 0px">
+							<li class="breadcrumb-item">
+								<a href="/category&brands" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">CATEGORY & BRANDS</a>
+							</li>
+							<li class="breadcrumb-item">
+								<a href="/archiveCategory&Brands" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">ARCHIVE</a>
+							</li>
+						</ol>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col">
 						<div class="card mb-3">

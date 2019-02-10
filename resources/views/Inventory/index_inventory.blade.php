@@ -17,16 +17,19 @@
 				<div class="card mb-3">
 					<div class="card-body">
 						<div class="row">
-							<div class="col">
-								<a href="/inventory" class="btn btn-primary d-block mx-auto">
-									<h3>Inventory</h3>
+							<div class="col-sm-3 text-center">
+								<a href="/inventory" class="btn btn-outline-primary tooltip-iventory-blue select-invt-icon-btn">
+									<i class="fas fa-box-open select-invt-icon"></i>
+									<span class="tooltip-iventorytext-blue">Inventory</span>
 								</a>
 							</div>
-							<div class="col">
-								<a href="/category&brands" class="btn btn-primary d-block mx-auto">
-									<h3>Category & Brands</h3>
+							<div class="col-sm-3 text-center">
+								<a href="/category&brands" class="btn btn-outline-primary tooltip-iventory-blue select-invt-icon-btn">
+									<i class="fas fa-layer-group select-invt-icon"></i>
+									<span class="tooltip-iventorytext-blue">Category & Brands</span>
 								</a>
 							</div>
+							
 						</div>
 						<hr>
 						<div class="row">

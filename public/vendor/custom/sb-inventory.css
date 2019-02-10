@@ -208,14 +208,15 @@
 
 /*------------LIGHTBLUE-----------*/
 .tooltip-iventory-blue {
+  margin-top: 30px;
   position: relative;
   display: inline-block;
-  border-bottom: 1px dotted #2196F3;
+  /*border-bottom: 1px dotted #2196F3;*/
 }
 
 .tooltip-iventory-blue .tooltip-iventorytext-blue {
   visibility: hidden;
-  width: 80px;
+  width: 150px;
   background-color: #2196F3;
   color: #fff;
   text-align: center;
@@ -224,7 +225,8 @@
   z-index: 1;
   bottom: 110%;
   left: 50%;
-  margin-left: -40px;
+  margin-left: -75px;
+  margin-bottom: 1px;
 }
 
 .tooltip-iventory-blue .tooltip-iventorytext-blue::after {
@@ -284,4 +286,22 @@
 }
 .btn-action-invt a{
   font-size: 5px;
+}
+
+.select-invt-icon{
+  font-size: 80px;
+}
+
+.select-invt-icon-btn{
+  border-radius: 50%;
+  padding: 20px;
+  border: 1px solid white;
+}
+
+.back-btn{
+  border-radius: 0rem !important;
+}
+.back-btn-icon{
+  font-size: 25px;
+  padding: .35rem;
 }
