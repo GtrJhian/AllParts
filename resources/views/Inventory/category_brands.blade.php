@@ -2,14 +2,14 @@
 
 @section('content')
 
-{{-- 
+
 <script>
 	var msg = '{{Session::get('alert')}}';
 	var exist = '{{Session::has('alert')}}';
 	if(exist){
 		alert(msg);
 	}
-</script> --}}
+</script>
 
 <body>
 	@include('components.nav2')
@@ -111,19 +111,13 @@
 		</div>
 	</div>
 
+
 	{{-- Buttom Icon --}}
 	<div class="zoom">
-		<a class="zoom-fab zoom-btn-green zoom-btn-large tooltip-iventory-green" data-toggle="modal" data-target="#invtCreate">
+		<a class="zoom-fab zoom-btn-green zoom-btn-large tooltip-iventory-green" data-toggle="modal" data-target="#catbrandCreate">
 			<i class="fa fa-plus"></i>
 			<span class="tooltip-iventorytext-green">CREATE</span>
 		</a>
-	{{-- 	<ul class="zoom-menu">
-			<li>
-				<a class="zoom-fab zoom-btn-sm zoom-btn-green scale-transition scale-out tooltip-iventory-green" data-toggle="modal" data-target="#invtCreate">
-					<i class="fa fa-plus"></i><span class="tooltip-iventorytext-green">CREATE</span>
-				</a>
-			</li>
-		</ul> --}}
 	</div>
 
 	{{-- Remove item--}}
@@ -161,7 +155,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">UPDATE</h4>
+					<h4 class="modal-title">UPDATE ITEM</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
@@ -244,182 +238,77 @@
 				</div>
 			</div>
 		</div>
-
-	</div> {{-- end UPDATE item --}}
-
-
-	<div class="modal fade" id="invtCreate">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Create New</h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body">
-					<ul class="nav nav-pills nav-justified" role="tablist">
-						<li class="nav-item">
-							<a class="nav-link active" data-toggle="tab" href="#item">ITEM</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" href="#package">PACKAGE</a>
-						</li>
-					</ul>
+	</div>
+</div> {{-- end UPDATE item --}}
 
 
-					<!---- CREATE ITEM FORM----->
-					<div class="tab-content">
-						<div id="item" class="container tab-pane active"><br>
-							<form id="itemCreate" action="/createItem" method="post"/>
-							{{ csrf_field() }}
+<div class="modal fade" id="catbrandCreate">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Create New</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<ul class="nav nav-pills nav-justified" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active" data-toggle="tab" href="#createCategory">CATEGORY</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" data-toggle="tab" href="#createBrands">BRANDS</a>
+					</li>
+				</ul>
+
+
+				<!---- CREATE CATEGORY AND BRANDS FORM----->
+				<div class="tab-content">
+					<div id="createCategory" class="container tab-pane active"><br>
+						<form id="createCategory" action="/createItem" method="post">
 							<div class="form-horizontal">
 								<div class="row">
-									<label class="col-sm-3">Code: </label>
-									<div class="col-sm-9">
+									<div class="col-sm-6">
+										<label>cate_id: </label>
 										<input type="text" name="ic" required class="form-control">
 									</div>
-								</div><br>
-								<div class="row">
-									<label class="col-sm-3">Description: </label>
+									<div class="col-sm-6">
+										<label>item_cate: </label>
+										<input type="text" name="ic" required class="form-control">
+									</div>
 								</div>
+								<hr>
 								<div class="row">
 									<div class="col-sm-12">
-										<textarea class="form-control" name="id" required></textarea>
-									</div>
-								</div><br>
-								<div class="row">
-									<label class="col-sm-4">Brand: </label>
-									<div class="col-sm-8">
-										<?php
-										$brands = \DB::table('item_brands')->orderBy('brand_name','ASC')->get();			
-										?>
-										<select class="form-control" id="select-branch" name="ib">
-											@foreach($brands as $brand)
-											<option value="{{$brand->brand_id}}">{{$brand->brand_name}}</option>
-											@endforeach
-										</select> 
-									</div>
-								</div><br>
-								<div class="row">
-									<label class="col-sm-4">Category: </label>
-									<div class="col-sm-8">
-										<?php
-										$categories = \DB::table('item_categories')->orderBy('item_category','ASC')->get();	
-										?>
-										<select class="form-control" id="select-branch" name="icat">
-											@foreach($categories as $category)
-											<option value="{{$category->category_id}}">{{$category->item_category}}</option>
-											@endforeach
-										</select> 
-									</div>
-								</div><br>
-								<div class="row">
-									<div class="col-sm-6">
-										<label>Price:</label>
-										<input class="form-control" type="number" name="ip" min="0" step=".01" value="0" required>
-									</div>
-									<div class="col-sm-6">
-										<label>Unit:</label>
-										<input type="text" name="iuom" class="form-control" required>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-6">
-										<label>Quantity:</label>
-										<input type="number" name="iq" min="0" value="0" class="form-control" required>
-									</div>
-									<div class="col-sm-6">
-										<label>Alarm Quantity:</label>
-										<input type="number" name="iaq" min="0" value="0" class="form-control" required>
-									</div>
-								</div><br>
-								<div class="row">
-									<div class="col-sm-6">
-										<input class="btn btn-success btn-block" type="submit" name="cisubmit" value="Create">
-									</div>
-									<div class="col-sm-6">
-										<input class="btn btn-danger btn-block" type="reset" name="cireset" value="Clear">
+										<input class="btn btn-success d-block mx-auto" type="submit" name="cisubmit" value="Create">
 									</div>
 								</div>
 							</div>
 						</form>
 					</div>
 
-
-					<!---- CREATE Package FORM----->
-					<div id="package" class="container tab-pane fade"><br>
-						<label class="col-sm-3">Code: </label>
-						<div class="col-sm-9">
-							<input type="text" name="pc" required class="form-control">
-						</div>
-						<br>
-						<div class="row">
-							<label class="col-sm-3">Description: </label>
-						</div>
-						<div class="row">
-							<div class="col-sm-12">
-								<textarea class="form-control" name="pd" required></textarea>
+					<div id="createBrands" class="container tab-pane fade"><br>
+						<form id="createBrands" action="/createItem" method="post">
+							<div class="form-horizontal">
+								<div class="row">
+									<div class="col-sm-6">
+										<label>brand_id: </label>
+										<input type="text" name="ic" required class="form-control">
+									</div>
+									<div class="col-sm-6">
+										<label>item_brand: </label>
+										<input type="text" name="ic" required class="form-control">
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-12">
+										<input class="btn btn-success d-block mx-auto" type="submit" name="cisubmit" value="Create">
+									</div>
+								</div>
 							</div>
-						</div><br>
-						<div class="row">
-							<label class="col-sm-4">Brand: </label>
-							<div class="col-sm-8">
-								<?php
-								$brands = \DB::table('item_brands')->orderBy('brand_name','ASC')->get();			
-								?>
-								<select class="form-control" id="select-branch" name="pb">
-									@foreach($brands as $brand)
-									<option value="{{$brand->brand_id}}">{{$brand->brand_name}}</option>
-									@endforeach
-								</select> 
-							</div>
-						</div><br>
-						<div class="row">
-							<label class="col-sm-4">Category: </label>
-							<div class="col-sm-8">
-								<?php
-								$categories = \DB::table('item_categories')->orderBy('item_category','ASC')->get();	
-								?>
-								<select class="form-control" id="select-branch" name="pcat">
-									@foreach($categories as $category)
-									<option value="{{$category->category_id}}">{{$category->item_category}}</option>
-									@endforeach
-								</select> 
-							</div>
-						</div><br>
-						<div class="row">
-							<div class="col-sm-6">
-								<label>Price:</label>
-								<input class="form-control" type="number" name="pp" min="0" step=".01" value="0" required>
-							</div>
-							<div class="col-sm-6">
-								<label>Unit:</label>
-								<input type="text" name="puom" class="form-control" required>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6">
-								<label>Quantity:</label>
-								<input type="number" name="pq" min="0" value="0" class="form-control" required>
-							</div>
-							<div class="col-sm-6">
-								<label>Alarm Quantity:</label>
-								<input type="number" name="paq" min="0" value="0" class="form-control" required>
-							</div>
-						</div><br>
-						<div class="row">
-							<label class="col-sm-4">Number of Items Required: </label>
-							<div class="col-sm-3">
-								<input class="form-control" type="number" name="ItemList" maxlength=3 min=1 onChange="numOfLines(this.value);" required>
-							</div>
-						</div>
-						<hr>
-						<div id="input_items">			
-						</div>
-						<div class="row">
-							<input class="btn btn-info d-block mx-auto button-view" type="submit" name="cpsubmit" value="Create">
-						</div>
+						</form>
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>
@@ -432,9 +321,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#categoryTable').DataTable();
-	});
-
-	$(document).ready(function() {
 		$('#brandsTable').DataTable();
 	});
 

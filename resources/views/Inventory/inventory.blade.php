@@ -253,7 +253,7 @@
 			<div class="modal-body">
 				<ul class="nav nav-pills nav-justified" role="tablist">
 					<li class="nav-item">
-						<a class="nav-link active" data-toggle="tab" href="#item">ITEM</a>
+						<a class="nav-link active" data-toggle="tab" href="#createItem">ITEM</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" data-toggle="tab" href="#package">PACKAGE</a>
@@ -263,24 +263,24 @@
 
 				<!---- CREATE ITEM FORM----->
 				<div class="tab-content">
-					<div id="item" class="container tab-pane active"><br>
+					<div id="createItem" class="container tab-pane active"><br>
 						<form id="itemCreate" action="/createItem" method="post"/>
 						{{ csrf_field() }}
 						<div class="form-horizontal">
 							<div class="row">
-								<label class="col-sm-3">Code: </label>
 								<div class="col-sm-9">
+									<label>Code: </label>
 									<input type="text" name="ic" required class="form-control">
 								</div>
-							</div><br>
-							<div class="row">
-								<label class="col-sm-3">Description: </label>
 							</div>
+							<br>
 							<div class="row">
 								<div class="col-sm-12">
+									<label>Description: </label>
 									<textarea class="form-control" name="id" required></textarea>
 								</div>
-							</div><br>
+							</div>
+							<br>
 							<div class="row">
 								<label class="col-sm-4">Brand: </label>
 								<div class="col-sm-8">
@@ -337,6 +337,7 @@
 							</div>
 						</div>
 					</form>
+
 				</div>
 
 
