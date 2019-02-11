@@ -6,9 +6,8 @@
 <script>
 	var msg = '{{Session::get('alert')}}';
 	var exist = '{{Session::has('alert')}}';
-	var evalmsg = msg.replace(/(&quot\;)/g,"\"");
 	if(exist){
-		alert(evalmsg);
+		alert(msg);
 	}
 </script>
 
@@ -18,20 +17,11 @@
 		@include('components.menu2')
 		<div id="content-wrapper">
 			<div class="container-fluid">
-				<div class="row">
-					<div class="col-sm-1">
-						<a href="/selectInventory" class="btn btn-secondary d-block mx-auto back-btn">
-							<i class="fa fa-arrow-left back-btn-icon"></i>
-						</a>
-					</div>
-					<div class="col-sm-11">
-						<ol class="breadcrumb" style="border-radius: 0px">
-							<li class="breadcrumb-item">
-								<a href="#" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">INVENTORY</a>
-							</li>
-						</ol>
-					</div>
-				</div>
+				<ol class="breadcrumb" style="border-radius: 0px">
+					<li class="breadcrumb-item">
+						<a href="#" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">INVENTORY</a>
+					</li>
+				</ol>
 				<div class="card mb-3">
 					<div class="card-body">
 						<div class="row">
@@ -55,7 +45,7 @@
 										<tbody>
 											@foreach($inventories as $inventory)
 											<tr id="trID_{{$inventory->Item_ID}}">
-												<td><b>{{$inventory->Item_Code}}</b></td>
+												<td>{{$inventory->Item_Code}}</td>
 												<td>{{$inventory->Item_Description}}</td>
 												<td>
 													<?php
@@ -82,10 +72,10 @@
 											<td>P{{$inventory->Item_Price}}</td>
 											<td>{{$inventory->Alarm_Quantity}} {{$inventory->Item_Unit}}s</td>
 											<td>
-												<button class="update_btn btn btn-primary btn-action-invt">
+												<button class="update_btn btn btn-primary">
 													<i class="fa fa-edit"></i>
 												</button>
-												<button class="archive_btn btn btn-danger btn-action-invt">
+												<button class="del_btn btn btn-danger">
 													<i class="fa fa-times"></i>
 												</button>
 											</td></tr>
@@ -97,11 +87,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="d-block mx-auto">
-						<a href="/archiveInventory" class="btn btn-primary">Archive Inventory</a>
-					</div>
-				</div>
 			</div>
 			@include('components.footer2')
 		</div>
@@ -109,49 +94,42 @@
 
 	{{-- Buttom Icon --}}
 	<div class="zoom">
-		<a class="zoom-fab zoom-btn-green zoom-btn-large tooltip-iventory-green" data-toggle="modal" data-target="#invtCreate">
-			<i class="fa fa-plus"></i>
-			<span class="tooltip-iventorytext-green">CREATE</span>
-		</a>
-		{{-- 	<ul class="zoom-menu">
+		<a class="zoom-fab zoom-btn-large" id="zoomBtn"><i class="fa fa-bars"></i></a>
+		<ul class="zoom-menu">
 			<li>
 				<a class="zoom-fab zoom-btn-sm zoom-btn-green scale-transition scale-out tooltip-iventory-green" data-toggle="modal" data-target="#invtCreate">
 					<i class="fa fa-plus"></i><span class="tooltip-iventorytext-green">CREATE</span>
 				</a>
 			</li>
-		</ul> --}}
+		</ul>
 	</div>
+
 
 	{{-- Remove item--}}
 	<div class="modal fade" id="removeItem">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form id="itemArchive" action="/archiveItem" method="post">
-					{{ csrf_field() }}
-					<input type="hidden" id="aid" name="aid">
-					<input type="hidden" id="aic" name="aic">
-					<div class="modal-header">
-						<h4>Remove Message</h4>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-sm-12">
-								<span>Are you sure you want to archive <p id="item_name"></p></span>
-							</div>
+				<div class="modal-header">
+					<h4>Remove Message</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-sm-12">
+							<span>Are you sure you want to remove this item?</span>
 						</div>
 					</div>
-					<div class="modal-footer">
-						<div class="row">
-							<div class="col-sm-6">
-								<input class="btn btn-danger" type="submit" name="aisubmit" value="Archive">
-							</div>
-							<div class="col-sm-6">
-								<input type="button" class="close_confirm btn btn-primary" value="Cancel">
-							</div>
+				</div>
+				<div class="modal-footer">
+					<div class="row">
+						<div class="col-sm-6">
+							<button class="btn btn-primary">Cancel</button>
+						</div>
+						<div class="col-sm-6">
+							<button class="btn btn-danger">Remove</button>
 						</div>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</div> {{-- end remove item--}}
@@ -255,7 +233,7 @@
 			<div class="modal-body">
 				<ul class="nav nav-pills nav-justified" role="tablist">
 					<li class="nav-item">
-						<a class="nav-link active" data-toggle="tab" href="#createItem">ITEM</a>
+						<a class="nav-link active" data-toggle="tab" href="#item">ITEM</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" data-toggle="tab" href="#package">PACKAGE</a>
@@ -265,7 +243,7 @@
 
 				<!---- CREATE ITEM FORM----->
 				<div class="tab-content">
-					<div id="createItem" class="container tab-pane active"><br>
+					<div id="item" class="container tab-pane active"><br>
 						<form id="itemCreate" action="/createItem" method="post"/>
 						{{ csrf_field() }}
 						<div class="form-horizontal">
@@ -287,7 +265,7 @@
 								<label class="col-sm-4">Brand: </label>
 								<div class="col-sm-8">
 									<?php
-									$brands = \DB::table('item_brands')->where('archive',0)->orderBy('brand_name','ASC')->get();				
+									$brands = \DB::table('item_brands')->where('archive',0)->orderBy('brand_name','ASC')->get();			
 									?>
 									<select class="form-control" id="select-branch" name="ib">
 										@foreach($brands as $brand)
@@ -431,67 +409,40 @@
 		$('#itemlist').DataTable();
 	});
 
-	// $('#zoomBtn').click(function() {
-	// 	$('.zoom-btn-sm').toggleClass('scale-out');
-	// 	if (!$('.zoom-card').hasClass('scale-out')) {
-	// 		$('.zoom-card').toggleClass('scale-out');
-	// 	}
-	// });
-
-//function for update button	
-$('.update_btn').click(function(){
-	var $row = $(this).closest('tr');
-	var rowID = $row.attr('id').split('_')[1];
-	$('#uid').val(rowID);
-	$.ajax({
-		method: "POST",
-		url: "{{ route('popItemForm') }}",
-		data:{itemID:rowID,'_token':"{{csrf_token()}}"},
-		success: function (data){
-			var array = jQuery.parseJSON(data);
-			document.getElementById("uic").value = array[0].Item_Code;
-			document.getElementById("uidesc").value = array[0].Item_Description;
-			document.getElementById("uip").value = array[0].Item_Price;
-			document.getElementById("uiuom").value = array[0].Item_Unit;
-			document.getElementById("uiq").value = array[0].Item_Quantity;
-			document.getElementById("uiaq").value = array[0].Alarm_Quantity;
-			$('#uib').val(array[0].Item_Brand);
-			$('#uicat').val(array[0].Item_Category);
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("ERROR IN REQUEST");
-		} 
+	$('#zoomBtn').click(function() {
+		$('.zoom-btn-sm').toggleClass('scale-out');
+		if (!$('.zoom-card').hasClass('scale-out')) {
+			$('.zoom-card').toggleClass('scale-out');
+		}
 	});
-	$('#updateItem').modal('show');
-});
 
-$('.close_confirm').click(function(){	
-	$('#removeItem').modal('toggle');
-});
-
-//function for archive button
-$('.archive_btn').click(function(){
-	var $row = $(this).closest('tr');
-	var rowID = $row.attr('id').split('_')[1];
-	var $paragraph = $('#item_name');
-	$('#aid').val(rowID);
-	$.ajax({
-		method: "POST",
-		url: "{{ route('popItemForm') }}",
-		data:{itemID:rowID,'_token':"{{csrf_token()}}"},
-		success: function (data){
-			var array = jQuery.parseJSON(data);
-			$paragraph.text(array[0].Item_Code+"?");
-			document.getElementById("aic").value = array[0].Item_Code;
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("ERROR IN REQUEST");
-		} 
+	$('.update_btn').click(function(){
+		var $row = $(this).closest('tr');
+		var rowID = $row.attr('id').split('_')[1];
+		$('#uid').val(rowID);
+		$.ajax({
+			method: "POST",
+			url: "{{ route('popItemForm') }}",
+			data:{updateID:rowID,'_token':"{{csrf_token()}}"},
+			success: function (data){
+				var array = jQuery.parseJSON(data);
+				document.getElementById("uic").value = array[0].Item_Code;
+				document.getElementById("uidesc").value = array[0].Item_Description;
+				document.getElementById("uip").value = array[0].Item_Price;
+				document.getElementById("uiuom").value = array[0].Item_Unit;
+				document.getElementById("uiq").value = array[0].Item_Quantity;
+				document.getElementById("uiaq").value = array[0].Alarm_Quantity;
+				$('#uib').val(array[0].Item_Brand);
+				$('#uicat').val(array[0].Item_Category);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alert("ERROR IN REQUEST");
+			} 
+		});
+		$('#updateItem').modal('show');
 	});
-	$('#removeItem').modal('show');
-});
-
 </script>
+
 
 <script language="javascript" type="text/javascript">
 	function numOfLines(choice)
