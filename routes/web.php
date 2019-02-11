@@ -51,7 +51,17 @@ Route::resource('Billing', 'BillingController');
 Route::resource('Inventory', 'InventoryController');
 
 Route::post('/createItem','InventoryController@createItem');
+Route::post('/createBrand','InventoryController@createBrand');
+Route::post('/createCategory','InventoryController@createCategory');
 Route::post('/updateItem','InventoryController@updateItem');
+Route::post('/updateBrand','InventoryController@updateBrand');
+Route::post('/updateCategory','InventoryController@updateCategory');
 Route::post('/archiveItem','InventoryController@archiveItem')->name("archiveItem");
+Route::post('/archiveBrand','InventoryController@archiveBrand')->name("archiveBrand");
+Route::post('/archiveCategory','InventoryController@archiveCategory')->name("archiveCategory");
 Route::post('/unarchiveItem','InventoryController@unarchiveItem')->name("unarchiveItem");
+Route::post('/unarchiveBrand','InventoryController@unarchiveBrand')->name("unarchiveBrand");
+Route::post('/unarchiveCategory','InventoryController@unarchiveCategory')->name("unarchiveCategory");
 Route::post('/popItemForm','InventoryController@popItemForm')->name("popItemForm");
+Route::post('/popBrandForm','InventoryController@popBrandForm')->name("popBrandForm");
+Route::post('/popCategoryForm','InventoryController@popCategoryForm')->name("popCategoryForm");
