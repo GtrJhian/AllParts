@@ -270,19 +270,19 @@
 						{{ csrf_field() }}
 						<div class="form-horizontal">
 							<div class="row">
+								<label class="col-sm-3">Code: </label>
 								<div class="col-sm-9">
-									<label>Code: </label>
 									<input type="text" name="ic" required class="form-control">
 								</div>
+							</div><br>
+							<div class="row">
+								<label class="col-sm-3">Description: </label>
 							</div>
-							<br>
 							<div class="row">
 								<div class="col-sm-12">
-									<label>Description: </label>
 									<textarea class="form-control" name="id" required></textarea>
 								</div>
-							</div>
-							<br>
+							</div><br>
 							<div class="row">
 								<label class="col-sm-4">Brand: </label>
 								<div class="col-sm-8">
@@ -339,7 +339,6 @@
 							</div>
 						</div>
 					</form>
-
 				</div>
 
 

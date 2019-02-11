@@ -39,7 +39,7 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col">
-										<h4 class="text-center"><b>Category</b></h4><hr>
+										<h4 class="text-center"><b>Categories</b></h4><hr>
 										<div class="table-responsive">
 											<?php
 											$categories = \DB::table('item_categories')->where('archive',0)->orderBy('item_category','ASC')->get();
@@ -52,14 +52,14 @@
 												</thead>
 												<tbody>
 													@foreach($categories as $category)
-													<tr id="ctrID_{{$category->category_id}}">
+													<tr id="trID_{{$category->category_id}}">
 														<td>{{$category->category_id}}</td>
 														<td><b>{{$category->item_category}}</b></td>
 														<td>
-															<button class="update_btn btn btn-primary btn-action-invt" data-toggle="modal" data-target="#updateItem">
+															<button class="update_category btn btn-primary btn-action-invt">
 																<i class="fa fa-edit"></i>
 															</button>
-															<button class="del_btn btn btn-danger btn-action-invt" data-toggle="modal" data-target="#removeItem">
+															<button class="archive_btn_ca btn btn-danger btn-action-invt">
 																<i class="fa fa-times"></i>
 															</button>
 														</td>
@@ -91,14 +91,14 @@
 												</thead>
 												<tbody>
 													@foreach($brands as $brand)
-													<tr id="btrID_{{$brand->brand_id}}">
+													<tr id="trID_{{$brand->brand_id}}">
 														<td>{{$brand->brand_id}}</td>
 														<td><b>{{$brand->brand_name}}</b></td>
 														<td>
-															<button class="update_btn btn btn-primary btn-action-invt" data-toggle="modal" data-target="#updateItem">
+															<button class="update_brand btn btn-primary btn-action-invt">
 																<i class="fa fa-edit"></i>
 															</button>
-															<button class="del_btn btn btn-danger btn-action-invt" data-toggle="modal" data-target="#removeItem">
+															<button class="archive_btn_br btn btn-danger btn-action-invt">
 																<i class="fa fa-times"></i>
 															</button>
 														</td>
@@ -118,23 +118,156 @@
 						<a href="/archiveCategory&Brands" class="btn btn-primary">Archive Category & Brands</a>
 					</div>
 				</div>
-
-				<div class="zoom">
-					<a class="zoom-fab zoom-btn-green zoom-btn-large tooltip-iventory-green" data-toggle="modal" data-target="#catbrandCreate">
-						<i class="fa fa-plus"></i>
-						<span class="tooltip-iventorytext-green">CREATE</span>
-					</a>
-				</div>
-
-				
-
 			</div>
 			@include('components.footer2')
 		</div>
 	</div>
 
+	{{-- Buttom Icon --}}
+	<div class="zoom">
+		<a class="zoom-fab zoom-btn-green zoom-btn-large tooltip-iventory-green" data-toggle="modal" data-target="#catbrandCreate">
+			<i class="fa fa-plus"></i>
+			<span class="tooltip-iventorytext-green">CREATE</span>
+		</a>
+	</div>
+	{{-- Remove brand--}}
+	<div class="modal fade" id="removeBrand">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="brandArchive" action="/archiveBrand" method="post">
+					{{ csrf_field() }}
+					<input type="hidden" id="abid" name="abid">
+					<input type="hidden" id="abn" name="abn">
+					<div class="modal-header">
+						<h4>Remove Message</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-sm-12">
+								<span>Are you sure you want to archive <p id="brand_name"></p></span>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div class="row">
+							<div class="col-sm-6">
+								<input class="btn btn-danger" type="submit" name="absubmit" value="Archive">
+							</div>
+							<div class="col-sm-6">
+								<input type="button" class="close_confirm_br btn btn-primary" value="Cancel">
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div> {{-- end remove category--}}
 
-	{{-- CREATE CATEGORY AND BRANDS --}}
+	{{-- Remove category--}}
+	<div class="modal fade" id="removeCategory">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="categoryArchive" action="/archiveCategory" method="post">
+					{{ csrf_field() }}
+					<input type="hidden" id="acid" name="acid">
+					<input type="hidden" id="aicat" name="aicat">
+					<div class="modal-header">
+						<h4>Remove Message</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-sm-12">
+								<span>Are you sure you want to archive <p id="category_name"></p></span>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div class="row">
+							<div class="col-sm-6">
+								<input class="btn btn-danger" type="submit" name="acsubmit" value="Archive">
+							</div>
+							<div class="col-sm-6">
+								<input type="button" class="close_confirm_ca btn btn-primary" value="Cancel">
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div> {{-- end remove category--}}
+
+
+	<!---UPDATE CATEGORY FORM ----->
+	<div class="modal fade" id="updateCategory">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">UPDATE CATEGORY</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div id="updateCategory" class="container tab-pane active"><br>
+						<form id="updateCategory" action="/updateCategory" method="post">
+							{{ csrf_field() }}
+							<input type="hidden" name="cid" id="cid">
+							<div class="form-horizontal">
+								<div class="row">
+									<div class="col-sm-6">
+										<label>Category Name: </label>
+										<input type="text" name="ucn" id="ucn" required class="form-control">
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-12">
+										<input class="btn btn-success d-block mx-auto" type="submit" name="cnsubmit" value="Update Category">
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div> 
+	</div>{{-- end UPDATE category --}}
+
+	<!---UPDATE Brand FORM ----->
+	<div class="modal fade" id="updateBrand">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">UPDATE BRAND</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div id="updateBrand" class="container tab-pane active"><br>
+						<form id="updateBrand" action="/updateBrand" method="post">
+							{{ csrf_field() }}
+							<input type="hidden" name="bid" id="bid">
+							<div class="form-horizontal">
+								<div class="row">
+									<div class="col-sm-6">
+										<label>Brand Name: </label>
+										<input type="text" id="ubn" name="ubn" required class="form-control">
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-12">
+										<input class="btn btn-success d-block mx-auto" type="submit" name="cnsubmit" value="Update Brand">
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div> 
+	</div>{{-- end UPDATE brand --}}
+
+
 	<div class="modal fade" id="catbrandCreate">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
@@ -148,30 +281,26 @@
 							<a class="nav-link active" data-toggle="tab" href="#createCategory">CATEGORY</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" href="#createBrands">BRANDS</a>
+							<a class="nav-link" data-toggle="tab" href="#createBrands">BRAND</a>
 						</li>
 					</ul>
-
 
 					<!---- CREATE CATEGORY AND BRANDS FORM----->
 					<div class="tab-content">
 						<div id="createCategory" class="container tab-pane active"><br>
-							<form id="createCategory" action="/createItem" method="post">
+							<form id="createCategory" action="/createCategory" method="post">
+								{{ csrf_field() }}
 								<div class="form-horizontal">
 									<div class="row">
 										<div class="col-sm-6">
-											<label>ID: </label>
-											<input type="text" name="ic" required class="form-control">
-										</div>
-										<div class="col-sm-6">
-											<label>Item Cateogry: </label>
-											<input type="text" name="ic" required class="form-control">
+											<label>Category Name: </label>
+											<input type="text" name="cn" required class="form-control">
 										</div>
 									</div>
 									<hr>
 									<div class="row">
 										<div class="col-sm-12">
-											<input class="btn btn-success d-block mx-auto" type="submit" name="cisubmit" value="Create">
+											<input class="btn btn-success d-block mx-auto" type="submit" name="cnsubmit" value="Create Category">
 										</div>
 									</div>
 								</div>
@@ -179,157 +308,30 @@
 						</div>
 
 						<div id="createBrands" class="container tab-pane fade"><br>
-							<form id="createBrands" action="/createItem" method="post">
+							<form id="createBrands" action="/createBrand" method="post">
+								{{ csrf_field() }}
 								<div class="form-horizontal">
 									<div class="row">
 										<div class="col-sm-6">
-											<label>ID: </label>
-											<input type="text" name="ic" required class="form-control">
-										</div>
-										<div class="col-sm-6">
-											<label>Item Brand: </label>
-											<input type="text" name="ic" required class="form-control">
+											<label>Brand Name: </label>
+											<input type="text" name="bn" required class="form-control">
 										</div>
 									</div>
 									<hr>
 									<div class="row">
 										<div class="col-sm-12">
-											<input class="btn btn-success d-block mx-auto" type="submit" name="cisubmit" value="Create">
+											<input class="btn btn-success d-block mx-auto" type="submit" name="cisubmit" value="Create Brand">
 										</div>
 									</div>
 								</div>
 							</form>
 						</div>
 					</div>
+
 				</div>
 			</div>
 		</div>
 	</div>
-
-
-	{{-- Remove item--}}
-	<div class="modal fade" id="removeItem">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4>Remove Message</h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-sm-12">
-							<span>Are you sure you want to remove this item?</span>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<div class="row">
-						<div class="col-sm-6">
-							<button class="btn btn-primary">Cancel</button>
-						</div>
-						<div class="col-sm-6">
-							<button class="btn btn-danger">Remove</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> {{-- end remove item--}}
-
-
-	<!---UPDATE ITEM FORM ----->
-	<div class="modal fade" id="updateItem">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">UPDATE</h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body">
-					<input type="hidden" id="updateID" name="updateID" value="0"/>
-					<?php 
-					$updateID="<script>document.getElementById('updateID').value;</script>";
-					$user = DB::table('inventory')->where('Item_ID', $updateID)->first();
-					?>
-					<div id="item" class="container tab-pane active"><br>
-						<form id="itemCreate" action="/updateItem" method="post"/>
-						{{ csrf_field() }}
-						<div class="form-horizontal">
-							<div class="row">
-								<label class="col-sm-3">Code: </label>
-								<div class="col-sm-9">
-									<input type="text" name="ic" required class="form-control">
-								</div>
-							</div><br>
-							<div class="row">
-								<label class="col-sm-3">Description: </label>
-							</div>
-							<div class="row">
-								<div class="col-sm-12">
-									<textarea class="form-control" name="id" required></textarea>
-								</div>
-							</div><br>
-							<div class="row">
-								<label class="col-sm-4">Brand: </label>
-								<div class="col-sm-8">
-									<?php
-									$brands = \DB::table('item_brands')->orderBy('brand_name','ASC')->get();			
-									?>
-									<select class="form-control" id="select-branch" name="ib">
-										@foreach($brands as $brand)
-										<option value="{{$brand->brand_id}}">{{$brand->brand_name}}</option>
-										@endforeach
-									</select> 
-								</div>
-							</div><br>
-							<div class="row">
-								<label class="col-sm-4">Category: </label>
-								<div class="col-sm-8">
-									<?php
-									$categories = \DB::table('item_categories')->orderBy('item_category','ASC')->get();	
-									?>
-									<select class="form-control" id="select-branch" name="icat">
-										@foreach($categories as $category)
-										<option value="{{$category->category_id}}">{{$category->item_category}}</option>
-										@endforeach
-									</select> 
-								</div>
-							</div><br>
-							<div class="row">
-								<div class="col-sm-6">
-									<label>Price:</label>
-									<input class="form-control" type="number" name="ip" min="0" step=".01" value="0" required>
-								</div>
-								<div class="col-sm-6">
-									<label>Unit:</label>
-									<input type="text" name="iuom" class="form-control" required>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-6">
-									<label>Quantity:</label>
-									<input type="number" name="iq" min="0" value="0" class="form-control" required>
-								</div>
-								<div class="col-sm-6">
-									<label>Alarm Quantity:</label>
-									<input type="number" name="iaq" min="0" value="0" class="form-control" required>
-								</div>
-							</div><br>
-							<div class="row">
-								<div class="col-sm-6">
-									<input class="btn btn-success btn-block" type="submit" name="uisubmit" value="Update Item">
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-
-	</div> {{-- end UPDATE item --}}
-
-	
-	
 
 </body>
 @stop
@@ -344,35 +346,98 @@
 		$('#brandsTable').DataTable();
 	});
 
-	// $('#zoomBtn').click(function() {
-	// 	$('.zoom-btn-sm').toggleClass('scale-out');
-	// 	if (!$('.zoom-card').hasClass('scale-out')) {
-	// 		$('.zoom-card').toggleClass('scale-out');
-	// 	}
-	// });
 
-	$('.update_btn').click(function(){
+	$('.update_brand').click(function(){
 		var $row = $(this).closest('tr');
 		var rowID = $row.attr('id').split('_')[1];
-		$('#updateID').val(rowID);
-		$('#updateItem').modal('show');
-
+		$('#bid').val(rowID);
+		$.ajax({
+			method: "POST",
+			url: "{{ route('popBrandForm') }}",
+			data:{brandID:rowID,'_token':"{{csrf_token()}}"},
+			success: function (data){
+				var array = jQuery.parseJSON(data);
+				document.getElementById("ubn").value = array[0].brand_name;
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alert("ERROR IN REQUEST");
+			} 
+		});
+		$('#updateBrand').modal('show');
 	});
 
-</script>
 
-<script language="javascript" type="text/javascript">
-	function numOfLines(choice)
-	{
-		document.getElementById("input_items").innerHTML='';
-		for(var i = 0; i < choice; ++i)
-		{
-			document.getElementById("input_items").innerHTML+= '<div class="row">' +
-			'<div class="col-sm-6"><label>Item Name:</label><input class="form-control" list="items" name="in-'+i+'" size="50" maxlength="50" required ></div> ' +
-			'<div class="form-group col-sm-6"><label>Quantity Needed:</label><input class="form-control" type="number" name="iq-'+i+'" size="6" maxlength="6" value="1" min="1" required ></div>'+
-			'</div>';
-		}
-	}
+	$('.update_category').click(function(){
+		var $row = $(this).closest('tr');
+		var rowID = $row.attr('id').split('_')[1];
+		$('#cid').val(rowID);
+		$.ajax({
+			method: "POST",
+			url: "{{ route('popCategoryForm') }}",
+			data:{categoryID:rowID,'_token':"{{csrf_token()}}"},
+			success: function (data){
+				var array = jQuery.parseJSON(data);
+				document.getElementById("ucn").value = array[0].item_category;
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				alert("ERROR IN REQUEST");
+			} 
+		});
+		$('#updateCategory').modal('show');
+	});
+
+	$('.close_confirm_ca').click(function(){	
+		$('#removeCategory').modal('toggle');
+	});
+
+//function for archive button
+$('.archive_btn_ca').click(function(){
+	var $row = $(this).closest('tr');
+	var rowID = $row.attr('id').split('_')[1];
+	var $paragraph = $('#category_name');
+	$('#acid').val(rowID);
+	$.ajax({
+		method: "POST",
+		url: "{{ route('popCategoryForm') }}",
+		data:{categoryID:rowID,'_token':"{{csrf_token()}}"},
+		success: function (data){
+			var array = jQuery.parseJSON(data);
+			$paragraph.text(array[0].item_category+"?");
+			document.getElementById("aicat").value = array[0].item_category;
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("ERROR IN REQUEST");
+		} 
+	});
+	$('#removeCategory').modal('show');
+});
+
+$('.close_confirm_br').click(function(){	
+	$('#removeBrand').modal('toggle');
+});
+
+//function for archive button
+$('.archive_btn_br').click(function(){
+	var $row = $(this).closest('tr');
+	var rowID = $row.attr('id').split('_')[1];
+	var $paragraph = $('#brand_name');
+	$('#abid').val(rowID);
+	$.ajax({
+		method: "POST",
+		url: "{{ route('popBrandForm') }}",
+		data:{brandID:rowID,'_token':"{{csrf_token()}}"},
+		success: function (data){
+			var array = jQuery.parseJSON(data);
+			$paragraph.text(array[0].brand_name+"?");
+			document.getElementById("abn").value = array[0].brand_name;
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("ERROR IN REQUEST");
+		} 
+	});
+	$('#removeBrand').modal('show');
+});
+
 </script>
 
 
