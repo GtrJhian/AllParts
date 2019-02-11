@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\BillingPost;
 
 class BillingController extends Controller
@@ -14,8 +15,15 @@ class BillingController extends Controller
      */
     public function index()
     {
-        $billingposts = BillingPost::all();
-        return view('billing.index')->with('billingposts', $billingposts);
+        // $billingpost = BillingPost::all();
+        // return view('billing.index')->with('billingposts', $billingposts);
+        $dataIndex = DB::table('sale')
+                ->join('customer','customer.Cus_ID', 'sale.Cus_ID')
+                ->join('accounting', 'accounting.Sale_ID', 'sale.Sale_ID')
+                ->select('F_Name', 'L_Name', 'Company', 'Address', 'TR_Acc')
+                ->get();
+
+        return view('billing.index')->with('indexPost', $dataIndex);
     }
 
     /**
@@ -47,8 +55,25 @@ class BillingController extends Controller
      */
     public function show($id)
     {
-        $billingposts = BillingPost::find($id);
-        return view('billing.show')->with('billingposts', $billingposts);
+        $dataShow = (array)DB::table('accounting')
+                    ->join('sale', 'accounting.Sale_ID', 'sale.Sale_ID')
+                    ->join('customer','sale.Cus_ID', 'customer.Cus_ID')
+                    ->select('customer.Cus_ID', 'F_Name', 'L_Name', 'Company', 'Address', 'TR_Acc', 'Balance', 'sale.Sale_ID')
+                    ->where('TR_Acc', $id)
+                    ->first();
+
+        $dataShowDet = DB::table('sale_detail')
+                    ->join('sale', 'sale.Sale_ID', 'sale_detail.Sale_ID')
+                    ->join('inventory', 'inventory.Item_ID', 'sale_detail.Item_ID')
+                    ->select('sale_detail.Item_ID', 'Quantity', 'Unit', 'Unit_Price', 'Item_Description')
+                    ->where('sale_detail.Sale_ID', $dataShow['Sale_ID'])
+                    ->get();
+
+        $data = array(
+            'dataShow'=>$dataShow,
+            'dataShowDet' => $dataShowDet
+        );
+        return view('billing.show')->with('showPost', $data);
     }
 
     /**

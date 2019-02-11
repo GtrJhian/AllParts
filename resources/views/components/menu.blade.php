@@ -3,7 +3,7 @@
 		<i class="fa fa-archive" style="padding: 25%"></i><!-- inventory -->
 		<span class="tooltiptext">Inventory</span>
 	</a>
-	<a class="hi-icon" href="">
+	<a class="hi-icon" href="/Billing">
 		<i class="fa fa-hand-holding-usd" style="padding: 25%"></i><!-- billings -->
 		<span class="tooltiptext">Billings</span>
 	</a>

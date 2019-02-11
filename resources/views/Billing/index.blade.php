@@ -1,6 +1,9 @@
 @extends('components/main')
 
 @section('content')
+<?php
+	$index_row = 1;
+?>
 <body>
 	@include('components.nav_sales')
 	<div id="wrapper">
@@ -16,113 +19,118 @@
 				<div class="row">
 					<div class="col-md-12">
 						<button type="button" href="#" class="btn btn-danger btn-suc btn-wd float-right" role="button">Delete</button>
-					  	<button type="button" href="#" class="btn btn-success btn-suc float-right" role="button">Select</button>
+						<button type="button" href="#" class="btn btn-success btn-suc float-right" role="button">Select</button>
 	
   					<div class="nav nav-tabs" id="nav-tab" role="tablist">
     					<a class="nav-item nav-link active" id="bill" data-toggle="tab" href="#billing" role="tab"  aria-selected="true">Billing <i class="fa fa-check"></i></a>
     					<a class="nav-item nav-link" id="tab1" data-toggle="tab" href="#tab1" role="tab"  aria-selected="false">Tab1 <i class="fa fa-check"></i></a>
     					<a class="nav-item nav-link" id="tab2" data-toggle="tab" href="#tab2" role="tab"  aria-selected="false">Tab2 <i class="fa fa-check"></i></a>
-					</div>
+						</div>
 					</div>
 				</div>
 				<!-- </div> -->
 				
 			
-<!-- tab contents -->
-						<div class="tab-content" id="nav-tabContent">
- 							 <div class="tab-pane fade show active" id="billing" role="tabpanel" aria-labelledby="nav-home-tab">
-								<div class="card mb-3">
-									<div class="card-body">
-										<div class="row">
-											<div class="col">
-												<div class="table-responsive">
-												<table class="table table-striped" id="itemlist" width="100%" cellspacing="0">
+				<!-- tab contents -->
+				<div class="tab-content" id="nav-tabContent">
+					<!-- tab 1 -->
+					<div class="tab-pane fade show active" id="billing" role="tabpanel" aria-labelledby="nav-home-tab">
+						<div class="card mb-3">
+							<div class="card-body">
+								<div class="row">
+									<div class="col">
+										<div class="table-responsive">
+											<table class="table table-striped" id="itemlist" width="100%" cellspacing="0">
 												<thead>
-													<th width=20%>Billing_ID</th>
-													<th width=30%>Name</th>
-													<th width=35%>Address</th>
-													<th width=15%>Bill</th>
+													<th width=5%>#</th>
+													<th width=30%>TR No.</th>
+													<th width=30%>NAME</th>
+													<th width=35%>COMPANY</th>
+													<th width=15%>ADDRESS</th>
 												</thead>
-                                        		<tbody>
-                                          			  @if(count($billingposts) > 0)
-                                               		  @foreach($billingposts as $post)
-                                                    <tr index="{{$post->Bill_ID}}">
-                                                        <td>{{$post->Bill_ID}}</td>
-                                                        <td>{{$post->Name}}</td>
-                                                        <td>{{$post->Address}}</td>
-														<td>{{$post->Bill}}</td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif
-                                       			 </tbody>
-												</table>	
-											</div>
+												<tbody>
+													@if(count($indexPost) > 0)
+														@foreach($indexPost as $post)
+															<tr index="{{$post->TR_Acc}}">
+																<td>{{$index_row}}</td>
+																<td>{{$post->TR_Acc}}</td>
+																<td>{{$post->F_Name.' '.$post->L_Name}}</td>
+																<td>{{$post->Company}}</td>
+																<td>{{$post->Address}}</td>
+																<?php $index_row++; ?>
+															</tr>
+														@endforeach
+													@endif
+												</tbody>
+											</table>	
 										</div>
 									</div>
 								</div>
-							</div> 
+							</div>
 						</div> 
-<!-- end of content 1 -->
-
-  						 	<div class="tab-pane fade" id="tab1" role="tabpanel" aria-labelledby="nav-profile-tab">
-						   		<div class="card mb-3">
-									<div class="card-body">
-										<div class="row">
-											<div class="col">
-												<div class="table-responsive">
-												<table class="table table-striped" id="itemlist" width="100%" cellspacing="0">
+					</div> 
+					<!-- end of content 1 -->
+					<!-- tab 2 -->
+					<div class="tab-pane fade" id="tab1" role="tabpanel" aria-labelledby="nav-profile-tab">
+						<div class="card mb-3">
+							<div class="card-body">
+								<div class="row">
+									<div class="col">
+										<div class="table-responsive">
+											<table class="table table-striped" id="itemlist" width="100%" cellspacing="0">
 												<thead>
 													<th width=20%>Billing_ID</th>
 													<th width=30%>Name</th>
 													<th width=35%>Address</th>
 													<th width=15%>Bill</th>
 												</thead>
-                                        		<tbody>
-                                            		
-                                                    
-                                       			 </tbody>
-												</table>	
-												</div>
-											</div>
+												<tbody>
+																					
+																							
+												</tbody>
+											</table>	
 										</div>
 									</div>
-								</div> 
+								</div>
 							</div>
-<!-- end of content 2 -->
-
-  						 <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="nav-contact-tab">
-						   <div class="card mb-3">
-						   <div class="card-body">
-							   <div class="row">
-								   <div class="col">
-									   <div class="table-responsive">
-									   <table class="table table-striped" id="itemlist" width="100%" cellspacing="0">
-									   <thead>
-										   <th width=20%>Billing_ID</th>
-										   <th width=30%>Name</th>
-										   <th width=35%>Address</th>
-										   <th width=15%>Bill</th>
-									   </thead>
-									   <tbody>
+						</div> 
+					</div>
+					<!-- end of content 2 -->
+					<!-- tab3 -->
+					<div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="nav-contact-tab">
+						<div class="card mb-3">
+							<div class="card-body">
+								<div class="row">
+									<div class="col">
+										<div class="table-responsive">
+											<table class="table table-striped" id="itemlist" width="100%" cellspacing="0">
+												<thead>
+													<th width=20%>Billing_ID</th>
+													<th width=30%>Name</th>
+													<th width=35%>Address</th>
+													<th width=15%>Bill</th>
+												</thead>
+												<tbody>
 										   
 										   
 										   </tbody>
 									   </table>	
-									   </div>
-								   </div>
-							   </div>
-						   </div>
-					   </div> 
-				   </div>  
-		<!-- end of content 3 -->		
-		</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div> 
+					</div>  
+					<!-- end of content 3 -->		
+				</div>
+				<!-- end of contents -->	
 			</div>
 			@include('components.footer2')
+			@include('Billing.modal.indexModal')
 		</div>
 	</div>
 </body>
 @stop
-
 
 @section('script')
 <script type="text/javascript">
@@ -134,5 +142,9 @@
 		var bill_id = $(this).attr('index');
         window.location = "/Billing/"+bill_id;
 	}); 
+	
+	function indexModal(){
+    document.getElementById('modal-wrapper-index').style.display = 'block';
+  }
 </script>
 @stop
