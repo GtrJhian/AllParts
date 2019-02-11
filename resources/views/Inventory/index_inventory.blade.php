@@ -36,7 +36,8 @@
 							<div class="col">
 								<div class="form-group">
 									<label for="comment">Alerts:</label>
-									<textarea class="form-control" rows="5" id="comment"></textarea>
+									<?php $inventories = \DB::table('inventory')->where('archive',0)->orderBy('item_code','ASC')->get();?>
+									<textarea class="form-control" rows="5" cols="60" id="comment" name="alerts" disabled>THESE ITEMS ARE RUNNING OUT @foreach($inventories as $inventory)@if($inventory->Item_Quantity<=$inventory->Alarm_Quantity)&#10;{{$inventory->Item_Code}} is running out ({{$inventory->Item_Quantity}} {{$inventory->Item_Unit}}s Left)@endif @endforeach</textarea>
 								</div>
 							</div>
 						</div>
