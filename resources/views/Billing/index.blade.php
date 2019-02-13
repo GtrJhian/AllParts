@@ -137,7 +137,6 @@
 	$(document).ready(function() {
 		$('#itemlist').DataTable();
 	});
-
     $("#itemlist tbody tr").on('click',function() {  
 		var bill_id = $(this).attr('index');
         window.location = "/Billing/"+bill_id;

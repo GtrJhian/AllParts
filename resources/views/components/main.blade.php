@@ -18,7 +18,8 @@
 	<link href="{{asset('vendor/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet">
 	<script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
 	<script src="{{asset('vendor/datatables/dataTables.bootstrap4.js')}}"></script>
-	<link rel="stylesheet" type="text/css" href="{{asset('vendor/custom/bill.css')}}">
+
+	<link href="{{asset('vendor/custom/sb-inventory.css')}}" rel="stylesheet">
 </head>
 @yield('content')
 @yield('script')
