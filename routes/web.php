@@ -29,7 +29,7 @@ Route::get('/items',function(){
 });
 
 
-Route::get('/selectInventory',function(){
+Route::get('/inventoryNotifs',function(){
 	return view('inventory/index_inventory');
 });
 Route::get('/inventory',function(){

@@ -48,11 +48,15 @@
 
 .zoom-btn-violet:hover { background-color: #ba68c8; }
 
+.zoom-btn-black { background-color: #1f1f1f; }
+
+.zoom-btn-black:hover { background-color: #424242; }
+
 .zoom-menu {
   position: absolute;
-  right: 70px;
+  right: 80px;
   left: auto;
-  top:70%;
+  top:30%;
   transform: translateY(-50%);
   height: 100%;
   width: 500px;
@@ -177,6 +181,7 @@
 }
 
 .tooltip-iventory-green .tooltip-iventorytext-green {
+  padding: 0px !important;
   visibility: hidden;
   width: 80px;
   background-color: #4CAF50;
@@ -216,7 +221,7 @@
 
 .tooltip-iventory-blue .tooltip-iventorytext-blue {
   visibility: hidden;
-  width: 150px;
+  width: 100px;
   background-color: #2196F3;
   color: #fff;
   text-align: center;
@@ -225,7 +230,7 @@
   z-index: 1;
   bottom: 110%;
   left: 50%;
-  margin-left: -75px;
+  margin-left: -50px;
   margin-bottom: 1px;
 }
 
@@ -279,6 +284,45 @@
 .tooltip-iventory-violet:hover .tooltip-iventorytext-violet {
   visibility: visible;
 }
+
+
+/*------------BLACK-----------*/
+.tooltip-iventory-black {
+  margin-top: 30px;
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted #424242;
+}
+
+.tooltip-iventory-black .tooltip-iventorytext-black {
+  visibility: hidden;
+  width: 80px;
+  background-color: #424242;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 110%;
+  left: 50%;
+  margin-left: -40px;
+}
+
+.tooltip-iventory-black .tooltip-iventorytext-black::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #424242 transparent transparent transparent;
+}
+
+.tooltip-iventory-black:hover .tooltip-iventorytext-black {
+  visibility: visible;
+}
+
 
 
 .btn-action-invt{

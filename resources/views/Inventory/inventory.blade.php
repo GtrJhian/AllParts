@@ -19,17 +19,15 @@
 		<div id="content-wrapper">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-sm-1">
-						<a href="/selectInventory" class="btn btn-secondary d-block mx-auto back-btn">
-							<i class="fa fa-arrow-left back-btn-icon"></i>
-						</a>
-					</div>
-					<div class="col-sm-11">
+					<div class="col-sm-10">
 						<ol class="breadcrumb" style="border-radius: 0px">
 							<li class="breadcrumb-item">
 								<a href="#" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">INVENTORY</a>
 							</li>
 						</ol>
+					</div>
+					<div class="col-sm-2">
+						<a href="/archiveInventory" class="btn btn-primary">Archive Inventory</a>
 					</div>
 				</div>
 				<div class="card mb-3">
@@ -97,29 +95,29 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="d-block mx-auto">
-						<a href="/archiveInventory" class="btn btn-primary">Archive Inventory</a>
-					</div>
-				</div>
 			</div>
 			@include('components.footer2')
 		</div>
 	</div>
 
-	{{-- Buttom Icon --}}
+	{{-- Button Icon --}}
 	<div class="zoom">
 		<a class="zoom-fab zoom-btn-green zoom-btn-large tooltip-iventory-green" data-toggle="modal" data-target="#invtCreate">
 			<i class="fa fa-plus"></i>
 			<span class="tooltip-iventorytext-green">CREATE</span>
 		</a>
-		{{-- 	<ul class="zoom-menu">
+		<ul class="zoom-menu">
 			<li>
-				<a class="zoom-fab zoom-btn-sm zoom-btn-green scale-transition scale-out tooltip-iventory-green" data-toggle="modal" data-target="#invtCreate">
-					<i class="fa fa-plus"></i><span class="tooltip-iventorytext-green">CREATE</span>
+				<a href="/" class="zoom-fab zoom-btn-sm zoom-btn-black tooltip-iventory-black">
+					<i class="fa fa-home"></i><span class="tooltip-iventorytext-black">HOME</span>
 				</a>
 			</li>
-		</ul> --}}
+			{{-- <li>
+				<a class="zoom-fab zoom-btn-sm zoom-btn-blue tooltip-iventory-blue" data-toggle="modal" data-target="#invtUpdate">
+					<i class="fa fa-edit"></i><span class="tooltip-iventorytext-blue">UPDATE</span>
+				</a>
+			</li> --}}
+		</ul>
 	</div>
 
 	{{-- Remove item--}}
@@ -429,6 +427,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#itemlist').DataTable();
+		// $('.zoom-card').addClass('scale-out');
 	});
 
 	// $('#zoomBtn').click(function() {

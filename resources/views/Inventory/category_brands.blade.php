@@ -20,17 +20,15 @@
 		<div id="content-wrapper">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-sm-1">
-						<a href="/selectInventory" class="btn btn-secondary d-block mx-auto back-btn">
-							<i class="fa fa-arrow-left back-btn-icon"></i>
-						</a>
-					</div>
-					<div class="col-sm-11">
+					<div class="col-sm-9">
 						<ol class="breadcrumb" style="border-radius: 0px">
 							<li class="breadcrumb-item">
 								<a href="/category&brands" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">CATEGORY & BRANDS</a>
 							</li>
 						</ol>
+					</div>
+					<div class="col-sm-3">
+						<a href="/archiveCategory&Brands" class="btn btn-primary">Archive Category & Brands</a>
 					</div>
 				</div>
 				<div class="row">
@@ -129,7 +127,20 @@
 			<i class="fa fa-plus"></i>
 			<span class="tooltip-iventorytext-green">CREATE</span>
 		</a>
+		<ul class="zoom-menu">
+			<li>
+				<a href="/" class="zoom-fab zoom-btn-sm zoom-btn-black tooltip-iventory-black">
+					<i class="fa fa-home"></i><span class="tooltip-iventorytext-black">HOME</span>
+				</a>
+			</li>
+			{{-- <li>
+				<a class="zoom-fab zoom-btn-sm zoom-btn-blue tooltip-iventory-blue" data-toggle="modal" data-target="#invtUpdate">
+					<i class="fa fa-edit"></i><span class="tooltip-iventorytext-blue">UPDATE</span>
+				</a>
+			</li> --}}
+		</ul>
 	</div>
+
 	{{-- Remove brand--}}
 	<div class="modal fade" id="removeBrand">
 		<div class="modal-dialog">

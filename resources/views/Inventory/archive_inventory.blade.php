@@ -18,12 +18,7 @@
 		<div id="content-wrapper">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-sm-1">
-						<a href="/inventory" class="btn btn-secondary d-block mx-auto back-btn">
-							<i class="fa fa-arrow-left back-btn-icon"></i>
-						</a>
-					</div>
-					<div class="col-sm-11">
+					<div class="col-sm-12">
 						<ol class="breadcrumb" style="border-radius: 0px">
 							<li class="breadcrumb-item">
 								<a href="/inventory" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">INVENTORY</a>

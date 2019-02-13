@@ -11,27 +11,11 @@
 			<div class="container-fluid">
 				<ol class="breadcrumb" style="border-radius: 0px">
 					<li class="breadcrumb-item">
-						<span href="#" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">INVENTORY</span>
+						<span href="#" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">INVENTORY NOTIFICATIONS</span>
 					</li>
 				</ol>
 				<div class="card mb-3">
 					<div class="card-body">
-						<div class="row">
-							<div class="col-sm-3 text-center">
-								<a href="/inventory" class="btn btn-outline-primary tooltip-iventory-blue select-invt-icon-btn">
-									<i class="fas fa-box-open select-invt-icon"></i>
-									<span class="tooltip-iventorytext-blue">Inventory</span>
-								</a>
-							</div>
-							<div class="col-sm-3 text-center">
-								<a href="/category&brands" class="btn btn-outline-primary tooltip-iventory-blue select-invt-icon-btn">
-									<i class="fas fa-layer-group select-invt-icon"></i>
-									<span class="tooltip-iventorytext-blue">Category & Brands</span>
-								</a>
-							</div>
-							
-						</div>
-						<hr>
 						<div class="row">
 							<div class="col">
 								<div class="form-group">
