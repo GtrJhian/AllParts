@@ -28,4 +28,10 @@ Route::get('/items',function(){
 	return view('sales_templates.items');
 });
 
+
 Route::resource('Billing', 'BillingController');
+
+//================AJAX ROUTES====================//
+
+Route::get('/Store/json/{param}','Store@json');
+Route::get('/Store/json/item/{id}','Store@jsonItem');
