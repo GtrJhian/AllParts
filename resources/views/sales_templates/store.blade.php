@@ -121,6 +121,7 @@
 														<th>Quantity</th>
 														<th>UOM</th>
 														<th>Unit Price</th>
+														<!-- <th>Discount</th> -->
 														<th>Amount</th>
 														<th></th>
 													</thead>
@@ -144,14 +145,20 @@
 										<hr>
 										<div class="row">
 											<div class="offset-7 col-3">
+												<h6 style="font-weight: normal;">VATable Sales:</h6>
+												<h6 style="font-weight: normal;">VATable Amount:</h6>
 												<h6 style="font-weight: normal;">Total Amount Rendered: </h6>
 												<h6 style="font-weight: normal;">Amount Received:</h6>
-												<h6 style="font-weight: normal;">Change:</h6>
+												<h6 style="font-weight: normal;padding-top:5px">Change:</h6>
+												<h6 style="font-weight: normal;">Balance:</h6>
 											</div>
 											<div class="col-2 text-right">
+												<h6 style="font-weight: normal;">900</h6>
+												<h6 style="font-weight: normal;">100</h6>
 												<h6 style="font-weight: normal; " id="amountRendered">1000</h6>
-												<input type='number' min=0 step=0.01 id="amountReceived">
-												<h6 style="font-weight: normal; " id=change>0</h6>
+												<input type='number' class="form-control-sm form-control text-right" min=0 step=0.01 id="amountReceived">
+												<h6 style="font-weight: normal;padding-top:5px" id=change>0</h6>
+												<h6 style="font-weight: normal;">0</h6>
 											</div>
 										</div>
 										<hr>
@@ -225,10 +232,8 @@
 
 <script type="text/javascript">
 	
-
 	$(document).ready(function(){
 		
-
 		$('#itemlist').DataTable({
 			ajax: "Store/json/itemlistdt",
 			aoColumnDefs : [
@@ -260,9 +265,7 @@
         });
 		
 		$('#amountReceived').change(computeTotal);
-
 	});
-
 	function addToCart(id){
 		//console.log(id);
 		row = $('#itemlist').DataTable().row($('#item'+id).parents('tr'));
@@ -287,7 +290,10 @@
 			computeTotal();
 		});
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> ryan
 	function quantityChange(id){
 		//console.log($('#item'+id));
 		table = $('#items_added').DataTable();
