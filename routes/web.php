@@ -49,6 +49,9 @@ Route::get('/archiveCategory&Brands',function(){
 Route::resource('Billing', 'BillingController');
 Route::resource('Inventory', 'InventoryController');
 
+Route::get('/Store/json/{param}','Store@json');
+Route::get('/Store/json/item/{id}','Store@jsonItem');
+
 Route::post('/createItem','InventoryController@createItem');
 Route::post('/createBrand','InventoryController@createBrand');
 Route::post('/createCategory','InventoryController@createCategory');
