@@ -38,7 +38,8 @@
 									<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 										<div class="row justify-content-between">
 											<div class="col-8" style="padding-right: 5px">
-												<div class="form-label-group">
+												<h6 style="margin-bottom:3px">Sold To:</h6>
+												<div class="form-group">
 													<!--
 													<input type="select" id="customer" class="form-control form-control-sm" placeholder="Sold To:" required="required" autofocus="autofocus">
 													<label for="customer">Sold To:</label>
@@ -50,7 +51,7 @@
 											</div>
 											<div class="col-4" style="padding-left: 5px">
 												<div class="form-label-group">
-													<input type="date" id="date" class="form-control form-control-sm" placeholder="Date:" required="required" autofocus="autofocus">
+													<input type="date" id="date" class="form-control form-control" placeholder="Date:" required="required" autofocus="autofocus">
 													<label for="date">Date:</label>
 												</div>
 											</div>
@@ -91,9 +92,13 @@
 										</div>
 										<div class="row" style="padding-top: 3px">
 											<div class="col-4" style="padding-right: 5px">
-												<div class="form-label-group">
-													<input type="text" id="tofp" class="form-control form-control-sm" placeholder="Term of Payment:" required="required" autofocus="autofocus">
-													<label for="tofp">Term of Payment:</label>
+												<h6 style="margin-bottom:0.5px;font-size:12px">Term of Payment:</h6>
+												<div class="form-group">
+													<select id="tofp" class="form-control form-control-sm" required="required" autofocus="autofocus">
+														<option>Cash</option>
+														<option>Others</option>
+													</select>
+													<!-- <label for="tofp">Term of Payment:</label> -->
 												</div>
 											</div>
 											<div class="col-4" style="padding: 0px 5px">
