@@ -209,7 +209,7 @@
 							</div>
 						</div>
 						<hr>
-						
+
 					</div>
 				</div>
 			</div>
@@ -329,8 +329,8 @@
 				{
 					render : function(data, type, row) {
 						return '<button class="btn btn-sm btn-primary hi-icon1" data-target="#view_cus" data-toggle="modal" ><i class="fa fa-eye"><span class="tooltiptext">View</span></i></button>\
-								<button class="btn btn-sm btn-primary hi-icon1" data-target="#view_cus" data-toggle="modal"><i class="fa fa-user"><span class="tooltiptext">View</span></i></button>\
-								<button class="btn btn-sm btn-primary hi-icon1" data-target="#edit_cus" data-toggle="modal"><i class="fa fa-edit"><span class="tooltiptext">Edit</span></i></button>';
+								<button class="btn btn-sm btn-primary hi-icon1" data-target="#edit_cus" data-toggle="modal"><i class="fa fa-edit"><span class="tooltiptext">Edit</span></i></button>\
+								<button class="btn btn-sm btn-danger hi-icon1"><i class="fa fa-times"><span class="tooltiptext">Remove</span></i></button>';
 					},
 					targets: 2
 				},

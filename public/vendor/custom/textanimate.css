@@ -406,7 +406,7 @@ a{
 	left: 150%;
 	margin-left: -60px;
 	font-size: 12px;
-	letter-spacing: 2px;
+	letter-spacing: 1px;
 }
 
 .hi-icon1 .tooltiptext::after {
@@ -417,7 +417,7 @@ a{
 	margin-left: -5px;
 	border-width: 5px;
 	border-style: solid;
-	border-color: transparent transparent #127ffb transparent;
+	border-color: transparent transparent transparent transparent;
 }
 
 .hi-icon1:hover .tooltiptext {
