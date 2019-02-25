@@ -33,8 +33,19 @@ Route::resource('Billing', 'BillingController');
 
 //================AJAX ROUTES====================//
 
-Route::get('/Store/json/{param}','Store@json');
-Route::get('/Store/json/item/{id}','Store@jsonItem');
+Route::get('/Store/json/{param}','StoreController@json');
+Route::get('/Store/json/item/{id}','StoreController@jsonItem');
+//--Zild Was Here
+//================================================//
+
+//===============Customer Routes==================//
+Route::post('/Customer/Create','CustomerController@Create');
+Route::get('/Customer/All','CustomerController@ShowAll');
+Route::get('/Customer/id/{id}','CustomerController@Select');
+//Route::resource('/Customer', 'Customer');
+//---Zild was here
+//================================================//
+
 Route::get('/selectInventory',function(){
 	return view('inventory.index_inventory');
 });
@@ -55,8 +66,6 @@ Route::get('/archiveCategory&Brands',function(){
 Route::resource('Billing', 'BillingController');
 Route::resource('Inventory', 'InventoryController');
 
-Route::get('/Store/json/{param}','Store@json');
-Route::get('/Store/json/item/{id}','Store@jsonItem');
 
 Route::post('/createItem','InventoryController@createItem');
 Route::post('/createBrand','InventoryController@createBrand');

@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
-class Store extends Controller
+class StoreController extends Controller
 {
     //
     function json($param){
@@ -32,6 +32,22 @@ class Store extends Controller
                     $x++;
                 }
                 return $dt;
+            case 'itemlistdt2':
+                $result = DB::select('SELECT item_code,item_description,item_quantity, concat(item_price,\'/\',item_unit) FROM inventory');
+                $dt['data'] = array();
+                $x = 0;
+                foreach($result as $item){
+                    $y = 0;
+                    $i = json_decode(json_encode($item),false);
+                    $dt['data'][$x] = array();
+                    foreach($i as $col){
+                        $dt['data'][$x][$y] = array();
+                        $dt['data'][$x][$y++] = $col;
+                    }
+                    $x++;
+                }
+                return $dt;
+            break;
                 //break;
             default:
                 return 'Unknown Param';
