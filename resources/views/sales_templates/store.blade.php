@@ -39,8 +39,13 @@
 										<div class="row justify-content-between">
 											<div class="col-8" style="padding-right: 5px">
 												<div class="form-label-group">
-													<input type="text" id="customer" class="form-control form-control-sm" placeholder="Sold To:" required="required" autofocus="autofocus">
+													<!--
+													<input type="select" id="customer" class="form-control form-control-sm" placeholder="Sold To:" required="required" autofocus="autofocus">
 													<label for="customer">Sold To:</label>
+													-->
+													<select id="customer" class="form-control form-control-sm" placeholder="Sold To:" required="required" autofocus="autofocus">
+													</select>
+													
 												</div>
 											</div>
 											<div class="col-4" style="padding-left: 5px">
@@ -265,6 +270,23 @@
         });
 		
 		$('#amountReceived').change(computeTotal);
+
+		$('#customer').select2({
+			ajax: {
+				url : '/Customer/All'
+			}
+		});
+
+		$('#customer').change(function(){
+			$.ajax('/Customer/id/'+$(this).val()).done(function(data){
+				customer = JSON.parse(data);
+				$('#address').val(customer.Address);
+				$('#ponum').val(customer.TIN_no);
+				$('#TIN').val(customer.TIN_no);
+				$('#BusStyle').val(customer.TIN_no);
+				$('#otherID').val(customer.OSCA_PWD_ID);
+			});
+		});
 	});
 	function addToCart(id){
 		//console.log(id);

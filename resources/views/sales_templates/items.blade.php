@@ -46,7 +46,9 @@
 @section('script')
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('#itemlist').DataTable();
+		$('#itemlist').DataTable({
+			ajax: '/Store/json/itemlistdt2'
+		});
 	});
 </script>
 @stop
