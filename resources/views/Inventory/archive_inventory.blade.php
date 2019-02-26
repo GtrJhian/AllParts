@@ -14,14 +14,19 @@
 <body>
 	@include('components.nav2')
 	<div id="wrapper">
-		@include('components.menu2')
+		@include('components.menu_inventory')
 		<div id="content-wrapper">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-sm-12">
+					<div class="col-sm-1">
+						<a href="/inventory" class="btn btn-secondary d-block mx-auto back-btn">
+							<i class="fa fa-arrow-left back-btn-icon"></i>
+						</a>
+					</div>
+					<div class="col-sm-11">
 						<ol class="breadcrumb" style="border-radius: 0px">
 							<li class="breadcrumb-item">
-								<a href="/inventory" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">INVENTORY</a>
+								<a href="/inventoryMain" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">INVENTORY</a>
 							</li>
 							<li class="breadcrumb-item">
 								<a href="/archiveInventory" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">ARCHIVE</a>
@@ -52,7 +57,11 @@
 										<tbody>
 											@foreach($inventories as $inventory)
 											<tr id="trID_{{$inventory->Item_ID}}">
-												<td><b>{{$inventory->Item_Code}}</b></td>
+												@if($inventory->Item_Quantity<=$inventory->Alarm_Quantity)
+												<td><p style="color:red"><b>{{$inventory->Item_Code}}</b></p></td>
+												@else
+												<td><p><b>{{$inventory->Item_Code}}</b></p></td>
+												@endif
 												<td>{{$inventory->Item_Description}}</td>
 												<td>
 													<?php
@@ -76,11 +85,14 @@
 												?>
 											</td>
 											<td>{{$inventory->Item_Quantity}} {{$inventory->Item_Unit}}s</td>
-											<td>P{{$inventory->Item_Price}}</td>
+											<td>₱{{$inventory->Item_Price}}</td>
 											<td>{{$inventory->Alarm_Quantity}} {{$inventory->Item_Unit}}s</td>
 											<td>
 												<button class="unarchive_btn btn btn-primary btn-action-invt">
 													<i class="fa fa-check"></i>
+												</button>
+												<button class="delete_btn btn btn-danger btn-action-invt">
+													<i class="fa fa-times"></i>
 												</button>
 											</td></tr>
 											@endforeach
@@ -96,6 +108,40 @@
 		</div>
 	</div>
 
+
+	{{-- Delete item--}}
+	<div class="modal fade" id="deleteItem">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="itemDelete" action="/deleteItem" method="post">
+					{{ csrf_field() }}
+					<input type="hidden" id="did" name="did">
+					<input type="hidden" id="dic" name="dic">
+					<div class="modal-header">
+						<h4>Remove Message</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-sm-12">
+								<span>Are you sure you want to permanently delete <p id="del_item_name"></p></span>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div class="row">
+							<div class="col-sm-6">
+								<input class="btn btn-danger" type="submit" name="aisubmit" value="Delete">
+							</div>
+							<div class="col-sm-6">
+								<input type="button" class="del_close_confirm btn btn-primary" value="Cancel">
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div> {{-- end Delete item--}}
 
 	{{-- Return Item--}}
 	<div class="modal fade" id="returnItem">
@@ -174,6 +220,33 @@ $('.unarchive_btn').click(function(){
 $('.close_confirm').click(function(){	
 	$('#returnItem').modal('toggle');
 });
+
+$('.del_close_confirm').click(function(){	
+	$('#deleteItem').modal('toggle');
+});
+
+//function for delete button
+$('.delete_btn').click(function(){
+	var $row = $(this).closest('tr');
+	var rowID = $row.attr('id').split('_')[1];
+	var $paragraph = $('#del_item_name');
+	$('#did').val(rowID);
+	$.ajax({
+		method: "POST",
+		url: "{{ route('popItemForm') }}",
+		data:{itemID:rowID,'_token':"{{csrf_token()}}"},
+		success: function (data){
+			var array = jQuery.parseJSON(data);
+			$paragraph.text(array[0].Item_Code+"?");
+			document.getElementById("dic").value = array[0].Item_Code;
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("ERROR IN REQUEST");
+		} 
+	});
+	$('#deleteItem').modal('show');
+});
+
 
 </script>
 
