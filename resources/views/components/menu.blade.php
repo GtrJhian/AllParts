@@ -1,13 +1,13 @@
 <div class="text6 hi-icon-effect-1 hi-icon-effect-1a">
-	<a class="hi-icon" href="/inventoryNotifs">
+	<a class="hi-icon" href="/selectInventory">
 		<i class="fa fa-archive" style="padding: 25%"></i><!-- inventory -->
 		<span class="tooltiptext">Inventory</span>
 	</a>
-	<a class="hi-icon" href="">
+	<a class="hi-icon" href="/Billing">
 		<i class="fa fa-hand-holding-usd" style="padding: 25%"></i><!-- billings -->
 		<span class="tooltiptext">Billings</span>
 	</a>
-	<a class="hi-icon" href="">
+	<a class="hi-icon" href="/store">
 		<i class="fa fa-store" style="padding: 20%"></i><!-- store to -->
 		<span class="tooltiptext">Store</span>
 	</a>
