@@ -55,25 +55,31 @@ class BillingController extends Controller
      */
     public function show($id)
     {
-        $dataShow = (array)DB::table('accounting')
-                    ->join('sale', 'accounting.Sale_ID', 'sale.Sale_ID')
-                    ->join('customer','sale.Cus_ID', 'customer.Cus_ID')
-                    ->select('customer.Cus_ID', 'F_Name', 'L_Name', 'Company', 'Address', 'TR_Acc', 'Balance', 'sale.Sale_ID')
-                    ->where('TR_Acc', $id)
-                    ->first();
+        // $dataShow = (array)DB::table('accounting')
+        //             ->join('sale', 'accounting.Sale_ID', 'sale.Sale_ID')
+        //             ->join('customer','sale.Cus_ID', 'customer.Cus_ID')
+        //             ->select('customer.Cus_ID', 'F_Name', 'L_Name', 'Company', 'Address', 'TR_Acc', 'Balance', 'sale.Sale_ID')
+        //             ->where('TR_Acc', $id)
+        //             ->first();
 
-        $dataShowDet = DB::table('sale_detail')
-                    ->join('sale', 'sale.Sale_ID', 'sale_detail.Sale_ID')
-                    ->join('inventory', 'inventory.Item_ID', 'sale_detail.Item_ID')
-                    ->select('sale_detail.Item_ID', 'Quantity', 'Unit', 'Unit_Price', 'Item_Description')
-                    ->where('sale_detail.Sale_ID', $dataShow['Sale_ID'])
-                    ->get();
+        // $dataShowDet = DB::table('sale_detail')
+        //             ->join('sale', 'sale.Sale_ID', 'sale_detail.Sale_ID')
+        //             ->join('inventory', 'inventory.Item_ID', 'sale_detail.Item_ID')
+        //             ->select('sale_detail.Item_ID', 'Quantity', 'Unit', 'Unit_Price', 'Item_Description')
+        //             ->where('sale_detail.Sale_ID', $dataShow['Sale_ID'])
+        //             ->get();
 
-        $data = array(
-            'dataShow'=>$dataShow,
-            'dataShowDet' => $dataShowDet
+        // $data = array(
+        //     'dataShow'=>$dataShow,
+        //     'dataShowDet' => $dataShowDet
+        // );
+        $result = array(
+            "name" => "Fred",
+            "age" => "21"
         );
-        return view('billing.show')->with('showPost', $data);
+        //return view('billing.show')->with('showPost', $data);
+        //return view('billing.index');
+        return Response::json($result);
     }
 
     /**

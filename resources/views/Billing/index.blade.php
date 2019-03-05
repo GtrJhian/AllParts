@@ -6,6 +6,7 @@
 ?>
 <body>
 	@include('components.nav_sales')
+	<link rel="stylesheet" type="text/css" href="{{asset('vendor/custom/billing/modalIndex.css')}}">
 	<div id="wrapper">
 		@include('components.menu_sales')
 		<div id="content-wrapper">
@@ -19,8 +20,8 @@
 				<div class="row">
 					<div class="col-md-12">
 						<button type="button" href="#" class="btn btn-danger btn-suc btn-wd float-right" role="button">Delete</button>
-						<button type="button" href="#" class="btn btn-success btn-suc float-right" role="button">Select</button>
-	
+						<button type="button" onclick="modalIndex()" class="btn btn-success btn-suc float-right" role="button">Select</button>
+						
   					<div class="nav nav-tabs" id="nav-tab" role="tablist">
     					<a class="nav-item nav-link active" id="bill" data-toggle="tab" href="#billing" role="tab"  aria-selected="true">Billing <i class="fa fa-check"></i></a>
     					<a class="nav-item nav-link" id="tab1" data-toggle="tab" href="#tab1" role="tab"  aria-selected="false">Tab1 <i class="fa fa-check"></i></a>
@@ -134,17 +135,31 @@
 
 @section('script')
 <script type="text/javascript">
+	var indexRowID;
+
 	$(document).ready(function() {
 		$('#itemlist').DataTable();
+
+		$("#itemlist tbody tr").on('click',function() {  
+			var bill_id = $(this).attr('index');
+			indexRowID = bill_id;
+					//window.location = "/Billing/"+bill_id;
+		}); 
 	});
 
-    $("#itemlist tbody tr").on('click',function() {  
-		var bill_id = $(this).attr('index');
-        window.location = "/Billing/"+bill_id;
-	}); 
-	
-	function indexModal(){
-    document.getElementById('modal-wrapper-index').style.display = 'block';
+	function modalIndex(){
+		window.location = "/Billing/"+indexRowID;
+	/*	$.ajax({
+			type: "POST",
+			url: "/Billing/"+indexRowID,
+			data: {indexRowID: indexRowID},
+			success: function(data) {
+				//document.getElementById("output").value = data;
+				alert("saple");
+			}
+		})*/
+    //document.getElementById('modal-wrapper-index').style.display = 'block';*/
   }
+
 </script>
 @stop
