@@ -3,13 +3,13 @@
 @section('content')
 <body>
 	@include('components.nav_sales')
-	<div id="wrapper">
+	<div id="wrapper" class="offset1">
 		@include('components.menu_sales')
 		<div id="content-wrapper">
 			<div class="container-fluid">
-				<ol class="breadcrumb" style="border-radius: 0px">
+				<ol class="breadcrumb" style="border-radius: 0px;background-color:#fff">
 					<li class="breadcrumb-item">
-						<a href="#" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">ITEMS</a>
+						<h6 class="text5" style="letter-spacing: .15em; text-transform: uppercase;"><strong><i class="fa fa-clipboard-list" style="font-size:23px"></i> Item List</strong></h6>
 					</li>
 				</ol>
 				<div class="card mb-3">
