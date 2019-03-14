@@ -172,6 +172,19 @@
 		$('#brandsTable').DataTable();
 	});
 
+	$(document).ready(function(){
+		$("#brand_img").on("change",function(e){
+			var filename = e.target.value.split('\\').pop();
+			$("#label-brand_img").text(filename);
+		});
+	});
+	$(document).ready(function(){
+		$("#categ_img").on("change",function(e){
+			var filename = e.target.value.split('\\').pop();
+			$("#label-categ_img").text(filename);
+		});
+	});
+
 
 	$('.update_brand').click(function(){
 		var $row = $(this).closest('tr');

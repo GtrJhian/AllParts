@@ -10,15 +10,23 @@
 		@include('components.menu_inventory')
 		<div id="content-wrapper">
 			<div class="container-fluid">
-				<ol class="breadcrumb" style="border-radius: 0px">
-					<li class="breadcrumb-item">
-						<span href="#" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">INVENTORY REPORTS</span>
-					</li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="badge badge-pill badge-danger count" style="border-radius:10px;"></span> <span class="fa fa-bell" style="font-size:18px;"></span></a>
-						<ul class="dropdown-menu" style="width: 300px; height: 200px; overflow: auto"></ul>
-					</li>
-				</ol>
+				<div class="row">
+					<div class="col-sm-10">
+						<ol class="breadcrumb" style="border-radius: 0px">
+							<li class="breadcrumb-item">
+								<span href="#" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">INVENTORY REPORTS</span>
+							</li>
+						</ol>
+					</div>
+					<div class="col-sm-2">
+						<ol class="breadcrumb" style="border-radius: 0px">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="badge badge-pill badge-danger count" style="border-radius:10px;"></span> <span class="fa fa-bell" style="font-size:18px;"></span></a>
+								<ul class="dropdown-menu" style="width: 300px; height: 200px; overflow: auto"></ul>
+							</li>
+						</ol>
+					</div>
+				</div>
 				<div class="card mb-3">
 					<div class="card-body">
 						<div class="row">
@@ -57,7 +65,7 @@
     		url: "{{ route('getInvAlerts') }}",
     		data:{'_token':"{{csrf_token()}}"},
     		success: function (data){
-    				var array = jQuery.parseJSON(data);
+    			var array = jQuery.parseJSON(data);
     			$('.dropdown-menu').html(array.notification);
     			if(array.unseen_notification > 0)
     			{
