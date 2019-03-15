@@ -349,27 +349,3 @@
   font-size: 25px;
   padding: .35rem;
 }
-
-
-.brand-img{
-    margin-top: 10px;
-    background-color:white; 
-    color: #007bff;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #007bff;
-}
-.brand-img:hover{
-    cursor:pointer;
-    background-color:#007bff;
-    color: white;
-    transition: 0.3s;
-}
-
-#brand_img{
-    display: none;
-}
-
-#categ_img{
-  display: none;
-}

@@ -12,29 +12,15 @@
 						<input type="hidden" name="cid" id="cid">
 						<div class="form-horizontal">
 							<div class="row">
-								<div class="col-sm-12">
-									<label class="text-center">Category Name:</label>
+								<div class="col-sm-6">
+									<label>Category Name: </label>
 									<input type="text" name="ucn" id="ucn" required class="form-control">
-								</div>
-							</div>
-							<hr>
-							<div class="row">
-								<div class="col-sm-12">
+									<hr>
 									<label>Preview Image</label>
-									<img id="prevCateg" width="150" height="150" class="d-block mx-auto">
+									<img id="prevCateg" width="150" height="150">
+									<input name="categ_img" type="file" id="categ_img">
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-sm-12">
-									{{-- <input name="categ_img" type="file" id="categ_img"> --}}
-									<label data-error="wrong" data-success="right" for="categ_img" class="brand-img">
-										<i class="fa fa-upload"></i>
-										<span id="label-categ_img">CHOOSE FILE</span>
-									</label>
-									<input type="file" id="categ_img" name="categ_img">
-								</div>
-							</div>
-							
 							<hr>
 							<div class="row">
 								<div class="col-sm-12">
@@ -64,40 +50,25 @@
 						<input type="hidden" name="bid" id="bid">
 						<div class="form-horizontal">
 							<div class="row">
-								<div class="col-sm-12">
+								<div class="col-sm-6">
 									<label>Brand Name: </label>
 									<input type="text" id="ubn" name="ubn" required class="form-control">
+									<hr>
+									<label>Preview Image</label>
+									<img id="prevBrand" width="150" height="150">	
+									<input name="brand_img" type="file" id="brand_img">
 								</div>
 							</div>
 							<hr>
 							<div class="row">
 								<div class="col-sm-12">
-									<label>Preview Images</label>
-									<img id="prevBrand" width="150" height="150"  class="d-block mx-auto">	
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-sm-12">
-									{{-- <input name="brand_img" type="file" id="brand_img"> --}}
-									<label data-error="wrong" data-success="right" for="brand_img" class="brand-img">
-										<i class="fa fa-upload"></i>
-										<span id="label-brand_img">CHOOSE FILE</span>
-									</label>
-									<input type="file" id="brand_img" name="brand_img">
+									<input class="btn btn-success d-block mx-auto" type="submit" name="cnsubmit" value="Update Brand">
 								</div>
 							</div>
 						</div>
-						<hr>
-						<div class="row">
-							<div class="col-sm-12">
-								<input class="btn btn-success d-block mx-auto" type="submit" name="cnsubmit" value="Update Brand">
-							</div>
-						</div>
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
-</div> 
+	</div> 
 </div>{{-- end UPDATE brand --}}

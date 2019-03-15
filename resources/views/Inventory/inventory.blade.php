@@ -11,7 +11,6 @@
 		alert(evalmsg);
 	}
 </script>
-
 <body>
 	@include('components.nav2')
 	<div id="wrapper">
@@ -126,13 +125,6 @@
 			<i class="fa fa-plus"></i>
 			<span class="tooltip-iventorytext-green">CREATE</span>
 		</a>
-		{{-- 	<ul class="zoom-menu">
-			<li>
-				<a class="zoom-fab zoom-btn-sm zoom-btn-green scale-transition scale-out tooltip-iventory-green" data-toggle="modal" data-target="#invtCreate">
-					<i class="fa fa-plus"></i><span class="tooltip-iventorytext-green">CREATE</span>
-				</a>
-			</li>
-		</ul> --}}
 	</div>
 
 	

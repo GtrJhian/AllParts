@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -9,7 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('Billing', 'BillingController');
+
+
 Route::get('/',function(){
 	return view('home');
 });
@@ -27,20 +29,27 @@ Route::get('/items',function(){
 });
 
 
+Route::resource('Billing', 'BillingController');
 
+//================AJAX ROUTES====================//
 
+Route::get('/Store/json/{param}','StoreController@json');
+Route::get('/Store/json/item/{id}','StoreController@jsonItem');
+//--Zild Was Here
+//================================================//
 
+//===============Customer Routes==================//
+Route::post('/Customer/Create','CustomerController@Create');
+Route::get('/Customer/All','CustomerController@ShowAll');
+Route::get('/Customer/id/{id}','CustomerController@Select');
+//Route::resource('/Customer', 'Customer');
+//---Zild was here
+//================================================//
 
-
-
-
-
-
-
-
-
-
-
+//================================================//
+Route::resource('Billing', 'BillingController');
+//--Fred 
+//================================================//
 Route::get('/selectInventory',function(){
 	$inventories = \DB::table('inventory')->where('archive',0)->where('Item_Type',0)->orderBy('item_code','ASC')->get();
 	return view('inventory.index_inventory')->with('inventories',$inventories);
@@ -92,4 +101,5 @@ Route::post('/popBrandForm','InventoryController@popBrandForm')->name("popBrandF
 Route::post('/popCategoryForm','InventoryController@popCategoryForm')->name("popCategoryForm");
 Route::post('/getInvAlerts','InventoryController@getInvAlerts')->name("getInvAlerts");
 Route::post('/getPic','InventoryController@getPic')->name("getPic");
+//--Keith
 ?>
