@@ -19,8 +19,8 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-sm-1">
-						<a href="/selectInventory" class="btn btn-secondary d-block mx-auto back-btn">
-							<i class="fa fa-arrow-left back-btn-icon"></i>
+						<a href="/selectInventory" class="back-btn d-block mr-auto">
+							<i class="fa fa-arrow-left"></i>
 						</a>
 					</div>
 					<div class="col-sm-9">
@@ -31,7 +31,9 @@
 						</ol>
 					</div>
 					<div class="col-sm-2">
-						<a href="/archiveInventory" class="btn btn-primary">Archive Inventory</a>
+						<a href="/archiveInventory" class="back-btn">
+							<i class="fa fa-box-open"></i>
+						</a>
 					</div>
 				</div>
 				<div class="card mb-3">
