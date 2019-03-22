@@ -343,10 +343,9 @@
 }
 
 .back-btn{
-  font-size: 25px;
-  padding-left: 20px;
-  color: #6c757d;
+  border-radius: 0rem !important;
 }
-.back-btn:hover{
-  color: blue;
+.back-btn-icon{
+  font-size: 25px;
+  padding: .35rem;
 }

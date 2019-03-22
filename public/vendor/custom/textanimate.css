@@ -114,11 +114,6 @@ body{
 	font-size: 25px;
 	color: #000000c9;
 }
-.text9{
-	font-size: 25px;
-	color: #000000c9;
-}
-
 @keyframes coverss{
 	0%{
 		color:#fff;
@@ -486,6 +481,7 @@ footer.sticky-footer1 {
 	width:100%;
 }
 .sidebar{
+	animation: changes 3s 1;
 	visibility: visible;
 }
 
@@ -499,25 +495,4 @@ footer.sticky-footer1 {
 }
 .col-ad{
 	padding: 0px 0px;
-}
-	/*additions*/
-.navbar{
-	height:74px;
-}
-.offset1 {
-	/* top: 16%; */
-	margin-top:74px;
-}
-.breadcrumb{
-	background-color:#fff;
-	border-bottom: solid 1px #ccc;
-}
-/* .breadcrumb .breadcrumb-item{
-	background-color:#fff;
-} */
-.card .mb-3{
-	border-radius:0px;
-}
-.card .card-header{
-	background-color:#fff;
 }

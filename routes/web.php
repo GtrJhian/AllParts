@@ -28,7 +28,19 @@ Route::get('/items',function(){
 	return view('sales_templates.items');
 });
 
-
+//==============SUPPLIER================//
+// Route::get('/supplier',function(){
+// 	return view('supplier');
+// });
+Route::get('/supplier',[
+	'uses' => 'SupplierController@index'
+]);
+Route::get('/orders',function(){
+	return view('Supply.orders');
+});
+Route::get('/supply/reports',function(){
+	return view('Supply.reports');
+});
 Route::resource('Billing', 'BillingController');
 
 //================AJAX ROUTES====================//
