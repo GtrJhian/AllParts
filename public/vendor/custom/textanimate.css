@@ -375,6 +375,56 @@ a{
 }
 
 /* -------------------------*/
+.hi-icon1 {
+	display: inline-block;
+	font-size: 0px;
+	cursor: pointer;
+	text-align: center;
+	position: relative;
+	z-index: 1;
+	color: #000;
+}
+.hi-icon1:after {
+	pointer-events: none;
+	position: absolute;
+	content: '';
+	-webkit-box-sizing: content-box; 
+	-moz-box-sizing: content-box; 
+	box-sizing: content-box;
+}
+.hi-icon1 .tooltiptext {
+	visibility: hidden;
+	width: 60px;
+	background-color: #127ffb;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	position: absolute;
+	z-index: 0;
+	top: 140%;
+	left: 150%;
+	margin-left: -60px;
+	font-size: 12px;
+	letter-spacing: 1px;
+}
+
+.hi-icon1 .tooltiptext::after {
+	content: "";
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent transparent transparent transparent;
+}
+
+.hi-icon1:hover .tooltiptext {
+	visibility: visible;
+}
+/*tooltip for action icons ^up */
+
 /* tooltip */
 .hi-icon .tooltiptext {
 	visibility: hidden;
