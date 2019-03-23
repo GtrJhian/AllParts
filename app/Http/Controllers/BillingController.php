@@ -3,6 +3,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\BillingPost;
+use App\Exports\BillingExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class BillingController extends Controller
 {
     /**
@@ -12,59 +15,41 @@ class BillingController extends Controller
      */
     public function index()
     {
-        // $billingpost = BillingPost::all();
-        // return view('billing.index')->with('billingposts', $billingposts);
-        $dataIndex = DB::table('sale')
-                ->join('customer','customer.Cus_ID', 'sale.Cus_ID')
-                ->join('accounting', 'accounting.Sale_ID', 'sale.Sale_ID')
-                ->select('F_Name', 'L_Name', 'Company', 'Address', 'TR_Acc')
-                ->get();
-        return view('billing.index')->with('indexPost', $dataIndex);
+			// $billingpost = BillingPost::all();
+			// return view('billing.index')->with('billingposts', $billingposts);
+			$dataIndex = DB::table('sale')
+							->join('customer','customer.Cus_ID', 'sale.Cus_ID')
+							->select('F_Name', 'L_Name', 'Company', 'Address', 'sale.Sale_ID', 'debit', 'credit')
+							->where('Sale_Archived', '=', '0')
+							->get();
+			return view('billing.index')->with('indexPost', $dataIndex);
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+  
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $dataShow = (array)DB::table('accounting')
-                    ->join('sale', 'accounting.Sale_ID', 'sale.Sale_ID')
-                    ->join('customer','sale.Cus_ID', 'customer.Cus_ID')
-                    ->select('customer.Cus_ID', 'F_Name', 'L_Name', 'Company', 'Address', 'TR_Acc', 'Balance', 'sale.Sale_ID')
-                    ->where('TR_Acc', $id)
-                    ->first();
-        $dataShowDet = DB::table('sale_detail')
-                    ->join('sale', 'sale.Sale_ID', 'sale_detail.Sale_ID')
-                    ->join('inventory', 'inventory.Item_ID', 'sale_detail.Item_ID')
-                    ->select('sale_detail.Item_ID', 'Quantity', 'Unit', 'Unit_Price', 'Item_Description')
-                    ->where('sale_detail.Sale_ID', $dataShow['Sale_ID'])
-                    ->get();
-        $data = array(
-            'dataShow'=>$dataShow,
-            'dataShowDet' => $dataShowDet
-        );
-        return view('billing.show')->with('showPost', $data);
+    public function viewBill($id)
+    {	
+			$dataSale = $this->find($id);
+			$dataSaleDetails = DB::table('sale_detail')
+													->select('Quantity', 'Unit', 'Unit_Price')
+													->where('Sale_ID', $id)
+													->get();
+													
+			$dataAccDetails = DB::table('accounting')
+												->select('Acc_Date', 'Acc_Payment')
+												->where('Sale_ID', $id)
+												->get();
+
+			$data = array(
+				'dataSale'=>$dataSale,
+				'dataSaleDetails' => $dataSaleDetails,
+				'dataAccDetails'=>$dataAccDetails
+			);										
+			return $data;
     }
     /**
      * Show the form for editing the specified resource.
@@ -72,29 +57,78 @@ class BillingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    public function editBill($id)
+    {	
+			$dataSaleDetails = DB::table('sale_detail')
+													->select('Quantity', 'Unit', 'Unit_Price')
+													->where('Sale_ID', $id)
+													->get();
+													
+			$dataAccDetails = DB::table('accounting')
+												->select('Acc_Date', 'Acc_Payment')
+												->where('Sale_ID', $id)
+												->get();
+
+			$data = array(
+				'dataSaleDetails' => $dataSaleDetails,
+				'dataAccDetails'=>$dataAccDetails
+			);										
+			return $data;
+	}
+	
+    //Custom Methods
+    public function find($id){
+			$dataFind = DB::table('sale')
+										->join('customer', 'customer.Cus_ID', 'sale.Cus_ID')
+										->select('Sale_Date', 'sales_invoice_no', 'term_of_payment', 'debit', 'Vat_sales', 'Vat_amount', 'credit', 
+															'F_Name', 'L_Name', 'Contact_No', 'Address', 'Company', 'TIN_no', 'OSCA_PWD_ID')
+										->where('sale.Sale_ID', '=' ,$id)
+										->get();
+			return $dataFind;
+		}
+		
+		public function addPayment(Request $request){
+			if($request->ajax()){
+				$data = array(
+					'Sale_ID' => $request->id,
+					'Acc_Date' => date("Y/m/d"),
+					'Acc_Payment' => $request->payment
+				);
+
+				if(!DB::table('accounting')->insert($data)){
+					return "Error Saving Payment";
+				}else {
+					DB::table('sale')
+							->where('Sale_ID', '=', $request->id)
+							->increment('credit', $request->payment);
+
+					$dataAccDetails = DB::table('accounting')
+												->select('Acc_Date', 'Acc_Payment')
+												->where('Sale_ID', $request->id)
+												->get();
+					return $dataAccDetails;
+				}
+			}else return "Error Saving Payment";
+		}
+
+		function archiveBill(Request $request){
+			if($request->ajax()){
+				$saleTable = DB::table('sale')
+								->where('Sale_ID', '=', $request->id)
+								->update(['Sale_archived' => 1 ]);
+				if(!$saleTable) return "Something went wrong";
+				else return "Success";
+			}else return "Something went wrong";
+		}
+
+		function receipt($id){
+
+			// return view('billing.index')->with('indexPost', $dataIndex);
+			return view('Billing.Receipt.sales');
+		}
+
+		function excel(){
+			return (new BillingExport)->download('Billing Data.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+			// echo (BillingPost::billingQuery()->get());
+		}
 }

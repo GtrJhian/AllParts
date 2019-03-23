@@ -2,9 +2,10 @@
 <html>
 <head>
 	<title>AllParts</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" type="text/css" href="{{asset('vendor/img/allparts.png')}}" style="width: 100%;height: 100%">
 	<link rel="stylesheet" type="text/css" href="{{asset('vendor/custom/textanimate.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('vendor/custom/action-button.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('vendor/custom/notification.css')}}">
 	<link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 	<script src="{{ asset('vendor/custom/icons.js')}}"></script>
 

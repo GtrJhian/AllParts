@@ -28,15 +28,24 @@ Route::get('/items',function(){
 	return view('sales_templates.items');
 });
 
-
-Route::resource('Billing', 'BillingController');
-
 //================AJAX ROUTES====================//
 
 Route::get('/Store/json/{param}','StoreController@json');
 Route::get('/Store/json/item/{id}','StoreController@jsonItem');
 //--Zild Was Here
-//================================================//
+//=================
+
+
+
+
+
+
+
+
+
+
+
+//===============================//
 
 //===============Customer Routes==================//
 Route::post('/Customer/Create','CustomerController@Create');
@@ -47,7 +56,16 @@ Route::get('/Customer/id/{id}','CustomerController@Select');
 //================================================//
 
 //================================================//
-Route::resource('Billing', 'BillingController');
+//Billing Routes
+// Route::resource('Billing', 'BillingController');
+Route::get('/Billing','BillingController@index');
+Route::get('/Billing/viewBill/{id}','BillingController@viewBill');
+Route::get('/Billing/{id}/edit','BillingController@editBill');
+Route::post('/Billing/addPayment','BillingController@addPayment');
+Route::get('/Billing/archive/{id}','BillingController@archiveBill');
+Route::get('/Billing/Receipt/{id}','BillingController@receipt');
+Route::get('/Billing/Excel/','BillingController@excel');
+//End of Billing Routes
 //--Fred 
 //================================================//
 Route::get('/selectInventory',function(){
