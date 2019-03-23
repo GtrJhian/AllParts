@@ -19,18 +19,24 @@
 		<div id="content-wrapper">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-sm-1">
+					{{-- <div class="col-sm-1">
 						<a href="/category&brands" class="btn btn-secondary d-block mx-auto back-btn">
 							<i class="fa fa-arrow-left back-btn-icon"></i>
 						</a>
-					</div>
+					</div> --}}
 					<div class="col-sm-11">
-						<ol class="breadcrumb" style="border-radius: 0px">
+						{{-- <ol class="breadcrumb" style="border-radius: 0px">
 							<li class="breadcrumb-item">
 								<a href="/category&brands" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">CATEGORY & BRANDS</a>
 							</li>
 							<li class="breadcrumb-item">
 								<a href="/archiveCategory&Brands" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">ARCHIVE</a>
+							</li>
+						</ol> --}}
+						<ol class="breadcrumb" style="border-radius: 0px;background-color:#fff">
+							<li class="breadcrumb-item">
+								<h6 class="text5" style="letter-spacing: .15em; text-transform: uppercase;"><strong><i class="fa fa-layer-group" style="font-size:23px"></i> Category & Brands / Archive</strong>
+								</h6>
 							</li>
 						</ol>
 					</div>

@@ -18,18 +18,24 @@
 		<div id="content-wrapper">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-sm-1">
-						<a href="/inventory" class="btn btn-secondary d-block mx-auto back-btn">
+					{{-- <div class="col-sm-1">
+						<a href="/inventory" class="back-btn d-block mx-auto">
 							<i class="fa fa-arrow-left back-btn-icon"></i>
 						</a>
-					</div>
-					<div class="col-sm-11">
-						<ol class="breadcrumb" style="border-radius: 0px">
+					</div> --}}
+					<div class="col-sm-12">
+						{{-- <ol class="breadcrumb" style="border-radius: 0px">
 							<li class="breadcrumb-item">
 								<a href="/inventoryMain" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">INVENTORY</a>
 							</li>
 							<li class="breadcrumb-item">
 								<a href="/archiveInventory" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">ARCHIVE</a>
+							</li>
+						</ol> --}}
+						<ol class="breadcrumb" style="border-radius: 0px;background-color:#fff">
+							<li class="breadcrumb-item">
+								<h6 class="text5" style="letter-spacing: .15em; text-transform: uppercase;"><strong><i class="fa fa-box" style="font-size:23px"></i> Inventory / Archive</strong>
+								</h6>
 							</li>
 						</ol>
 					</div>
