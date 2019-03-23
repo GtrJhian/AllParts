@@ -27,7 +27,17 @@ Route::get('/store',function(){
 Route::get('/items',function(){
 	return view('sales_templates.items');
 });
-
+//=======Admin=====//
+Route::get('/users',function(){
+	return view('users.user_lists');
+});
+Route::get('/archive_users',function(){
+	return view('users.archive_user');
+});
+Route::get('/logs',function(){
+	return view('users.activity_logs');
+});
+//======//
 
 Route::resource('Billing', 'BillingController');
 

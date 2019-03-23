@@ -213,7 +213,6 @@
 
 /*------------LIGHTBLUE-----------*/
 .tooltip-iventory-blue {
-  margin-top: 30px;
   position: relative;
   display: inline-block;
   /*border-bottom: 1px dotted #2196F3;*/
@@ -221,7 +220,7 @@
 
 .tooltip-iventory-blue .tooltip-iventorytext-blue {
   visibility: hidden;
-  width: 100px;
+  width: 75px;
   background-color: #2196F3;
   color: #fff;
   text-align: center;
@@ -229,9 +228,10 @@
   position: absolute;
   z-index: 1;
   bottom: 110%;
-  left: 50%;
+  left: 70%;
   margin-left: -50px;
   margin-bottom: 1px;
+  font-size: 13px;
 }
 
 .tooltip-iventory-blue .tooltip-iventorytext-blue::after {
