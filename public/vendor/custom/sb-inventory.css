@@ -4,6 +4,12 @@
   right: 24px;
   height: 70px;
 }
+.zoom-top {
+  position: fixed;
+  bottom: 70px;
+  right: 30px;
+  height: 70px;
+}
 
 .zoom-fab {
   display: inline-block;
@@ -32,6 +38,12 @@
   line-height: 60px;
 }
 
+.zoom-btn-medium {
+  width: 40px;
+  height: 40px;
+  line-height: 60px;
+}
+
 .zoom-btn-red { background-color: #F44336; }
 
 .zoom-btn-red:hover { background-color: #e57373; }
@@ -54,10 +66,10 @@
 
 .zoom-menu {
   position: absolute;
-  right: 80px;
+  right: 70px;
   left: auto;
-  top:30%;
-  transform: translateY(-50%);
+  top:25%;
+  /*transform: translateY(-50%);*/
   height: 100%;
   width: 500px;
   list-style: none;
@@ -97,9 +109,41 @@
 
 .scale-transition.scale-in { transform: scale(1); }
 
-
-
 .tooltip-iventory {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip-iventory .tooltip-iventorytext {
+  visibility: hidden;
+  width: 80px;;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  right: 110%;
+}
+
+.tooltip-iventory .tooltip-iventorytext::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent black;
+}
+.tooltip-iventory:hover .tooltip-iventorytext {
+  visibility: visible;
+}
+
+/*.tooltip-iventory {
   position: relative;
   display: inline-block;
   border-bottom: 1px dotted black;
@@ -132,49 +176,82 @@
 
 .tooltip-iventory:hover .tooltip-iventorytext {
   visibility: visible;
-}
+  }*/
 
 
-/*------------RED-----------*/
-.tooltip-iventory-red {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted #F44336;
-}
+  /*------------RED-----------*/
+  .tooltip-iventory-red {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted #F44336;
+  }
 
-.tooltip-iventory-red .tooltip-iventorytext-red {
-  visibility: hidden;
-  width: 80px;
-  background-color: #F44336;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  position: absolute;
-  z-index: 1;
-  bottom: 110%;
-  left: 50%;
-  margin-left: -40px;
-}
+  .tooltip-iventory-red .tooltip-iventorytext-red {
+    visibility: hidden;
+    width: 80px;
+    background-color: #F44336;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: 110%;
+    left: 50%;
+    margin-left: -40px;
+  }
 
-.tooltip-iventory-red .tooltip-iventorytext-red::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #F44336 transparent transparent transparent;
-}
+  .tooltip-iventory-red .tooltip-iventorytext-red::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #F44336 transparent transparent transparent;
+  }
 
-.tooltip-iventory-red:hover .tooltip-iventorytext-red {
-  visibility: visible;
-}
+  .tooltip-iventory-red:hover .tooltip-iventorytext-red {
+    visibility: visible;
+  }
 
 
 
-/*------------GREEN-----------*/
-.tooltip-iventory-green {
+  /*------------GREEN-----------*/
+  .tooltip-iventory-green {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted #4CAF50;
+  }
+
+  .tooltip-iventory-green .tooltip-iventorytext-green {
+    visibility: hidden;
+    width: 80px;;
+    background-color: #4CAF50;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    /*padding: 5px 0;*/
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    right: 110%;
+  }
+
+  .tooltip-iventory-green .tooltip-iventorytext-green::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent  #4CAF50;
+  }
+  .tooltip-iventory-green:hover .tooltip-iventorytext-green {
+    visibility: visible;
+  }
+/*.tooltip-iventory-green {
   position: relative;
   display: inline-block;
   border-bottom: 1px dotted #4CAF50;
@@ -209,10 +286,11 @@
 .tooltip-iventory-green:hover .tooltip-iventorytext-green {
   visibility: visible;
 }
-
+*/
 
 /*------------LIGHTBLUE-----------*/
 .tooltip-iventory-blue {
+  margin-top: 30px;
   position: relative;
   display: inline-block;
   /*border-bottom: 1px dotted #2196F3;*/
@@ -220,7 +298,7 @@
 
 .tooltip-iventory-blue .tooltip-iventorytext-blue {
   visibility: hidden;
-  width: 75px;
+  width: 100px;
   background-color: #2196F3;
   color: #fff;
   text-align: center;
@@ -228,10 +306,9 @@
   position: absolute;
   z-index: 1;
   bottom: 110%;
-  left: 70%;
+  left: 50%;
   margin-left: -50px;
   margin-bottom: 1px;
-  font-size: 13px;
 }
 
 .tooltip-iventory-blue .tooltip-iventorytext-blue::after {
@@ -326,10 +403,18 @@
 
 
 .btn-action-invt{
+  background-color: transparent;
+  border:1px solid transparent;
   padding: 5px !important;
+  color:#6c757d;
 }
 .btn-action-invt a{
   font-size: 5px;
+}
+.btn-action-invt:hover{
+  /*background-color: transparent;
+  border:1px solid transparent;*/
+  color: white;
 }
 
 .select-invt-icon{
@@ -343,9 +428,41 @@
 }
 
 .back-btn{
-  border-radius: 0rem !important;
-}
-.back-btn-icon{
   font-size: 25px;
-  padding: .35rem;
+  padding-left: 20px;
+  color: #6c757d;
 }
+.back-btn:hover{
+  color: blue;
+}
+
+/*-----------------------*/
+.nav-padding{
+  padding:20px;
+}
+#sidebarBtn{
+  display: none;
+}
+
+@media screen and (max-width: 480px) {
+  #sidebarBtn{
+    display: block;
+  }
+
+  .sidebar-hide{
+    transition: .5s;
+    margin-left: -90px;
+    display: none !important;
+  }
+
+  .sidebar{
+    transition: .5s;
+    margin-right: 0px;
+    display: block;
+  }
+  
+  .nav-padding{
+    padding: 0;
+  }
+}
+

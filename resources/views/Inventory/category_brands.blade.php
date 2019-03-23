@@ -20,21 +20,22 @@
 		<div id="content-wrapper">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-sm-1">
-						<a href="/selectInventory" class="btn btn-secondary d-block mx-auto back-btn">
-							<i class="fa fa-arrow-left back-btn-icon"></i>
-						</a>
-					</div>
-					<div class="col-sm-8">
-						<ol class="breadcrumb" style="border-radius: 0px">
+					<div class="col-sm-12">
+					{{-- 	<ol class="breadcrumb" style="border-radius: 0px">
 							<li class="breadcrumb-item">
 								<a href="/category&brands" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">CATEGORY & BRANDS</a>
 							</li>
+						</ol> --}}
+						<ol class="breadcrumb" style="border-radius: 0px;background-color:#fff">
+							<li class="breadcrumb-item">
+								<h6 class="text5" style="letter-spacing: .15em; text-transform: uppercase;"><strong><i class="fa fa-layer-group" style="font-size:23px"></i> Category & Brands</strong>
+								</h6>
+							</li>
 						</ol>
 					</div>
-					<div class="col-sm-3">
+					{{-- <div class="col-sm-3">
 						<a href="/archiveCategory&Brands" class="btn btn-primary">Archive Category & Brands</a>
-					</div>
+					</div> --}}
 				</div>
 				<div class="row">
 					<div class="col">
@@ -147,6 +148,14 @@
 			<span class="tooltip-iventorytext-green">CREATE</span>
 		</a>
 	</div>
+
+	<div class="zoom-top">
+		<a href="/archiveCategory&Brands" class="zoom-fab zoom-btn-black zoom-btn-sm tooltip-iventory">
+			<i class="fa fa-archive"></i>
+			<span class="tooltip-iventorytext">ARCHIVE</span>
+		</a> 
+	</div>
+
 	
 	<!-- REMOVE BRAND & CATEGORY -->
 	@include('Inventory.modal-categbrand.removeBrandCategory')
