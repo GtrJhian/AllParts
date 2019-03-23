@@ -1,9 +1,6 @@
 @extends('components/main')
 
 @section('content')
-<?php
-	$index_row = 1;
-?>
 <body>
 	@include('components.nav_sales')
 	<div id="wrapper">
@@ -18,18 +15,14 @@
 				<!-- <div class="container"> -->
 				<div class="row">
 					<div class="col-md-12">
-						<button type="button" href="#" class="btn btn-danger btn-suc btn-wd float-right" role="button">Delete</button>
-						<button type="button" href="#" class="btn btn-success btn-suc float-right" role="button">Select</button>
-	
   					<div class="nav nav-tabs" id="nav-tab" role="tablist">
-    					<a class="nav-item nav-link active" id="bill" data-toggle="tab" href="#billing" role="tab"  aria-selected="true">Billing <i class="fa fa-check"></i></a>
-    					<a class="nav-item nav-link" id="tab1" data-toggle="tab" href="#tab1" role="tab"  aria-selected="false">Tab1 <i class="fa fa-check"></i></a>
-    					<a class="nav-item nav-link" id="tab2" data-toggle="tab" href="#tab2" role="tab"  aria-selected="false">Tab2 <i class="fa fa-check"></i></a>
+    					<a class="nav-item nav-link active" id="bill" data-toggle="tab" href="#billing" role="tab"  aria-selected="true"> <i class="fa fa-calculator "></i>   Billing</a>
+    					<a class="nav-item nav-link" id="excel" data-toggle="tab" href="#excelTab" role="tab"  aria-selected="false"> <i class="fa fa-newspaper"></i>   Reports</a>
+    					<a class="nav-item nav-link" id="archived" data-toggle="tab" href="#archivedTab" role="tab"  aria-selected="false"> <i class="fa fa-window-close"></i>   Archived</a>
 						</div>
 					</div>
 				</div>
 				<!-- </div> -->
-				
 			
 				<!-- tab contents -->
 				<div class="tab-content" id="nav-tabContent">
@@ -40,29 +33,40 @@
 								<div class="row">
 									<div class="col">
 										<div class="table-responsive">
-											<table class="table table-striped" id="itemlist" width="100%" cellspacing="0">
+											<table class="table table-striped" id="billingList" width="100%" cellspacing="0">
 												<thead>
-													<th width=5%>#</th>
-													<th width=30%>TR No.</th>
-													<th width=30%>NAME</th>
-													<th width=35%>COMPANY</th>
-													<th width=15%>ADDRESS</th>
+													<th width=10%>TR No.</th>
+													<th width=20%>NAME</th>
+													<th width=20%>COMPANY</th>
+													<th width=20%>ADDRESS</th>
+													<th width=10%>Status</th>
+													<th width=10%>Action</th>
 												</thead>
-												<tbody>
+												<form method="GET" action="Billing/viewBilling">
+												<tbody id="billing-info">
 													@if(count($indexPost) > 0)
 														@foreach($indexPost as $post)
-															<tr index="{{$post->TR_Acc}}">
-																<td>{{$index_row}}</td>
-																<td>{{$post->TR_Acc}}</td>
+															<tr>
+																<td>{{$post->Sale_ID}}</td>
 																<td>{{$post->F_Name.' '.$post->L_Name}}</td>
 																<td>{{$post->Company}}</td>
 																<td>{{$post->Address}}</td>
-																<?php $index_row++; ?>
+																<td>
+																		@if(($post->debit - $post->credit) > 0) {{ "PENDING" }}
+																		@else	{{ "PAID" }}
+																		@endif
+																</td>
+																<td>
+																	<a class="action-button" href="#" data-id="{{$post->Sale_ID}}" id="viewBill"><i class="fa fa-eye"></i></button>
+																	<a class="action-button" href="#" data-id="{{$post->Sale_ID}}" id="updateBill"><i class="fa fa-edit"></i></a>
+																	<a class="action-button btn-danger" href="#" data-id="{{$post->Sale_ID}}" id="archiveBill"><i class="fa fa-trash"></i></a>
+																</td>
 															</tr>
 														@endforeach
 													@endif
 												</tbody>
-											</table>	
+												</form>
+											</table>
 										</div>
 									</div>
 								</div>
@@ -71,9 +75,10 @@
 					</div> 
 					<!-- end of content 1 -->
 					<!-- tab 2 -->
-					<div class="tab-pane fade" id="tab1" role="tabpanel" aria-labelledby="nav-profile-tab">
+					<div class="tab-pane fade" id="excelTab" role="tabpanel" aria-labelledby="nav-profile-tab">
 						<div class="card mb-3">
 							<div class="card-body">
+								<button class="btn btn-warning" onclick="window.open('/Billing/Excel')">Generate Reports</button>
 								<div class="row">
 									<div class="col">
 										<div class="table-responsive">
@@ -97,7 +102,7 @@
 					</div>
 					<!-- end of content 2 -->
 					<!-- tab3 -->
-					<div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="nav-contact-tab">
+					{{-- <div class="tab-pane fade" id="archivedTab" role="tabpanel" aria-labelledby="nav-contact-tab">
 						<div class="card mb-3">
 							<div class="card-body">
 								<div class="row">
@@ -120,30 +125,213 @@
 								</div>
 							</div>
 						</div> 
-					</div>  
+					</div>   --}}
 					<!-- end of content 3 -->		
 				</div>
 				<!-- end of contents -->	
 			</div>
+			@include('Billing.modal.modal')
 			@include('components.footer2')
-			@include('Billing.modal.indexModal')
 		</div>
 	</div>
 </body>
 @stop
 
+
 @section('script')
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('#itemlist').DataTable();
+		$('#billingList').DataTable();
 	});
-    $("#itemlist tbody tr").on('click',function() {  
-		var bill_id = $(this).attr('index');
-        window.location = "/Billing/"+bill_id;
-	}); 
-	
-	function indexModal(){
-    document.getElementById('modal-wrapper-index').style.display = 'block';
-  }
+
+	//MODAL VIEWING
+	$('body').delegate('#billing-info #viewBill', 'click', function(e){
+		var id = $(this).data('id');
+		$('#modalReceiptBtn').attr('data-id', id);
+
+		$.ajax({
+			url: "Billing/viewBill/" + id,
+			type: "GET",
+			dataType: "JSON",
+			success: function(data){
+				var objSale = data.dataSale[0];
+				var objSaleDetails = data.dataSaleDetails;
+				var objAccDetails = data.dataAccDetails;
+				loadDataFirstPart(objSale);
+				loadDataSecondPart(objSaleDetails);
+				loadDataThirdPart(objAccDetails);
+
+				//Show Modal
+				$('#modalHeaderTitle').html('Customer Billing Infomation');
+				viewSetup();
+				$('#modal-billing').modal('show');
+			},
+			error: function(){
+				alert("SOMETHING WENT WRONG");
+			}
+		})
+	})
+	//End of Modal Viewing
+
+	//Modal Edit
+	$('body').delegate('#billing-info #updateBill', 'click', function(e){
+		var id = $(this).data('id');
+		$('#formPayment').val('');
+		$('#formSave').data('id', id);
+		// $('#formID').val(id);
+		
+		$.ajax({
+			url: "Billing/" + id + "/edit",
+			type: "GET",
+			dataType: "JSON",
+			success: function(data){
+				var objSaleDetails = data.dataSaleDetails;
+				var objAccDetails = data.dataAccDetails;
+
+				loadDataSecondPart(objSaleDetails);
+				loadDataThirdPart(objAccDetails);
+				//Show Modal
+				$('#modalHeaderTitle').html('Update Customer Billing');
+				updateSetup();
+				$('#modal-billing').modal('show');
+			},
+			error: function(){
+				alert("SOMETHING WENT WRONG");
+			}
+		})
+	})
+
+	var _token = $('input[name="_token"]').val();
+	//Modal Update
+	$('body').delegate('#formSave', 'click', function(e){
+		var id = $('#formSave').data('id');
+		var payment = $('#formPayment').val();
+		var errMsg = "";
+		
+		if(!parseInt(payment)){
+			showError("Check Your Input");
+		}else {
+			//Save to DB
+			$.ajax({
+				url: "/Billing/addPayment",
+				type: "POST",
+				data: {id:id, payment:payment, _token:_token},
+				success: function(data){
+					loadDataThirdPart(data);
+					showSucMsg("Saved Successfully");
+					$('#formPayment').val('');
+				},
+				error: function(error){
+					showError("Something Went Wrong");
+				}
+			})
+		}
+	})
+
+	//Modal Archive
+	$('body').delegate('#billing-info #archiveBill', 'click', function(e){
+		var id = $(this).data('id');
+		if(confirm('Are you sure you want to archive this record?')){
+			$.ajax({
+				url: "Billing/archive/" + id,
+				type: "GET",
+				data: { id:id, _token:_token },
+				success: function(data){
+					if(data=="Success"){
+						location.reload();
+					}else{
+						alert()
+					}
+				},
+				error: function(err){
+					alert("Something Went Wrong");
+				}
+			})
+		}
+	})
+
+	function receipt(){
+		var id = $('#modalReceiptBtn').data('id');
+		var url = "/Billing/Receipt/" + id;
+		window.open(url);
+	}
+
+	//Data Of First Part
+	function loadDataFirstPart(objSale){
+		$('#modalViewName').html("Name: " + objSale.F_Name + " " + objSale.L_Name);
+		$('#modalViewAddress').html("Address: " + objSale.Address);
+		$('#modalViewTINNumber').html("TIN No:" + objSale.TIN_no);
+		$('#modalViewOSCANumber').html("OSCA/PWD ID No:" + objSale.OSCA_PWD_ID);
+		$('#modalViewTerms').html("Terms of Payment: " + objSale.term_of_payment);
+		$('#modalViewTotalBill').html("Total Bill: " + objSale.debit);
+	}
+
+	//Data Of Second Part
+	function loadDataSecondPart(objSaleDetails){
+		$('#modalSaleDetailsTbody').html("");
+		var totalItems = 0;
+		for(var i=0; i<objSaleDetails.length; i++){
+			totalItems++;
+			$('#modalSaleDetailsTbody').append("<tr>");
+			$('#modalSaleDetailsTbody').append("<td>" + totalItems + "</td>");
+			$('#modalSaleDetailsTbody').append("<td>" + objSaleDetails[i].Quantity + "</td>");
+			$('#modalSaleDetailsTbody').append("<td>" + objSaleDetails[i].Unit + "</td>");
+			$('#modalSaleDetailsTbody').append("<td>" + objSaleDetails[i].Unit_Price + "</td>");
+			$('#modalSaleDetailsTbody').append("<td>" + (objSaleDetails[i].Quantity * objSaleDetails[i].Unit_Price) + "</td>");
+			$('#modalSaleDetailsTbody').append("</tr>");
+		}
+		$('#modalTotalItems').html("Total Items: " + totalItems);
+	}
+
+	//Data Of Third Part
+	function loadDataThirdPart(objAccDetails){
+		$('#modalAccDetailsTbody').html("");
+		var totalPayment = 0;
+		for(var i=0; i<objAccDetails.length; i++){
+			$('#modalAccDetailsTbody').append("<tr>");
+			$('#modalAccDetailsTbody').append("<td>" + (i+1) + "</td>");
+			$('#modalAccDetailsTbody').append("<td>" + objAccDetails[i].Acc_Date + "</td>");
+			$('#modalAccDetailsTbody').append("<td>" + objAccDetails[i].Acc_Payment + "</td>");
+			$('#modalAccDetailsTbody').append("</tr>");
+			totalPayment += parseInt(objAccDetails[i].Acc_Payment);
+		}
+		$('#modalTotalPayment').html("Total Payment: " + totalPayment);
+	}
+
+	//Modal Setup
+	function viewSetup(){
+		$('#modalFirstPart').css('display', 'block');
+		$('#modalSecondPart').css('display', 'block');
+		$('#modalThirdPart').css('display', 'block');
+		$('#modalAccountingPart').css('display', 'none');
+		$('#modalReceiptBtn').css('display', 'block');
+	}
+
+	function updateSetup(){
+		$('#modalFirstPart').css('display', 'none');
+		$('#modalSecondPart').css('display', 'block');
+		$('#modalThirdPart').css('display', 'block');
+		$('#modalAccountingPart').css('display', 'block');
+		$('#modalReceiptBtn').css('display', 'none');
+	}
+
+	function showSucMsg(message){
+		$('#modalNotif').html(message);
+		$("#modalNotif").removeClass("msg").addClass("msg-visible");
+		$('#modalNotif').css('display', 'block');
+		setTimeout(function(){
+			$('#modalNotif').css('display', 'none');
+		}, 2000);
+	}
+
+	function showError(message){
+		$('#modalNotif').html(message);
+		$("#modalNotif").removeClass("msg-visible").addClass("msg");
+		$('#modalNotif').css('display', 'block');
+		setTimeout(function(){
+			$('#modalNotif').css('display', 'none');
+		}, 2000);
+	}
+
 </script>
 @stop
