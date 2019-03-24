@@ -24,7 +24,7 @@
     <br><br>
     <div class="form">
       <header>
-        <img src="{{asset('vendor/img/cor.png')}}" alt="logo"  height="160px" width="100%">
+        <img src="{{asset('vendor/img/cor.png')}}" alt="logo" class="rounded mx-auto d-block" height="160px" width="100%">
       </header>
       <br>
       <div class="row">
