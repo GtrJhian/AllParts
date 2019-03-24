@@ -32,7 +32,7 @@
 											<td>CSN-001</td>
 											<td>John Santos</td>
 											<td>
-												<a href="" style="border: 1px #127ffb solid;padding: 5px;border-radius: 20%;width: 10px;height: 10px;background-color: #127ffb;color: #fff"><i class="fa fa-eye"></i></button>
+												<a href="" style="border: 1px #127ffb solid;padding: 5px;border-radius: 20%;width: 10px;height: 10px;background-color: #127ffb;color: #fff"><i class="fa fa-eye"></i></a>
 												<a href="" style="border: 1px #127ffb solid;padding: 5px;border-radius: 20%;width: 10px;height: 10px;background-color: #127ffb;color: #fff"><i class="fa fa-user"></i></a>
 												<a href="" style="border: 1px #127ffb solid;padding: 5px;border-radius: 20%;width: 10px;height: 10px;background-color: #127ffb;color: #fff"><i class="fa fa-edit"></i></a>
 											</td>
@@ -43,6 +43,12 @@
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="zoom">
+				<a class="zoom-fab zoom-btn-blue zoom-btn-large tooltip-iventory-blue" href="/arch_customer">
+					<i class="fa fa-book"></i>
+					<span class="tooltip-iventorytext-blue">Archive</span>
+				</a>
 			</div>
 			@include('components.footer2')
 		</div>

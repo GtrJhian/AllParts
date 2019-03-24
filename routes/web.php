@@ -27,6 +27,10 @@ Route::get('/store',function(){
 Route::get('/items',function(){
 	return view('sales_templates.items');
 });
+
+Route::get('/arch_customer',function(){
+	return view('sales_templates.arch_customer');
+});
 //=====//
 Route::get('/users',function(){
 	return view ('users.user_lists');

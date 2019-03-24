@@ -60,9 +60,9 @@
 																				@endif
 																		</td>
 																		<td>
-																			<a class="action-button" href="#" data-id="{{$post->Sale_ID}}" id="viewBill"><i class="fa fa-eye"></i></button>
-																			<a class="action-button" href="#" data-id="{{$post->Sale_ID}}" id="updateBill"><i class="fa fa-edit"></i></a>
-																			<a class="action-button btn-danger" href="#" data-id="{{$post->Sale_ID}}" id="archiveBill"><i class="fa fa-trash"></i></a>
+																			<a class="btn btn-sm btn-primary" style="font-size:12px" href="#" data-id="{{$post->Sale_ID}}" id="viewBill"><i class="fa fa-eye"></i></a>
+																			<a class="btn btn-sm btn-primary" style="font-size:12px" href="#" data-id="{{$post->Sale_ID}}" id="updateBill"><i class="fa fa-edit"></i></a>
+																			<a class="btn btn-sm btn-danger" style="font-size:12px" href="#" data-id="{{$post->Sale_ID}}" id="archiveBill"><i class="fa fa-trash"></i></a>
 																		</td>
 																	</tr>
 																@endforeach
