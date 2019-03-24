@@ -11,14 +11,15 @@ class CustomerController extends Controller
     //
     function Create(Request $request){
        // var_dump($request->input());
-       DB::insert('INSERT into Customer(F_Name, L_Name, M_Name, Contact_No, Address, TIN_no, OSCA_PWD_ID) VALUES(?,?,?,?,?,?,?)',[
+       DB::insert('INSERT into Customer(F_Name, L_Name, M_Name, Contact_No, Address, TIN_no, OSCA_PWD_ID , Company) VALUES(?,?,?,?,?,?,?,?)',[
             $request->input('F_Name'),
             $request->input('L_Name'),
             $request->input('M_Name'),
             $request->input('Contact_No'),
             $request->input('Address'),
             $request->input('TIN_no'),
-            $request->input('OSCA_PWD_ID')
+            $request->input('OSCA_PWD_ID'),
+            $request->input('Company')
        ]);
        return back();
     }
@@ -45,5 +46,35 @@ class CustomerController extends Controller
     }
     function Select($id){
         return json_encode(DB::select('SELECT * FROM customer WHERE Cus_Id=?',[$id])[0]);
+    }
+    function update(Request $request){
+        
+        DB::update('UPDATE customer SET 
+                                        F_Name = ?,
+                                        L_Name = ?,
+                                        M_Name = ?,
+                                        Contact_No = ?,
+                                        Address = ?,
+                                        Company = ?,
+                                        TIN_no = ?,
+                                        OSCA_PWD_ID = ?
+                                    WHERE Cus_ID = ?;'
+                    ,[        
+                        $request->input('F_Name'),
+                        $request->input('L_Name'),
+                        $request->input('M_Name'),
+                        $request->input('Contact_No'),
+                        $request->input('Address'),
+                        $request->input('Company'),
+                        $request->input('TIN_no'),
+                        $request->input('OSCA_PWD_ID'),
+                        $request->input('id')
+                    ]);
+        return back();
+    }
+
+    function Delete(Request $request){
+        DB::update('UPDATE customer SET Cus_Archived = 1 WHERE Cus_ID = ?',[$request->input('id')]);
+        return $request->input('id');
     }
 }
