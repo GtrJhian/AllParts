@@ -386,7 +386,7 @@
 					$('#archivedTBody').append(
 						"<td>"
 						+	"<a class='btn btn-sm btn-primary' style='font-size:12px; margin-right:10px' href='#' data-id='" + data[i].Sale_ID +"' onclick='viewBilling(" + data[i].Sale_ID + ")'><i class='fa fa-eye'></i></a>"
-						+	"<a class='btn btn-sm btn-danger' style='font-size:12px' href='#' data-id='" + data[i].Sale_ID +"' id='UnarchiveBill'><i class='fa fa-plus'></i></a>"
+						+	"<a class='btn btn-sm btn-success' style='font-size:12px' href='#' data-id='" + data[i].Sale_ID +"' id='UnarchiveBill'><i class='fa fa-redo'></i></a>"
 						+ "</td>"
 					);
 					$('#archivedTBody').append("</tr>");
