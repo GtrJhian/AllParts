@@ -64,8 +64,11 @@ Route::get('/Store/json/item/{id}','StoreController@jsonItem');
 Route::post('/Customer/Create','CustomerController@Create');
 Route::get('/Customer/All','CustomerController@ShowAll');
 Route::get('/Customer/id/{id}','CustomerController@Select');
+Route::get('/Customer/archived','CustomerController@Archived');
 Route::post('/Customer/update','CustomerController@Update');
 Route::post('/Customer/delete','CustomerController@Delete');
+Route::post('/Customer/restore','CustomerController@Restore');
+
 //Route::resource('/Customer', 'Customer');
 //---Zild was here
 //================================================//

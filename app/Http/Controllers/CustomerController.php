@@ -9,6 +9,7 @@ use DB;
 class CustomerController extends Controller
 {
     //
+    
     function Create(Request $request){
        // var_dump($request->input());
        DB::insert('INSERT into Customer(F_Name, L_Name, M_Name, Contact_No, Address, TIN_no, OSCA_PWD_ID , Company) VALUES(?,?,?,?,?,?,?,?)',[
@@ -76,5 +77,21 @@ class CustomerController extends Controller
     function Delete(Request $request){
         DB::update('UPDATE customer SET Cus_Archived = 1 WHERE Cus_ID = ?',[$request->input('id')]);
         return $request->input('id');
+    }
+
+    function Archived(){
+        $archived = DB::select('SELECT Cus_ID, concat(L_Name," ",M_Name,". ",F_Name) FROM customer WHERE Cus_Archived = 1');
+        $archived_array = array();
+        for($ctr = 0 ; $ctr < count($archived) ; $ctr++){
+            $x = 0;
+            foreach($archived[$ctr] as $info){
+                $archived_array[$ctr][$x++] = $info;
+            }
+        }
+        return ['data' => $archived_array];
+    }
+
+    function Restore(Request $request){
+        DB::update('UPDATE customer SET Cus_Archived = 0 WHERE Cus_ID = ?',[$request->input('id')]);
     }
 }
