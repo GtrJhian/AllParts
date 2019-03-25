@@ -7,22 +7,12 @@
 	@include('components.nav2')
 	
 	<div id="wrapper">
-		@include('components.menu_inventory')
+		@include('components.menu3')
 		<div id="content-wrapper">
 			<div class="container-fluid">
-				{{-- <ol class="breadcrumb" style="border-radius: 0px">
+				<ol class="breadcrumb" style="border-radius: 0px">
 					<li class="breadcrumb-item">
-						<span href="#" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">INVENTORY REPORTS</span>
-					</li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="badge badge-pill badge-danger count" style="border-radius:10px;"></span> <span class="fa fa-bell" style="font-size:18px;"></span></a>
-						<ul class="dropdown-menu" style="width: 300px; height: 200px; overflow: auto"></ul>
-					</li>
-				</ol> --}}
-				<ol class="breadcrumb" style="border-radius: 0px;background-color:#fff">
-					<li class="breadcrumb-item">
-						<h6 class="text5" style="letter-spacing: .15em; text-transform: uppercase;"><strong><i class="fa fa-clipboard-list" style="font-size:23px"></i> Inventory Reports</strong>
-						</h6>
+						<span href="#" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">SUPPLIES REPORTS</span>
 					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="badge badge-pill badge-danger count" style="border-radius:10px;"></span> <span class="fa fa-bell" style="font-size:18px;"></span></a>
@@ -34,6 +24,10 @@
 						<div class="row">
 							<div class="col">
 								<div class="form-group">
+									<label for="comment">Unpaid:</label>
+									<textarea class="form-control" rows=3 cols="60" id="comment" name="alerts" disabled>Unpaid Orders from supplier within 60 days</textarea>
+								</div>
+                                <div class="form-group">
 									<label for="comment">Logs:</label>
 									<textarea class="form-control" rows="5" cols="60" id="comment" name="alerts" disabled></textarea>
 								</div>
@@ -67,7 +61,7 @@
     		url: "{{ route('getInvAlerts') }}",
     		data:{'_token':"{{csrf_token()}}"},
     		success: function (data){
-    			var array = jQuery.parseJSON(data);
+    				var array = jQuery.parseJSON(data);
     			$('.dropdown-menu').html(array.notification);
     			if(array.unseen_notification > 0)
     			{

@@ -1,5 +1,5 @@
 {{-- Remove item--}}
-<div class="modal fade" id="removeItem">
+<div class="modal fade" id="removesupplier">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form id="itemArchive" action="/archiveItem" method="post">
