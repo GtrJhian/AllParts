@@ -21,5 +21,11 @@
 				<span class="tooltiptext">Customers</span>
 			</a>
 		</li>
+		<li class="nav-item" style="padding: 20px">
+			<a class="hi-icon" href="/Billing">
+				<i class="fa fa-hand-holding-usd" style="padding: 25%"></i><!--Billing -->
+				<span class="tooltiptext">Billing</span>
+			</a>
+		</li>
 	</ul>
 <!-- </div> -->

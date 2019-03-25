@@ -32,7 +32,7 @@
 											<td>CSN-001</td>
 											<td>John Santos</td>
 											<td>
-												<a href="" style="border: 1px #127ffb solid;padding: 5px;border-radius: 20%;width: 10px;height: 10px;background-color: #127ffb;color: #fff"><i class="fa fa-eye"></i></button>
+												<a href="" style="border: 1px #127ffb solid;padding: 5px;border-radius: 20%;width: 10px;height: 10px;background-color: #127ffb;color: #fff"><i class="fa fa-eye"></i></a>
 												<a href="" style="border: 1px #127ffb solid;padding: 5px;border-radius: 20%;width: 10px;height: 10px;background-color: #127ffb;color: #fff"><i class="fa fa-user"></i></a>
 												<a href="" style="border: 1px #127ffb solid;padding: 5px;border-radius: 20%;width: 10px;height: 10px;background-color: #127ffb;color: #fff"><i class="fa fa-edit"></i></a>
 											</td>
@@ -43,6 +43,12 @@
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="zoom">
+				<a class="zoom-fab zoom-btn-blue zoom-btn-large tooltip-iventory-blue" href="/arch_customer">
+					<i class="fa fa-book"></i>
+					<span class="tooltip-iventorytext-blue">Archive</span>
+				</a>
 			</div>
 			@include('components.footer2')
 		</div>
@@ -317,6 +323,27 @@
 			</div>
 		</div>
 	</div>	
+	<div class="modal fade" id="double_check" tabindex="-1" role="dialog" aria-labelledby="check" aria-hidden="true">
+		<div class="modal-dialog" style="min-width: 700px">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="container">
+						<button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+						<legend class="text-center">Are you sure to delete this customer?</legend>
+						<hr>
+						<div class="row">
+							<div class="offset-4 col-1">
+								<input type="button" name="Yes" value="Yes" class="btn btn-md btn-success">
+							</div>
+							<div class="offset-1 scol-1">
+								<input type="button" name="No" value="No" class="btn btn-md btn-danger">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 @stop
 
@@ -330,7 +357,7 @@
 					render : function(data, type, row) {
 						return '<button class="btn btn-sm btn-primary hi-icon1" data-target="#view_cus" data-toggle="modal" ><i class="fa fa-eye"><span class="tooltiptext">View</span></i></button>\
 								<button class="btn btn-sm btn-primary hi-icon1" data-target="#edit_cus" data-toggle="modal"><i class="fa fa-edit"><span class="tooltiptext">Edit</span></i></button>\
-								<button class="btn btn-sm btn-danger hi-icon1"><i class="fa fa-times"><span class="tooltiptext">Remove</span></i></button>';
+								<button class="btn btn-sm btn-danger hi-icon1" data-target="#double_check" data-toggle="modal"><i class="fa fa-times"><span class="tooltiptext">Remove</span></i></button>';
 					},
 					targets: 2
 				},

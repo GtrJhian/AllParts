@@ -1,7 +1,7 @@
 @extends('components/main')
 
 @section('content')
- 
+
 
 <script>
 	var msg = '{{Session::get('alert')}}';
@@ -18,20 +18,22 @@
 		<div id="content-wrapper">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-sm-1">
-						<a href="/selectInventory" class="btn btn-secondary d-block mx-auto back-btn">
-							<i class="fa fa-arrow-left back-btn-icon"></i>
-						</a>
-					</div>
-					<div class="col-sm-9">
-						<ol class="breadcrumb" style="border-radius: 0px">
+					{{-- <div class="col-sm-1">
+						<button id="sidebarBtn">Menu</button>
+					</div> --}}
+
+					<div class="col-sm-12">
+						{{-- <ol class="breadcrumb" style="border-radius: 0px;background-color:#fff">
 							<li class="breadcrumb-item">
 								<a href="/inventoryMain" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">INVENTORY</a>
 							</li>
+						</ol> --}}
+						<ol class="breadcrumb" style="border-radius: 0px;background-color:#fff">
+							<li class="breadcrumb-item">
+								<h6 class="text5" style="letter-spacing: .15em; text-transform: uppercase;"><strong><i class="fa fa-box" style="font-size:23px"></i> Inventory</strong>
+								</h6>
+							</li>
 						</ol>
-					</div>
-					<div class="col-sm-2">
-						<a href="/archiveInventory" class="btn btn-primary">Archive Inventory</a>
 					</div>
 				</div>
 				<div class="card mb-3">
@@ -109,11 +111,6 @@
 						</div>
 					</div>
 				</div>
-				<!-- <div class="row">
-					<div class="d-block mx-auto">
-						<a href="/archiveInventory" class="btn btn-primary">Archive Inventory</a>
-					</div>
-				</div> -->
 			</div>
 			@include('components.footer2')
 		</div>
@@ -124,10 +121,18 @@
 		<a class="zoom-fab zoom-btn-green zoom-btn-large tooltip-iventory-green" data-toggle="modal" data-target="#invtCreate">
 			<i class="fa fa-plus"></i>
 			<span class="tooltip-iventorytext-green">CREATE</span>
-		</a>
+		</a> 
 	</div>
 
-	
+	<div class="zoom-top">
+		<a href="/archiveInventory" class="zoom-fab zoom-btn-black zoom-btn-sm tooltip-iventory">
+			<i class="fa fa-archive"></i>
+			<span class="tooltip-iventorytext">ARCHIVE</span>
+		</a> 
+	</div>
+
+
+
 
 	<!---REMOVE ITEM FORM ----->
 	@include('Inventory.modal-invt.removeItem')
@@ -162,6 +167,19 @@
 	// 		$('.zoom-card').toggleClass('scale-out');
 	// 	}
 	// });
+	// $(document).ready(function(){
+	// 	$("#sidebarBtn").click(function(){
+	// 		if($("#sidebarInvt").hasClass('sidebar-hide')){
+	// 			$("#sidebarInvt").removeClass('sidebar-hide').addClass('sidebar');
+	// 		}
+	// 		else{
+	// 			$("#sidebarInvt").addClass('sidebar-hide');
+	// 		}
+			
+	// 	});
+	// });
+
+	
 
 //function for update item button	
 $('.update_item_btn').click(function(){
@@ -224,7 +242,7 @@ function getPackageItems(package_id){
 		url: "{{ route('popPckgList') }}",
 		data:{itemID:pckg_id,'_token':"{{csrf_token()}}"},
 		success: function (data){
-		$("#list_items").html(data);	
+			$("#list_items").html(data);	
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown) {
 			alert("ERROR IN REQUEST");
@@ -266,16 +284,16 @@ $('.view_btn').click(function(){
 
 /*function for multiple item in packages create*/
 function numOfLines(choice)
+{
+	document.getElementById("input_items").innerHTML='';
+	for(var i = 0; i < choice; ++i)
 	{
-		document.getElementById("input_items").innerHTML='';
-		for(var i = 0; i < choice; ++i)
-		{
-			document.getElementById("input_items").innerHTML+= '<div class="row">' +
-			'<div class="col-sm-6"><label>Item Code:</label><input class="form-control" list="items" name="in-'+i+'" size="50" maxlength="50" required ></div> ' +
-			'<div class="form-group col-sm-6"><label>Quantity Needed:</label><input class="form-control" type="number" name="iq-'+i+'" size="6" maxlength="6" value="1" min="1" required ></div>'+
-			'</div>';
-		}
+		document.getElementById("input_items").innerHTML+= '<div class="row">' +
+		'<div class="col-sm-6"><label>Item Code:</label><input class="form-control" list="items" name="in-'+i+'" size="50" maxlength="50" required ></div> ' +
+		'<div class="form-group col-sm-6"><label>Quantity Needed:</label><input class="form-control" type="number" name="iq-'+i+'" size="6" maxlength="6" value="1" min="1" required ></div>'+
+		'</div>';
 	}
+}
 
 </script>
 
