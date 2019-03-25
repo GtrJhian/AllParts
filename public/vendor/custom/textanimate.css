@@ -576,3 +576,12 @@ footer.sticky-footer1 {
   .container9 input:checked ~ .checkmark:after {
 	display: block;
   }
+
+  .input_change {
+	border: 0;
+	outline: 0;
+	width: 100%;
+	padding: 10px 0px;
+	background: transparent;
+	border-bottom: 1px solid black;
+  }
