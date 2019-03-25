@@ -14,7 +14,7 @@
 <body>
 	@include('components.nav2')
 	<div id="wrapper">
-		@include('components.menu_inventory')
+		@include('components.menu3')
 		<div id="content-wrapper">
 			<div class="container-fluid">
 				<div class="row">
@@ -26,7 +26,7 @@
 					<div class="col-sm-12">
 						{{-- <ol class="breadcrumb" style="border-radius: 0px">
 							<li class="breadcrumb-item">
-								<a href="/inventoryMain" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">INVENTORY</a>
+								<a href="/inventoryMain" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">SUPPLIER</a>
 							</li>
 							<li class="breadcrumb-item">
 								<a href="/archiveInventory" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">ARCHIVE</a>
@@ -34,7 +34,7 @@
 						</ol> --}}
 						<ol class="breadcrumb" style="border-radius: 0px;background-color:#fff">
 							<li class="breadcrumb-item">
-								<h6 class="text5" style="letter-spacing: .15em; text-transform: uppercase;"><strong><i class="fa fa-box" style="font-size:23px"></i> Inventory / Archive</strong>
+								<h6 class="text5" style="letter-spacing: .15em; text-transform: uppercase;"><strong><i class="fa fa-box" style="font-size:23px"></i> Supplier / Archive</strong>
 								</h6>
 							</li>
 						</ol>
@@ -50,15 +50,11 @@
 									?>
 									<table class="table table-striped" id="itemlist" width="100%" cellspacing="0">
 										<thead>
-											<th>Item Code</th>
-											<th>Description</th>
-											<th>Brand</th>
-											<th>Category</th>
-											<th>Type</th>
-											<th>Quantity</th>
-											<th>Price/Unit</th>
-											<th>Alarm Quantity</th>
-											<th>Action</th>
+                                        <th>Company Name</th>
+											<th>Address</th>
+											<th>Telephone Number</th>
+											<th>Company E-mail</th>
+											<th style="width: 15%;">Action</th>
 										</thead>
 										<tbody>
 											@foreach($inventories as $inventory)

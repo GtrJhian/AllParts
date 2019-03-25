@@ -28,6 +28,19 @@ Route::get('/items',function(){
 	return view('sales_templates.items');
 });
 
+Route::get('/arch_customer',function(){
+	return view('sales_templates.arch_customer');
+});
+//=====//
+Route::get('/users',function(){
+	return view ('users.user_lists');
+});
+Route::get('/archive_users',function(){
+	return view ('users.archive_user');
+});
+Route::get('/logs',function(){
+	return view ('users.activity_logs');
+});
 //================AJAX ROUTES====================//
 
 Route::get('/Store/json/{param}','StoreController@json');
@@ -35,16 +48,30 @@ Route::get('/Store/json/item/{id}','StoreController@jsonItem');
 //--Zild Was Here
 //=================
 
+Route::get('/supplier',[
+	'uses' => 'SupplierController@index'
+]);
+Route::get('/orders',function(){
+	return view('Supply.orders');
+});
+Route::get('/supply/reports',function(){
+	return view('Supply.reports');
+});
+Route::post('/add/supplier', [
+	'uses' => 'SupplierController@store'
+]);
+Route::get('/archive/supplier/{id}', [
+	'uses' => 'SupplierController@destroy',
+	'as' => 'supplier.archive'
+]);
+Route::get('/supplier/archive',function(){
+	return view('Supply.archive_supplier');
+});
 
-
-
-
-
-
-
-
-
-
+// Route::get('/supply/archive', [
+// 	'uses' => 'SupplierController@trashed',
+// 	'as' => 'supplier.trashed'
+// ]);
 //===============================//
 
 //===============Customer Routes==================//
