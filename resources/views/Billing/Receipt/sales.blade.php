@@ -1,12 +1,17 @@
 <html>
 <head>
-  <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+  <!-- <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+	<script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <link href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="{{asset('vendor/custom/textanimate.css')}}"> -->
+
   <title>Billing</title>
   <style>
+    /* *{font-family: 'Nunito',sans-serif;}; */
     .form{border: 5px solid black;text-align: center;margin: 0 auto;padding: 10px; padding-bottom: 0px; padding-top: 0 px; width: 900px;}
     input{border: none;border-bottom: 1px solid black;}
     hr{border: 2px dotted black;}
-    label{font-weight: bolder;}
+    label{font-weight: bolder;font-family: 'Nunito',sans-serif;}
     table.details {border-collapse: collapse;width: 100%;text-align: center;}
     table.details td {padding: 8px;text-align: center;border-bottom: 1px solid #ddd;border-left: 20px solid #fff;}
     table.details th {padding: 8px;text-align: center;border-bottom: 10px solid #fff;border-left: 20px solid #fff;}
@@ -19,7 +24,7 @@
     <br><br>
     <div class="form">
       <header>
-        <img src="cor.png" alt="logo" class="rounded mx-auto d-block" height="160px" width="100%">
+        <img src="{{asset('vendor/img/cor.png')}}" alt="logo" class="rounded mx-auto d-block" height="160px" width="100%">
       </header>
       <br>
       <div class="row">
@@ -34,44 +39,44 @@
       <br/>       
       <div class="row" align="left">
         <div class="col-xs-8">
-          Sold to: <input type="text" size="65" readonly>
+        <label>Sold to: <input type="text" size="65" readonly></label>
         </div>
         <div class="col-xs-4" align="left">
-          Date: <input type="text" size="27" readonly>   
+        <label>Date: <input type="text" size="27" readonly></label>   
         </div>
       </div>
       <div class="row" align="left">
           <div class="col-xs-8">
-            Address: <input type="text" size="64" readonly>
+          <label>  Address: <input type="text" size="64" readonly></label>
           </div>
           <div class="col-xs-4">
-            P.O. No.: <input type="text" size="24" readonly>
+          <label> P.O. No.: <input type="text" size="24" readonly></label>
           </div>
       </div>
       <div class="row" align="left">
         <div class="col-xs-4">
-          TIN: <input type="text" size="29" readonly>
+        <label> TIN: <input type="text" size="29" readonly></label>
         </div>
         <div class="col-xs-4" align="left">
-          Bus Style: <input type="text" size="21" readonly>
+        <label>  Bus Style: <input type="text" size="21" readonly></label>
         </div>
         <div class="col-xs-4" >
-          OSCA/PWD ID No.: <input type="text" size="14" readonly>
+        <label>  OSCA/PWD ID No.: <input type="text" size="14" readonly></label>
         </div>
       </div>
       <div class="row" align="left">
         <div class="col-xs-4">
-          Terms of Payment: <input type="text" size="16" readonly>
+        <label> Terms of Payment: <input type="text" size="16" readonly></label>
         </div>
         <div class="col-xs-4" align="left">
-          D.R. No.: <input type="text" size="22" readonly>
+        <label>  D.R. No.: <input type="text" size="22" readonly></label>
         </div>
         <div class="col-xs-4">
-          SC/PWD Signature: <input type="text" size="14" readonly>
+        <label>  SC/PWD Signature: <input type="text" size="14" readonly></label>
         </div>
       </div>
       <br/><br/>
-      <table width="100%" class="table-responsive" align="center" border ="2">
+      <table width="100%" class="table-responsive" align="center" border ="2" style="font-family: 'Nunito',sans-serif;">
         <tr>
           <th class="col-xs-1">QUANTITY</th>
           <th class="col-xs-1">UNIT </th>
@@ -224,7 +229,7 @@
               <br><br><br><br>
               <label> By: </label>
               <input type="text" size="25" readonly> 
-              Cashier/Authorized Representative
+              <label>Cashier/Authorized Representative</label>
           </div>
       </div>
       <br> 

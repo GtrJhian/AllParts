@@ -118,7 +118,7 @@
 @section('script')
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('.tablesup_logs').DataTable({
+		$('.table').DataTable({
 		});
 	});
 </script>

@@ -28,6 +28,19 @@ Route::get('/items',function(){
 	return view('sales_templates.items');
 });
 
+Route::get('/arch_customer',function(){
+	return view('sales_templates.arch_customer');
+});
+//=====//
+Route::get('/users',function(){
+	return view ('users.user_lists');
+});
+Route::get('/archive_users',function(){
+	return view ('users.archive_user');
+});
+Route::get('/logs',function(){
+	return view ('users.activity_logs');
+});
 //================AJAX ROUTES====================//
 
 Route::get('/Store/json/{param}','StoreController@json');
