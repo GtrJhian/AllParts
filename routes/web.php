@@ -41,6 +41,9 @@ Route::get('/archive_users',function(){
 Route::get('/logs',function(){
 	return view ('users.activity_logs');
 });
+Route::get('/profile',function(){
+	return view ('profile');
+});
 //================AJAX ROUTES====================//
 
 Route::get('/Store/json/{param}','StoreController@json');
