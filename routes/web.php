@@ -48,15 +48,15 @@ Route::get('/Store/json/item/{id}','StoreController@jsonItem');
 //--Zild Was Here
 //=================
 
-Route::get('/supplier',[
-	'uses' => 'SupplierController@index'
-]);
-Route::get('/orders',function(){
-	return view('Supply.orders');
-});
-Route::get('/supply/reports',function(){
-	return view('Supply.reports');
-});
+
+
+
+
+
+
+
+
+
 
 //===============================//
 

@@ -11,7 +11,7 @@
 		<i class="fa fa-store" style="padding: 20%"></i><!-- store to -->
 		<span class="tooltiptext">Store</span>
 	</a>
-	<a class="hi-icon" href="/supplier">
+	<a class="hi-icon" href="">
 		<i class="fa fa-handshake" style="padding: 25% 20%"></i><!-- supplier -->
 		<span class="tooltiptext">Supplier</span>
 	</a>

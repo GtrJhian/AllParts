@@ -9,13 +9,13 @@
 
 <body>
 	@include('components.nav_sales')
-	<div id="wrapper">
+	<div id="wrapper" class="offset1">
 		@include('components.menu_sales')
 		<div id="content-wrapper">
 			<div class="container-fluid">
-				<ol class="breadcrumb" style="border-radius: 0px">
+				<ol class="breadcrumb" style="border-radius: 0px;background-color:#fff">
 					<li class="breadcrumb-item">
-						<a href="" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">CUSTOMERS</a>
+						<h6 class="text5" style="letter-spacing: .15em; text-transform: uppercase;"><strong><i class="fa fa-user" style="font-size:23px"></i> Customers</strong></h6>
 					</li>
 				</ol>
 				<div class="card mb-3">
