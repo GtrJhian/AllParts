@@ -522,5 +522,14 @@ function getPic(Request $req){
 }
 
 
+/*-----------------------------------------------------------------------------------*/
+//get item information
+function viewItem(Request $req){
+    $item_id=$req->input('itemID');
+    $iteminfo = DB::table('inventory')->where('Item_ID',$item_id)->get(); 
+  echo json_encode($iteminfo);
+}
+
+
 }
 

@@ -132,5 +132,6 @@ Route::post('/popBrandForm','InventoryController@popBrandForm')->name("popBrandF
 Route::post('/popCategoryForm','InventoryController@popCategoryForm')->name("popCategoryForm");
 Route::post('/getInvAlerts','InventoryController@getInvAlerts')->name("getInvAlerts");
 Route::post('/getPic','InventoryController@getPic')->name("getPic");
+Route::post('/viewItem','InventoryController@viewItem')->name("viewItem");
 //--Keith
 ?>

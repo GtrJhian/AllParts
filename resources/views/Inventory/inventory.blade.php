@@ -277,10 +277,37 @@ $('.archive_btn').click(function(){
 	$('#removeItem').modal('show');
 });
 
+
 //function for view button
 $('.view_btn').click(function(){
 	$('#viewItem').modal('show');
+	var $row = $(this).closest('tr');
+	var rowID = $row.attr('id').split('_')[1];
+	var $itemcode = $('#itemcode');
+	var $brand = $('#brand');
+	var $category = $('#category');
+	var $quantity = $('#quantity');
+	var $description = $('#description');
+	$.ajax({
+		method: "POST",
+		url: "{{ route('viewItem') }}",
+		data:{itemID:rowID,'_token':"{{csrf_token()}}"},
+		success: function (data){
+			var array = jQuery.parseJSON(data);
+			$itemcode.text(array[0].Item_Code);
+			$brand.text(array[0].Item_Brand);
+			$category.text(array[0].Item_Category);
+			$quantity.text(array[0].Item_Quantity+' '+array[0].Item_Unit+'s');
+			$description.text(array[0].Item_Description);
+		//	document.getElementById("aic").value = array[0].Item_Code;
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("ERROR IN REQUEST");
+		} 
+	});
 });
+
+
 
 /*function for multiple item in packages create*/
 function numOfLines(choice)

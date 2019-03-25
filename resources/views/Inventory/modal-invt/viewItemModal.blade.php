@@ -13,9 +13,10 @@
 						<div class="col-sm-5">
 							<div class="card">
 								<div class="card-body">
-									<span class="info-labels">Item Code</span><br>
-									<span class="info-labels">Category Brand</span><br>
-									<span class="info-labels">Quantity</span>
+									<b><span class="info-labels" id="itemcode">Item Code</span><br>
+									<span class="info-labels" id="brand">Brand</span><br>
+									<span class="info-labels" id="category">Category</span><br></b>
+									<span class="info-labels" id="quantity">Quantity</span>
 								</div>
 							</div>
 						</div>
@@ -24,6 +25,7 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<h4 class="info-labels">Description</h4>
+							<span class="info-labels" id="description">Body</span>
 						</div>
 					</div>
 					<hr>
