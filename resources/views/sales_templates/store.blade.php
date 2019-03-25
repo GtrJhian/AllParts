@@ -5,7 +5,7 @@
 
 	@include('components.nav_sales')
 
-	<div id="wrapper">
+	<div id="wrapper" class="offset1">
 
 		<!-- Sidebar -->
 		@include('components.menu_sales')
@@ -15,9 +15,9 @@
 			<div class="container">
 
 				<!-- Breadcrumbs-->
-				<ol class="breadcrumb" style="border-radius: 0px">
+				<ol class="breadcrumb" style="border-radius: 0px;background-color:#fff">
 					<li class="breadcrumb-item">
-						<a href="#" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">Store</a>
+						<h6 class="text5" style="letter-spacing: .15em; text-transform: uppercase;"><strong><i class="fa fa-store" style="font-size:23px"></i> Store</strong></h6>
 					</li>
 				</ol>
 
@@ -26,8 +26,8 @@
 						<span class="text5">Sales Invoice No. <a style="color:#c73213">6610</a></span>
 					</div>
 					<div class="card-body">
-						<div class="row">
-							<div class="col">
+						
+							
 								<nav>
 									<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
 										<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Customer Information</a>
@@ -96,7 +96,13 @@
 												<div class="form-group">
 													<select id="tofp" class="input_change" required="required" autofocus="autofocus" style="padding:0px">
 														<option>Cash</option>
-														<option>Others</option>
+														<option>Check</option>
+														<option>15 Days</option>
+														<option>30 Days</option>
+														<option>45 Days</option>
+														<option>60 Days</option>
+														<option>90 Days</option>
+														<option>120 Days</option>
 													</select>
 													<!-- <label for="tofp">Term of Payment:</label> -->
 												</div>
@@ -118,8 +124,11 @@
 									</div>
 									<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 										<div class="row" style="padding-bottom: 10px">
-											<div class="col-2">
+											<div class="col-1">
 												<button class="btn btn-md btn-primary" data-target="#store_items" data-toggle="modal"><i class="fa fa-list"></i> Items</button>
+											</div>
+											<div class="col-2">
+												<button class="btn btn-md btn-primary" data-target="#store_packages" data-toggle="modal"><i class="fa fa-list"></i> Packages</button>
 											</div>
 										</div>
 										<hr>
@@ -179,8 +188,8 @@
 										</div>
 									</div>
 								</div>
-							</div>	
-						</div>
+								
+						
 					</div>
 					<div class="card-footer small text-muted">Issued By: <span style="font-weight: bold">Juan Dela Cruz</span></div>
 				</div>
@@ -194,6 +203,37 @@
 		</div>
 		<!-- /.content-wrapper -->
 
+	</div>
+	<div class="modal fade" id="store_packages" tab-index="-1" role="dialog" aria-labelledby="packages" aria-hidden="true">
+		<div class="modal-dialog" style="min-width:1000px">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="container">
+						<button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+						<legend class="text-center">Packages</legend>
+						<div class="table-responsive">
+							<table class="table table-striped" id="packagelist" style="width:100%;">
+								<thead>
+									<th>Code</th>
+									<th>Description</th>
+									<th>Package Content/s</th>
+									<th>Brand</th>
+									<th>Category</th>
+									<th>Price</th>
+									<th>Remaining Stock</th>
+									<th>Action</th>
+								</thead>
+								<tbody>
+									<tr>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="modal fade" id="store_items" tabindex="-1" role="dialog" aria-labelledby="items" aria-hidden="true">
 		<div class="modal-dialog" style="min-width: 1000px">
@@ -209,7 +249,7 @@
 									<th>Unit Price</th>
 									<th>UOM</th>
 									<th>Remaining Stock</th>
-									<th></th>
+									<th>Action</th>
 								</thead>
 								<tbody>
 									<tr>
