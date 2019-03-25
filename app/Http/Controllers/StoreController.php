@@ -57,6 +57,12 @@ class StoreController extends Controller
     function jsonItem($id){
         return json_encode(DB::select('SELECT * FROM inventory WHERE item_id= ?',[$id])[0]);
     }
+
+    function Submit(Request $request){
+        var_dump($request->input('items'));
+        return $request->all();
+    }
+
     private function auth(){
         return true;
     }
