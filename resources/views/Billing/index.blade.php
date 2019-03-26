@@ -110,10 +110,16 @@
 												<div class="row" style="padding-bottom: 20px">
 														<div class="col-4"></div>
 														<div class="col-2">
-															<input type="radio" name="reportsArchived" id="reportsArchived" value="1" checked> Unarchived
+															<label class="container9">
+																<input type="radio" name="reportsArchived" id="reportsArchived" value="1" checked> Unarchived
+																<span class="checkmark"></span>
+															</label>
 														</div>
 														<div class="col-2">
-															<input type="radio" name="reportsArchived" id="reportsUnarchived" value="0"> Archived
+															<label class="container9">
+																<input type="radio" name="reportsArchived" id="reportsUnarchived" value="0"> Archived
+																<span class="checkmark"></span>
+															</label>
 														</div>
 												</div>
 												<div class="row">
