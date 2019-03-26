@@ -639,5 +639,50 @@ function viewItem(Request $req){
 }
 
 
+function checkCode(Request $req){
+ $new_code=$req->input('itemCode');
+ $exists = DB::table('inventory')->where('Item_Code',$new_code)->get();
+ if($exists->isEmpty()){
+ $message=""; 
+ $exist=0; 
+ }
+ else{
+  $message="<p style='color:red;'>Code already Exists!</p>";
+  $exist=1;
+ }
+ $array=array(array('exist'=>$exist,'message'=>$message));
+echo json_encode($array);
+}
+
+function checkCateg(Request $req){
+ $new_code=$req->input('itemCategory');
+ $exists = DB::table('item_categories')->where('item_category',$new_code)->get();
+ if($exists->isEmpty()){
+ $message=""; 
+ $exist=0; 
+ }
+ else{
+  $message="<p style='color:red;'>Category already Exists!</p>";
+  $exist=1;
+ }
+ $array=array(array('exist'=>$exist,'message'=>$message));
+echo json_encode($array);
+}
+
+function checkBrand(Request $req){
+ $new_code=$req->input('brandName');
+ $exists = DB::table('item_brands')->where('brand_name',$new_code)->get();
+ if($exists->isEmpty()){
+ $message=""; 
+ $exist=0; 
+ }
+ else{
+  $message="<p style='color:red;'>Brand already Exists!</p>";
+  $exist=1;
+ }
+ $array=array(array('exist'=>$exist,'message'=>$message));
+echo json_encode($array);
+}
+
 }
 

@@ -321,6 +321,55 @@ $('.archive_btn_br').click(function(){
 	$('#removeBrand').modal('show');
 });
 
+
+
+ $('#cn').on('blur', function(){
+ 		var nc=$('#cn').val();
+	$.ajax({
+		method: "POST",
+		url: "{{ route('checkCateg') }}",
+		data:{itemCategory:nc,'_token':"{{csrf_token()}}"},
+		success: function (data){
+			var array = jQuery.parseJSON(data);
+			$("#cnwarnm").html(array[0].message);	
+			if(array[0].exist==0){
+				$('#cnsubmit').prop('disabled', false);
+			}
+			else{
+				$('#cnsubmit').prop('disabled', true);
+			}
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("ERROR IN REQUEST");
+		} 
+	});
+});
+
+
+ $('#bn').on('blur', function(){
+ 		var nc=$('#bn').val();
+	$.ajax({
+		method: "POST",
+		url: "{{ route('checkBrand') }}",
+		data:{brandName:nc,'_token':"{{csrf_token()}}"},
+		success: function (data){
+			var array = jQuery.parseJSON(data);
+			$("#bnwarnm").html(array[0].message);	
+			if(array[0].exist==0){
+				$('#bnsubmit').prop('disabled', false);
+			}
+			else{
+				$('#bnsubmit').prop('disabled', true);
+			}
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("ERROR IN REQUEST");
+		} 
+	});
+});
+
+
+
 </script>
 
 

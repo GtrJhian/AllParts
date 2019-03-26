@@ -24,7 +24,7 @@
 									<div class="row">
 										<div class="col-sm-6">
 											<label>Category Name: </label>
-											<input type="text" name="cn" required class="form-control">
+											<input type="text" name="cn" id="cn" required class="form-control"><div id="cnwarnm"></div>
 											<hr>	
 											<label for="imageInput">Image</label>
 											<input name="categ_img" type="file" id="imageInput">
@@ -33,7 +33,7 @@
 									<hr>
 									<div class="row">
 										<div class="col-sm-12">
-											<input class="btn btn-success d-block mx-auto" type="submit" name="cnsubmit" value="Create Category">
+											<input class="btn btn-success d-block mx-auto" type="submit" id="cnsubmit" name="cnsubmit" value="Create Category">
 										</div>
 									</div>
 								</div>
@@ -47,7 +47,7 @@
 									<div class="row">
 										<div class="col-sm-6">
 											<label>Brand Name: </label>
-											<input type="text" name="bn" required class="form-control">
+											<input type="text" name="bn" id="bn" required class="form-control"><div id="bnwarnm"></div>
 											<hr>
 											<label for="imageInput">Image</label>
 											<input name="brand_img" type="file" id="imageInput">

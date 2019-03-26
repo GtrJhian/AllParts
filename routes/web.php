@@ -149,6 +149,9 @@ Route::post('/getInvAlerts','InventoryController@getInvAlerts')->name("getInvAle
 Route::post('/getInvItems','InventoryController@getInvItems')->name("getInvItems");
 Route::post('/getPic','InventoryController@getPic')->name("getPic");
 Route::post('/viewItem','InventoryController@viewItem')->name("viewItem");
+Route::post('/checkCode','InventoryController@checkCode')->name("checkCode");
+Route::post('/checkCateg','InventoryController@checkCateg')->name("checkCateg");
+Route::post('/checkBrand','InventoryController@checkBrand')->name("checkBrand");
 //End of Inventory Routes
 //--KasperBK
 //================================================//

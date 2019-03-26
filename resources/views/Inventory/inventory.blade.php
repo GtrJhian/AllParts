@@ -239,30 +239,30 @@ $(document).delegate('.archive_btn', 'click', function(){
 //function for view button
 $(document).delegate('.view_btn', 'click', function(){
 	$('#viewItem').modal('show');
-	var $row = $(this).closest('tr');
-	var rowID = $row.attr('id').split('_')[1];
-	var $itemcode = $('#itemcode');
-	var $brand = $('#brand');
-	var $category = $('#category');
-	var $quantity = $('#quantity');
-	var $description = $('#description');
-	var $price =$('#price');
-	var $plist =$('#package_itemlist');
-	var $type = $('#itemtype');
+	var row = $(this).closest('tr');
+	var rowID = row.attr('id').split('_')[1];
+	var itemcode = $('#itemcode');
+	var brand = $('#brand');
+	var category = $('#category');
+	var quantity = $('#quantity');
+	var description = $('#description');
+	var price = $('#price');
+	var plist = $('#package_itemlist');
+	var type = $('#itemtype');
 	$.ajax({
 		method: "POST",
 		url: "{{ route('viewItem') }}",
 		data:{itemID:rowID,'_token':"{{csrf_token()}}"},
 		success: function (data){
 			var array = jQuery.parseJSON(data);
-			$itemcode.text(array[0].ic);
-			$brand.text(array[0].ib);
-			$category.text(array[0].icateg);
-			$quantity.text(array[0].iq);
-			$description.text(array[0].idesc);
-			$price.text(array[0].ip);
-			$plist.html(array[0].plist);
-			$type.text(array[0].type);
+			itemcode.text(array[0].ic);
+			brand.text(array[0].ib);
+			category.text(array[0].icateg);
+			quantity.text(array[0].iq);
+			description.text(array[0].idesc);
+			price.text(array[0].ip);
+			plist.html(array[0].plist);
+			type.text(array[0].type);
 			document.getElementById("brandpic").src=array[0].bpic;
 			document.getElementById("categorypic").src=array[0].cpic;
 		//	document.getElementById("aic").value = array[0].Item_Code;
@@ -272,21 +272,89 @@ $(document).delegate('.view_btn', 'click', function(){
 		} 
 	});
 });
+ $('#ic').on('blur', function(){
+ 		var nc=$('#ic').val();
+	$.ajax({
+		method: "POST",
+		url: "{{ route('checkCode') }}",
+		data:{itemCode:nc,'_token':"{{csrf_token()}}"},
+		success: function (data){
+			var array = jQuery.parseJSON(data);
+			$("#icwarnm").html(array[0].message);	
+			if(array[0].exist==0){
+				$('#cisubmit').prop('disabled', false);
+			}
+			else{
+				$('#cisubmit').prop('disabled', true);
+			}
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("ERROR IN REQUEST");
+		} 
+	});
+});
+
+ $(document).delegate('#cireset', 'click', function(){	
+$('#cisubmit').prop('disabled', false);
+ });
 
 
+$('#pc').on('blur', function(){
+ 		var nc=$('#pc').val();
+	$.ajax({
+		method: "POST",
+		url: "{{ route('checkCode') }}",
+		data:{itemCode:nc,'_token':"{{csrf_token()}}"},
+		success: function (data){
+			var array = jQuery.parseJSON(data);
+			$("#pcwarnm").html(array[0].message);	
+			if(array[0].exist==0){
+				$('#cpsubmit').prop('disabled', false);
+			}
+			else{
+				$('#cpsubmit').prop('disabled', true);
+			}
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("ERROR IN REQUEST");
+		} 
+	});
+});
 
+$(document).delegate('.package_item', 'change', function(){
+	var option 			= $('#items option');
+	var output 			= $('#output');
+	var val = this.value;
+		if($(option).filter(function(){
+			return this.value === val;
+		}).length) {
+			output.html("");
+		}else{
+			this.value="";
+			output.html("Item doesn't Exist");
+		}     
+
+});
+
+$("#ItemCount").change(function(){
 /*function for multiple item in packages create*/
-function numOfLines(choice)
-{
+
+	var choice=$('#ItemCount').val();
 	document.getElementById("input_items").innerHTML='';
 	for(var i = 0; i < choice; ++i)
 	{
 		document.getElementById("input_items").innerHTML+= '<div class="row">' +
-		'<div class="col-sm-6"><label>Item Code:</label><input class="form-control" list="items" name="in-'+i+'" size="50" maxlength="50" required ></div> ' +
+		'<div class="col-sm-6"><label>Item Code:</label><input class="package_item form-control" list="items" name="in-'+i+'" size="50" maxlength="50" required ></div> ' +
 		'<div class="form-group col-sm-6"><label>Quantity Needed:</label><input class="form-control" type="number" name="iq-'+i+'" size="6" maxlength="6" value="1" min="1" required ></div>'+
 		'</div>';
 	}
-}
+
+});
+
+
+
+
+
 	});
 </script>
 
