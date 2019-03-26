@@ -477,19 +477,16 @@ function getInvAlerts(Request $req)
     $count=0;
     foreach($results as $result){
         if($result->Item_Quantity<=$result->Alarm_Quantity){
-            $output .= '
-            <li>
-            <p>
-            <strong>'.$result->Item_Code.'</strong></p><p style=color:red>
-            <small><em>';
             if($result->Item_Quantity>0){
-                $output .=
+            /*    $output .=
                 'Running Out('.$result->Item_Quantity.')</em></small>
                 </p>
                 </li>
                 <hr>    
-                ';
+                ';*/
+                $output.='<tr><td>'.$result->Item_Category.'</td><td>'.$result->Item_Code.'</td><td>'.$result->Item_Quantity.' '.$result->Item_Unit.'/s left</td></tr>';
             }
+
             else{
               $output .=
               'Out of Stock('.$result->Item_Quantity.')</em></small>
@@ -497,13 +494,11 @@ function getInvAlerts(Request $req)
               </li>
               <hr>    
               ';  
+               $output.='<tr><td>'.$result->Item_Category.'</td><td>'.$result->Item_Code.'</td><td> Out of Stock [0 '.$result->Item_Unit.'/s left]</td></tr>';
           }
           $count+=1;
       }
   }
-  if($count==0){
-    $output .= '<li><a href="#" class="text-bold text-italic">No Alerts :)</a></li>';
-}
 $record = array(
    'notification' => $output,
    'unseen_notification'  => $count
@@ -511,6 +506,103 @@ $record = array(
 
 echo json_encode($record);
 }
+
+
+/*-----------------------------------------------------------------------------------*/
+//Get Inventory Alerts
+function getInvItems(Request $req)
+{
+    $inventories= DB::table('inventory')->where('archive',0)->orderBy('item_code','ASC')->get();
+    $output = '';
+    $count=0;
+    foreach($inventories as $inventory){
+                        $output.="<tr id='trID_".$inventory->Item_ID."'>";
+
+                        if($inventory->Item_Quantity<=$inventory->Alarm_Quantity){
+                        $output.="<td><p style='color:red'><b>".$inventory->Item_Code."</b></p></td>";
+                        }
+                        else{
+                        $output.="<td><p><b>".$inventory->Item_Code."</b></p></td>";
+                        }
+                        $output.="<td>".$inventory->Item_Description."</td>
+                        <td>";
+          
+                          $brand = \DB::table('item_brands')->where('brand_id',$inventory->Item_Brand)->value('brand_name');
+                          
+                          $output.=$brand."
+                        </td>
+                        <td>";
+                          
+                          $category = \DB::table('item_categories')->where('category_id',$inventory->Item_Category)->value('item_category');
+                          
+                          $output.=$category.
+                        "</td>
+                        <td>";
+                        
+                        if($inventory->Item_Type==0){
+                          $output.="Item";
+                        }
+                        else{
+                          $output.= "Package";
+                        }
+                        
+                      $output.="</td>
+                      <td>".$inventory->Item_Quantity." ".$inventory->Item_Unit."s</td>
+                      <td>₱".$inventory->Item_Price."</td>
+                      <td>".$inventory->Alarm_Quantity." ".$inventory->Item_Unit."s</td>
+                      <td>
+                        <button class='view_btn btn btn-primary btn-action-invt'>
+                          <i class='fa fa-eye'></i>
+                        </button>";
+
+                        if($inventory->Item_Type==0){
+                        $output.="<button class='update_item_btn btn btn-primary btn-action-invt'>
+                          <i class='fa fa-edit'></i>
+                        </button>";
+                        }
+                        else{
+                        $output.="<button class='update_pckg_btn btn btn-primary btn-action-invt'>
+                          <i class='fa fa-edit'></i>
+                        </button>";
+                        }
+                        $output.="<button class='archive_btn btn btn-danger btn-action-invt'>
+                          <i class='fa fa-times'></i>
+                        </button>
+                      </td></tr>";
+                      }
+$record = array(
+   'notification' => $output,
+   'unseen_notification'  => $count
+);
+
+echo json_encode($record);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
 
 
 /*-----------------------------------------------------------------------------------*/

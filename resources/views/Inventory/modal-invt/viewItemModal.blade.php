@@ -34,10 +34,11 @@
 						<div class="col-sm-5">
 							<div class="card">
 								<div class="card-body">
-									<b><span class="info-labels" id="itemcode">Item Code</span><br>
+									<b><span class="info-labels" id="itemcode">Item Code</span></b><br>
 										<span class="info-labels" id="brand">Brand</span><br>
-										<span class="info-labels" id="category">Category</span><br></b>
-										<span class="info-labels" id="quantity">Quantity</span>
+										<span class="info-labels" id="category">Category</span><br>
+										<b><span class="info-labels" id="price">Item Price</span></b><br>
+										<i><span class="info-labels" id="quantity">Quantity</span></i>
 									</div>
 								</div>
 							</div>

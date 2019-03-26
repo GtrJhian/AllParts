@@ -21,7 +21,7 @@
 				</ol> --}}
 				<ol class="breadcrumb" style="border-radius: 0px;background-color:#fff">
 					<li class="breadcrumb-item">
-						<h6 class="text5" style="letter-spacing: .15em; text-transform: uppercase;"><strong><i class="fa fa-clipboard-list" style="font-size:23px"></i> Inventory Reports</strong>
+						<h6 class="text5" style="letter-spacing: .15em; text-transform: uppercase;"><strong><i class="fa fa-clipboard-list" style="font-size:23px"></i> Inventory Alerts</strong>
 						</h6>
 					</li>
 					{{-- <li class="dropdown">
@@ -41,18 +41,13 @@
 									<table class="table table-striped" id="report_table">
 										<thead>
 											<tr>
-												<th>Item</th>
-												<th>Item Description</th>
+												<th>Category</th>
+												<th>Item Code</th>
 												<th>Alert</th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
-										</tbody>
+										<tbody id="report_tablebody">
+											</tbody>
 									</table>
 								</div>
 							</div>
@@ -77,9 +72,7 @@
 
 <script>
 
-	$(document).ready(function() {
-		$('#report_table').DataTable();
-	});
+	
 
 	$(document).ready(function(){
     // updating the view with notifications using ajax
@@ -91,11 +84,13 @@
     		data:{'_token':"{{csrf_token()}}"},
     		success: function (data){
     			var array = jQuery.parseJSON(data);
-    			$('.dropdown-menu').html(array.notification);
-    			if(array.unseen_notification > 0)
-    			{
-    				$('.count').html(array.unseen_notification);
-    			}
+    		//	$('#table_body').html(array.notification);
+
+    			
+    			$("#report_table").dataTable().fnDestroy()
+    			$("#report_tablebody").empty();
+    			$('#report_table').find('tbody').append(array.notification);
+    			$('#report_table').DataTable();
     		},
     		error: function(XMLHttpRequest, textStatus, errorThrown) {
     			alert("ERROR IN REQUEST");
@@ -105,18 +100,16 @@
 
     load_unseen_notification();
 
- // load new notifications
- $(document).on('click', '.dropdown-toggle', function(){
- 	$('.count').html('');
- 	load_unseen_notification();  
- });
+
 
 //refresh every 5 secs
 setInterval(function(){
 	load_unseen_notification();;
-}, 5000);
+}, 60000);
 
 });
+
+	
 </script>
 
 

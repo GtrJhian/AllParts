@@ -91,6 +91,11 @@ Route::get('/Billing/unarchive/{id}','BillingController@unarchiveBill');
 //End of Billing Routes
 //--Fred 
 //================================================//
+
+//================================================//
+//Inventory Routes
+// Route::resource('Inventory', 'InventoryController');
+
 Route::get('/selectInventory',function(){
 	$inventories = \DB::table('inventory')->where('archive',0)->where('Item_Type',0)->orderBy('item_code','ASC')->get();
 	return view('inventory.index_inventory')->with('inventories',$inventories);
@@ -141,7 +146,10 @@ Route::post('/popPckgList','InventoryController@popPckgList')->name("popPckgList
 Route::post('/popBrandForm','InventoryController@popBrandForm')->name("popBrandForm");
 Route::post('/popCategoryForm','InventoryController@popCategoryForm')->name("popCategoryForm");
 Route::post('/getInvAlerts','InventoryController@getInvAlerts')->name("getInvAlerts");
+Route::post('/getInvItems','InventoryController@getInvItems')->name("getInvItems");
 Route::post('/getPic','InventoryController@getPic')->name("getPic");
 Route::post('/viewItem','InventoryController@viewItem')->name("viewItem");
-//--Keith
+//End of Inventory Routes
+//--KasperBK
+//================================================//
 ?>
