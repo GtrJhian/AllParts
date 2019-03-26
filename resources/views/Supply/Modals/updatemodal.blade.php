@@ -1,15 +1,22 @@
-<div class="modal fade" id="updatesup">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">UPDATE SUPPLIER</h4>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body">
-					<div id="item" class="container tab-pane active"><br>
-						<form id="itemCreate" action="/updateItem" method="post"/>
+@extends('components/main')
+
+@section('content')
+<script>
+	var msg = '{{Session::get('alert')}}';
+	var exist = '{{Session::has('alert')}}';
+	var evalmsg = msg.replace(/(&quot\;)/g,"\"");
+	if(exist){
+		alert(evalmsg);
+	}
+</script>
+<body>
+	@include('components.nav2')
+	<div id="wrapper">
+		@include('components.menu3')
+						<form id="itemCreate" action="{{url('/supplier/status/update')}}" method="post">
+						<input type='hidden' name='id' class='modal_hiddenid' value='1'>
 						{{ csrf_field() }}
-						<input type="hidden" value="" id="supid" name="uid">
+						<!-- <input type="hidden" value="" id="supid" name="uid"> -->
 
 						<div class="form-horizontal">
 							<div class="row">
@@ -40,13 +47,9 @@
 							</div><br>
 							<div class="row">
 								<div class="col-sm-12">
-									<input class="btn btn-success btn-block" type="submit" name="uisubmit" value="Update Item">
+									<input class="btn btn-success btn-block" type="submit" name="uisubmit" value="Update Supplier">
 								</div>
 							</div>
 						</div>
 					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-</div> {{-- end UPDATE supplier --}}
+			

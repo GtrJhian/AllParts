@@ -79,7 +79,7 @@ Route::get('/supplier/restore/{id}', [
 	'uses' => 'SupplierController@restore',
 	'as' => 'supplier.restore'
 ]);
-Route::post('/supplier/edit/{id}',[
+Route::get('/supplier/edit/{id}',[
 	'uses'=>'SupplierController@edit',
 	'as'=>'supplier.edit'
 ]);
@@ -87,7 +87,6 @@ Route::post('/supplier/update/{id}',[
 	'uses'=>'SupplierController@update',
 	'as'=>'supplier.update'
 ]);
-Route::post('/supplierForm','SupplierController@popsupForm')->name("supplierForm");
 //===============================//
 
 //===============Customer Routes==================//

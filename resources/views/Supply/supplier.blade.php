@@ -56,9 +56,9 @@
 														<td>{{$supply->Company_Email}}</td>
 													<td>
 														
-														<button  class="update_item_btn btn btn-primary btn-action-invt">
+														<a href="{{ route('supplier.edit',['id' => $supply->Supplier_ID])}}" class="update_item_btn btn btn-primary btn-action-invt">
 															<i class="fa fa-edit"></i>
-														</button>
+														</a>
 														
 														<a href="{{ route('supplier.archive',['id' => $supply->Supplier_ID])}}" class="archive_btn btn btn-danger btn-action-invt" >  
 														<!-- data-toggle="modal" data-target="#removesupplier" -->
@@ -99,10 +99,7 @@
 		</a> 
 	</div>
 	
-	<!-- UPDATE SUPPLIER MODAL -->
-	@include('Supply.Modals.updatemodal')
-	<!---REMOVE SUPPLIER FORM ----->
-	@include('Supply.Modals.removemodal')
+	
 	<!-- CREATE SUPPLIER MODAL -->
 	@include('Supply.Modals.addmodal')
 	
@@ -118,28 +115,6 @@
 		$('#itemlist').DataTable();
 	});
 	
-	//function for update item button	
-	$('.update_item_btn').click(function(){
-		var $row = $(this).closest('tr');
-		var rowID = $row.attr('id').split('_')[1];
-		$('#supid').val(rowID);
-		$.ajax({
-			method: "POST",
-			url: "{{ route('supplierForm') }}",
-			data:{itemID:rowID,'_token':"{{csrf_token()}}"},
-			success: function (data){
-				var array = jQuery.parseJSON(data);
-				document.getElementById("companyname").value = array[0].Company_Name;
-				document.getElementById("companyadd").value = array[0].Company_Address;
-				document.getElementById("companynumber").value = array[0].Company_Contact;
-				document.getElementById("companyemail").value = array[0].Company_Email;
-				
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				alert("ERROR IN REQUEST");
-			} 
-		});
-		$('#updatesup').modal('show');
-	});
+	
 </script>
 @stop
