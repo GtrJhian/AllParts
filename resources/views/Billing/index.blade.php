@@ -306,9 +306,11 @@
 	}
 
 	//Data Of Second Part
+		var totalAmount = 0;
 	function loadDataSecondPart(objSaleDetails){
 		$('#modalSaleDetailsTbody').html("");
 		var totalItems = 0;
+			totalAmount=0;
 		for(var i=0; i<objSaleDetails.length; i++){
 			totalItems++;
 			$('#modalSaleDetailsTbody').append("<tr>");
@@ -319,14 +321,17 @@
 			$('#modalSaleDetailsTbody').append("<td>" + objSaleDetails[i].Unit_Price + "</td>");
 			$('#modalSaleDetailsTbody').append("<td>" + (objSaleDetails[i].Quantity * objSaleDetails[i].Unit_Price) + "</td>");
 			$('#modalSaleDetailsTbody').append("</tr>");
+			totalAmount += (objSaleDetails[i].Quantity * objSaleDetails[i].Unit_Price);
 		}
+		$('#totalDebit').html(totalAmount);
 		$('#modalTotalItems').html("Total Items: " + totalItems);
 	}
 
 	//Data Of Third Part
+		var totalPayment = 0;
 	function loadDataThirdPart(objAccDetails){
 		$('#modalAccDetailsTbody').html("");
-		var totalPayment = 0;
+		totalPayment = 0;
 		for(var i=0; i<objAccDetails.length; i++){
 			$('#modalAccDetailsTbody').append("<tr>");
 			$('#modalAccDetailsTbody').append("<td>" + (i+1) + "</td>");
@@ -335,6 +340,7 @@
 			$('#modalAccDetailsTbody').append("</tr>");
 			totalPayment += parseInt(objAccDetails[i].Acc_Payment);
 		}
+		$('#totalBalance').html(totalAmount-totalPayment);
 		$('#modalTotalPayment').html("Total Payment: " + totalPayment);
 	}
 
