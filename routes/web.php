@@ -85,7 +85,9 @@ Route::get('/Billing/{id}/edit','BillingController@editBill');
 Route::post('/Billing/addPayment','BillingController@addPayment');
 Route::get('/Billing/archive/{id}','BillingController@archiveBill');
 Route::get('/Billing/Receipt/{id}','BillingController@receipt');
-Route::get('/Billing/Excel/','BillingController@excel');
+Route::get('/Billing/Excel/{month}/{archived}','BillingController@excel');
+Route::get('/Billing/viewArchived/','BillingController@viewArchived');
+Route::get('/Billing/unarchive/{id}','BillingController@unarchiveBill');
 //End of Billing Routes
 //--Fred 
 //================================================//

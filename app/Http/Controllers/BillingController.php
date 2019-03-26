@@ -87,37 +87,61 @@ class BillingController extends Controller
 			return $dataFind;
 		}
 		
-		public function addPayment(Request $request){
-			if($request->ajax()){
-				$data = array(
-					'Sale_ID' => $request->id,
-					'Acc_Date' => date("Y/m/d"),
-					'Acc_Payment' => $request->payment
-				);
+	public function addPayment(Request $request){
+		if($request->ajax()){
+			$data = array(
+				'Sale_ID' => $request->id,
+				'Acc_Date' => date("Y/m/d"),
+				'Acc_Payment' => $request->payment
+			);
 
-				if(!DB::table('accounting')->insert($data)){
-					return "Error Saving Payment";
-				}else {
-					DB::table('sale')
-							->where('Sale_ID', '=', $request->id)
-							->increment('credit', $request->payment);
+			if(!DB::table('accounting')->insert($data)){
+				return "Error Saving Payment";
+			}else {
+				DB::table('sale')
+						->where('Sale_ID', '=', $request->id)
+						->increment('credit', $request->payment);
 
-					$dataAccDetails = DB::table('accounting')
-												->select('Acc_Date', 'Acc_Payment')
-												->where('Sale_ID', $request->id)
-												->get();
-					return $dataAccDetails;
-				}
-			}else return "Error Saving Payment";
-		}
+				//Save to Logs
+				$actionParam = "Add Payment For Sale ID ->".$request->id;
+				$this->saveLog(1, $actionParam);
+
+				$dataAccDetails = DB::table('accounting')
+											->select('Acc_Date', 'Acc_Payment')
+											->where('Sale_ID', $request->id)
+											->get();
+				return $dataAccDetails;
+			}
+		}else return "Error Saving Payment";
+	}
+
+	//This part must change because the account ID is static
+	function saveLog($id, $action){
+		date_default_timezone_set('Asia/Manila');
+		
+		$data_user_log = array(
+			'Acc_ID' => $id,
+			'Action' => $action,
+			'Date' => date("Y/m/d h:i:sa")
+		);
+		
+		DB::table('user_log')->insert($data_user_log);
+	}
 
 		function archiveBill(Request $request){
 			if($request->ajax()){
 				$saleTable = DB::table('sale')
 								->where('Sale_ID', '=', $request->id)
 								->update(['Sale_archived' => 1 ]);
+
 				if(!$saleTable) return "Something went wrong";
-				else return "Success";
+				else {
+					//Save to Logs
+					$actionParam = "Archived Sale ID ->".$request->id;
+					$this->saveLog(1, $actionParam);
+
+					return "Success";
+				}
 			}else return "Something went wrong";
 		}
 
@@ -127,8 +151,44 @@ class BillingController extends Controller
 			return view('Billing.Receipt.sales');
 		}
 
-		function excel(){
-			return (new BillingExport)->download('Billing Data.xlsx', \Maatwebsite\Excel\Excel::XLSX);
-			// echo (BillingPost::billingQuery()->get());
+		function excel($month, $archived){
+			if(sizeof(BillingPost::billingQuery($month, $archived)->get())>0){
+				//Save to Logs
+				$actionParam = "Generate Reports with Month ->".$month;
+				$this->saveLog(1, $actionParam);
+	
+				return (new BillingExport($month, $archived))->download('Billing Data.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+			}else{
+				echo "<h1>NO DATA TO GENERATE</h1>";
+			}
+			
+			// echo (sizeof(BillingPost::billingQuery($month, $archived)->get()));
 		}
+
+		function viewArchived(){
+			$dataArchived = DB::table('sale')
+									->join('customer','customer.Cus_ID', 'sale.Cus_ID')
+									->select('F_Name', 'L_Name', 'Company', 'Address', 'sale.Sale_ID', 'debit', 'credit')
+									->where('Sale_Archived', '=', '1')
+									->get();
+
+			return $dataArchived;
+		}
+
+		function unarchiveBill(Request $request){
+			if($request->ajax()){
+				$saleTable = DB::table('sale')
+								->where('Sale_ID', '=', $request->id)
+								->update(['Sale_archived' => 0 ]);
+				if(!$saleTable) return "Something went wrong";
+				else {	
+					//Save to Logs
+					$actionParam = "Unarchived Sale ID ->".$request->id;
+					$this->saveLog(1, $actionParam);
+
+					return "Success";
+				}
+			}else return "Something went wrong";
+		}
+
 }
