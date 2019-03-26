@@ -19,7 +19,7 @@ class BillingController extends Controller
 			// return view('billing.index')->with('billingposts', $billingposts);
 			$dataIndex = DB::table('sale')
 							->join('customer','customer.Cus_ID', 'sale.Cus_ID')
-							->select('F_Name', 'L_Name', 'Company', 'Address', 'sale.Sale_ID', 'debit', 'credit')
+							->select('F_Name', 'L_Name', 'Sale_Date', 'Company', 'Address', 'sale.Sale_ID', 'debit', 'credit')
 							->where('Sale_Archived', '=', '0')
 							->get();
 			return view('billing.index')->with('indexPost', $dataIndex);
@@ -34,10 +34,7 @@ class BillingController extends Controller
     public function viewBill($id)
     {	
 			$dataSale = $this->find($id);
-			$dataSaleDetails = DB::table('sale_detail')
-													->select('Quantity', 'Unit', 'Unit_Price')
-													->where('Sale_ID', $id)
-													->get();
+			$dataSaleDetails = $this->findDetails($id);
 													
 			$dataAccDetails = DB::table('accounting')
 												->select('Acc_Date', 'Acc_Payment')
@@ -59,10 +56,7 @@ class BillingController extends Controller
      */
     public function editBill($id)
     {	
-			$dataSaleDetails = DB::table('sale_detail')
-													->select('Quantity', 'Unit', 'Unit_Price')
-													->where('Sale_ID', $id)
-													->get();
+			$dataSaleDetails = $this->findDetails($id);
 													
 			$dataAccDetails = DB::table('accounting')
 												->select('Acc_Date', 'Acc_Payment')
@@ -76,16 +70,25 @@ class BillingController extends Controller
 			return $data;
 	}
 	
-    //Custom Methods
-    public function find($id){
-			$dataFind = DB::table('sale')
-										->join('customer', 'customer.Cus_ID', 'sale.Cus_ID')
-										->select('Sale_Date', 'sales_invoice_no', 'term_of_payment', 'debit', 'Vat_sales', 'Vat_amount', 'credit', 
-															'F_Name', 'L_Name', 'Contact_No', 'Address', 'Company', 'TIN_no', 'OSCA_PWD_ID')
-										->where('sale.Sale_ID', '=' ,$id)
-										->get();
-			return $dataFind;
-		}
+	//Custom Methods
+	public function find($id){
+		$dataFind = DB::table('sale')
+									->join('customer', 'customer.Cus_ID', 'sale.Cus_ID')
+									->select('Sale_Date', 'sales_invoice_no', 'term_of_payment', 'debit', 'Vat_sales', 'Vat_amount', 'credit', 
+														'F_Name', 'L_Name', 'Contact_No', 'Address', 'Company', 'TIN_no', 'OSCA_PWD_ID')
+									->where('sale.Sale_ID', '=' ,$id)
+									->get();
+		return $dataFind;
+	}
+
+	public function findDetails($id){
+		$dataFindDetails = DB::table('sale_detail')
+								->join('inventory', 'inventory.Item_ID', 'sale_detail.Item_ID')
+								->select('Quantity', 'Unit', 'Unit_Price', 'Item_Description', 'Item_Code')
+								->where('Sale_ID', $id)
+								->get();
+		return $dataFindDetails;
+	}
 		
 	public function addPayment(Request $request){
 		if($request->ajax()){
@@ -147,8 +150,16 @@ class BillingController extends Controller
 
 		function receipt($id){
 
-			// return view('billing.index')->with('indexPost', $dataIndex);
-			return view('Billing.Receipt.sales');
+			$dataSale = $this->find($id);
+			$dataSaleDetails = $this->findDetails($id);
+
+			$data = array(
+				'dataSale'=>$dataSale,
+				'dataSaleDetails' => $dataSaleDetails
+			);			
+
+			// return $data;
+			return view('Billing.Receipt.sales')->with('receiptPost', $data);
 		}
 
 		function excel($month, $archived){

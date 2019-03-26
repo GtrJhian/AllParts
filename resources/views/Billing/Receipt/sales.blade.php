@@ -1,10 +1,11 @@
+
+<?php 
+  $dataSale = $receiptPost['dataSale']['0'];
+  $dataSaleDetails = $receiptPost['dataSaleDetails']['0'];
+?>
 <html>
 <head>
-  <!-- <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-	<script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-  <link href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet"> -->
-  <!-- <link rel="stylesheet" type="text/css" href="{{asset('vendor/custom/textanimate.css')}}"> -->
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">  
   <title>Billing</title>
   <style>
     /* *{font-family: 'Nunito',sans-serif;}; */
@@ -34,39 +35,39 @@
       <div class="row">
         <div class="col-xs-8"></div>
         <label> NO.: </label> 
-        <input style="color:red" type="text" size="20" readonly value="">
+      <input style="color:red" type="text" size="20" readonly value="{{ $dataSale->sales_invoice_no}}">
         </div>
       <br/>       
       <div class="row" align="left">
         <div class="col-xs-8">
-        <label>Sold to: <input type="text" size="65" readonly></label>
+        <label>Sold to: <input type="text" size="65" readonly value="{{ $dataSale->F_Name.' '.$dataSale->L_Name}}"></label>
         </div>
         <div class="col-xs-4" align="left">
-        <label>Date: <input type="text" size="27" readonly></label>   
+        <label>Date: <input type="text" size="27" readonly value="{{ $dataSale->Sale_Date}}"></label>   
         </div>
       </div>
       <div class="row" align="left">
           <div class="col-xs-8">
-          <label>  Address: <input type="text" size="64" readonly></label>
+          <label>  Address: <input type="text" size="64" readonly value="{{ $dataSale->Address}}"></label>
           </div>
           <div class="col-xs-4">
-          <label> P.O. No.: <input type="text" size="24" readonly></label>
+          <label> P.O. No.: <input type="text" size="24" readonly value="{{ $dataSale->Sale_Date}}"></label>
           </div>
       </div>
       <div class="row" align="left">
         <div class="col-xs-4">
-        <label> TIN: <input type="text" size="29" readonly></label>
+        <label> TIN: <input type="text" size="29" readonly value="{{ $dataSale->TIN_no}}"></label>
         </div>
         <div class="col-xs-4" align="left">
         <label>  Bus Style: <input type="text" size="21" readonly></label>
         </div>
         <div class="col-xs-4" >
-        <label>  OSCA/PWD ID No.: <input type="text" size="14" readonly></label>
+        <label>  OSCA/PWD ID No.: <input type="text" size="14" readonly value="{{ $dataSale->OSCA_PWD_ID}}"></label>
         </div>
       </div>
       <div class="row" align="left">
         <div class="col-xs-4">
-        <label> Terms of Payment: <input type="text" size="16" readonly></label>
+        <label> Terms of Payment: <input type="text" size="16" readonly value="{{ $dataSale->term_of_payment}}"></label>
         </div>
         <div class="col-xs-4" align="left">
         <label>  D.R. No.: <input type="text" size="22" readonly></label>
@@ -78,40 +79,23 @@
       <br/><br/>
       <table width="100%" class="table-responsive" align="center" border ="2" style="font-family: 'Nunito',sans-serif;">
         <tr>
-          <th class="col-xs-1">QUANTITY</th>
-          <th class="col-xs-1">UNIT </th>
-          <th class="col-xs-5">ARTICLES</th>
-          <th class="col-xs-3">UNIT PRICE</th>
-          <th class="col-xs-3">AMOUNT</th>
+          <th class="col-xs-1" style="text-align: center">QUANTITY</th>
+          <th class="col-xs-1" style="text-align: center">UNIT </th>
+          <th class="col-xs-5" style="text-align: center">ARTICLES</th>
+          <th class="col-xs-3" style="text-align: center">UNIT PRICE</th>
+          <th class="col-xs-3" style="text-align: center">AMOUNT</th>
         </tr>
-        <tr>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-        </tr>
+        <?php $totalAmount = 0; ?>
+        @foreach($receiptPost['dataSaleDetails'] as $post)
+          <tr style="text-align: center">
+            <td>{{$dataSaleDetails->Quantity}}</td>
+            <td>{{$dataSaleDetails->Unit}}</td>
+            <td>{{$dataSaleDetails->Item_Description}}</td>
+            <td>{{$dataSaleDetails->Unit_Price}}</td>
+            <td>{{($dataSaleDetails->Quantity * $dataSaleDetails->Unit_Price)}}</td>
+            <?php $totalAmount += ($dataSaleDetails->Quantity * $dataSaleDetails->Unit_Price); ?>
+          </tr>
+        @endforeach
         <tr>
           <td></td>
           <td></td>
@@ -129,7 +113,7 @@
         <tr>
           <td></td>
           <td></td>
-          <td>VATable Sales:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</td>
+          <td>VATable Sales:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;{{$totalAmount - $totalAmount * ($dataSale->Vat_sales/100)}}</td>
           <td>Amount Net of VAT:</td>
           <td></td>
         </tr>
@@ -150,7 +134,7 @@
         <tr>
           <td></td>
           <td></td>
-          <td>VAT Amount:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</td>
+          <td>VAT Amount:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;{{ $totalAmount * ($dataSale->Vat_sales/100)}}</td>
           <td>Add VAT:</td>
           <td></td>
         </tr>
@@ -159,63 +143,9 @@
           <td></td>
           <td></td>
           <td>Total Amount Due:</td>
-          <td>&#8369</td>
+        <td>&#8369;&nbsp;{{$totalAmount}}</td>
         </tr>
       </table>
-      <!--
-      <div class="row" align="left">
-        <div class="col-xs-6"></div>
-        <div class="col-xs-6" align="right">
-          Total Sales (VAT Inclusive): <input type="text" size="18" readonly>   
-        </div>
-      </div>
-      <div class="row" align="left">
-        <div class="col-xs-6"></div>
-        <div class="col-xs-6" align="right">
-          Less VAT: <input type="text" size="18" readonly>   
-        </div>
-      </div>
-      <div class="row" align="left">
-        <div class="col-xs-7" align="right">
-          VATable Sales: <input type="text" size="18" readonly>  
-        </div>
-        <div class="col-xs-5" align="right">
-          Amount Net of VAT: <input type="text" size="18" readonly>   
-        </div>
-      </div>
-      <div class="row" align="left">
-        <div class="col-xs-7" align="right">
-          VAT Exempt Sales: <input type="text" size="18" readonly>  
-        </div>
-        <div class="col-xs-5" align="right">
-          Less SC/PWD Discount: <input type="text" size="18" readonly>   
-        </div>
-      </div>
-      <div class="row" align="left">
-        <div class="col-xs-7" align="right">
-          Zero Rated Sales: <input type="text" size="18" readonly>  
-        </div>
-        <div class="col-xs-5" align="right">
-          Amount Due: <input type="text" size="18" readonly>   
-        </div>
-      </div>
-      <div class="row" align="left">
-        <div class="col-xs-7" align="right">
-          VAT Amount: <input type="text" size="18" readonly>  
-        </div>
-        <div class="col-xs-5" align="right">
-          Add VAT: <input type="text" size="18" readonly>   
-        </div>
-      </div>
-      <br>
-      <div class="row" align="left">
-        <div class="col-xs-6"></div>
-        <div class="col-xs-6" align="right">
-          <label>TOTAL AMOUNT DUE: <input type="text" size="18" readonly> </label> 
-        </div>
-      </div>
-      <br>
-      -->
       <div class="row" align="left">
           <div class="col-xs-8">
             <label style="font-size: 10px; text-align:justify">
@@ -228,7 +158,7 @@
           <div class="col-xs-4" align="right">
               <br><br><br><br>
               <label> By: </label>
-              <input type="text" size="25" readonly> 
+              <input type="text" size="25" readonly value="Keith Pacio"> 
               <label>Cashier/Authorized Representative</label>
           </div>
       </div>

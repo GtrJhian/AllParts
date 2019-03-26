@@ -40,6 +40,7 @@
 														<thead>
 															<th width=10%>TR No.</th>
 															<th width=20%>NAME</th>
+															<th width=10%>Date</th>
 															<th width=20%>COMPANY</th>
 															<th width=20%>ADDRESS</th>
 															<th width=10%>Status</th>
@@ -52,6 +53,7 @@
 																	<tr>
 																		<td>{{$post->Sale_ID}}</td>
 																		<td>{{$post->F_Name.' '.$post->L_Name}}</td>
+																		<td>{{$post->Sale_Date}}</td>
 																		<td>{{$post->Company}}</td>
 																		<td>{{$post->Address}}</td>
 																		<td>
@@ -60,7 +62,7 @@
 																				@endif
 																		</td>
 																		<td>
-																			<a class="btn btn-sm btn-primary" style="font-size:12px" href="#" data-id="{{$post->Sale_ID}}" onclick="viewBilling({{ $post->Sale_ID }})"><i class="fa fa-eye"></i></a>
+																			<a class="btn btn-sm btn-success" style="font-size:12px" href="#" data-id="{{$post->Sale_ID}}" onclick="viewBilling({{ $post->Sale_ID }})"><i class="fa fa-eye"></i></a>
 																			<a class="btn btn-sm btn-primary" style="font-size:12px" href="#" data-id="{{$post->Sale_ID}}" id="updateBill"><i class="fa fa-edit"></i></a>
 																			<a class="btn btn-sm btn-danger" style="font-size:12px" href="#" data-id="{{$post->Sale_ID}}" id="archiveBill"><i class="fa fa-trash"></i></a>
 																		</td>
@@ -306,8 +308,9 @@
 			totalItems++;
 			$('#modalSaleDetailsTbody').append("<tr>");
 			$('#modalSaleDetailsTbody').append("<td>" + totalItems + "</td>");
-			$('#modalSaleDetailsTbody').append("<td>" + objSaleDetails[i].Quantity + "</td>");
+			$('#modalSaleDetailsTbody').append("<td>" + objSaleDetails[i].Item_Description + "</td>");
 			$('#modalSaleDetailsTbody').append("<td>" + objSaleDetails[i].Unit + "</td>");
+			$('#modalSaleDetailsTbody').append("<td>" + objSaleDetails[i].Quantity + "</td>");
 			$('#modalSaleDetailsTbody').append("<td>" + objSaleDetails[i].Unit_Price + "</td>");
 			$('#modalSaleDetailsTbody').append("<td>" + (objSaleDetails[i].Quantity * objSaleDetails[i].Unit_Price) + "</td>");
 			$('#modalSaleDetailsTbody').append("</tr>");

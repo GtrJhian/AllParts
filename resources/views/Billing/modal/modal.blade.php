@@ -69,8 +69,9 @@
 											<table class="table table-striped" width="100%" cellspacing="0">
 												<thead>
 													<th>No.</th>
-													<th>Quantity</th>
+													<th>Description</th>
 													<th>Unit</th>
+													<th>Quantity</th>
 													<th>Unit Price</th>
 													<th>Total Price</th>
 												</thead>
