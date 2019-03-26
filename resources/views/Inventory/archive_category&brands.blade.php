@@ -140,7 +140,12 @@
 			@include('components.footer2')
 		</div>
 	</div>
-
+	<div class="zoom">
+		<a class="zoom-fab zoom-btn-blue zoom-btn-large tooltip-iventory-blue" href="/category&brands">
+			<i class="fa fa-arrow-left"></i>
+			<span class="tooltip-iventorytext-blue">Back</span>
+		</a>
+	</div>
 
 
 
