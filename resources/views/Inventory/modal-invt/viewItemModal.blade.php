@@ -2,7 +2,7 @@
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">ITEM INFORMATION</h4>
+					<h4 class="modal-title" id="itemtype">ITEM INFORMATION</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
@@ -17,10 +17,10 @@
 								</ul>
 								<div class="carousel-inner">
 									<div class="carousel-item active">
-										<img src="{{asset('inventory/none.png')}}" alt="Category" style="height: 200px; width: 200px; border:1px solid black;"> 
+										<img src="{{asset('inventory/none.png')}}" alt="Category" id="categorypic" style="height: 200px; width: 200px; border:1px solid black;"> 
 									</div>
 									<div class="carousel-item">
-										<img src="{{asset('inventory/none.png')}}" alt="Brand" style="height: 200px; width: 200px; border:1px solid black;">
+										<img src="{{asset('inventory/none.png')}}" alt="Brand" id="brandpic" style="height: 200px; width: 200px; border:1px solid black;">
 									</div>
 								</div>
 								<a class="carousel-control-prev" href="#itemInformation" data-slide="prev">
@@ -34,10 +34,11 @@
 						<div class="col-sm-5">
 							<div class="card">
 								<div class="card-body">
-									<b><span class="info-labels" id="itemcode">Item Code</span><br>
+									<b><span class="info-labels" id="itemcode">Item Code</span></b><br>
 										<span class="info-labels" id="brand">Brand</span><br>
-										<span class="info-labels" id="category">Category</span><br></b>
-										<span class="info-labels" id="quantity">Quantity</span>
+										<span class="info-labels" id="category">Category</span><br>
+										<b><span class="info-labels" id="price">Item Price</span></b><br>
+										<i><span class="info-labels" id="quantity">Quantity</span></i>
 									</div>
 								</div>
 							</div>
@@ -51,8 +52,7 @@
 						</div>
 						<hr>
 						<div class="row">
-							<div class="col-sm-12">
-								<h4 class="info-labels">Items Included</h4>
+							<div class="col-sm-12" id="package_itemlist">
 							</div>
 						</div>
 					</div>
