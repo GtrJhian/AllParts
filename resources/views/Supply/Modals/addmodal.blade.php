@@ -10,7 +10,7 @@
 				<!---- ADD FORM----->
 				<div class="tab-content">
 					<div id="addSupply" class="container tab-pane active"><br>
-						<form id="addSupply" action="" method="post"/>
+						<form id="addSupply" action="/add/supplier" method="post">
 						{{ csrf_field() }}
 						<div class="form-horizontal">
 							<div class="row">
@@ -25,12 +25,6 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<textarea class="form-control" name="compaddress" required></textarea>
-								</div>
-							</div><br>
-							<div class="row">
-								<label class="col-sm-4">Agent: </label>
-								<div class="col-sm-8">
-                                <input type="text" name="companyagent" required class="form-control">
 								</div>
 							</div><br>
 							<div class="row">

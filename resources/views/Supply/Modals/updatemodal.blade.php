@@ -39,12 +39,6 @@
 								</div>
 							</div><br>
 							<div class="row">
-								<label class="col-sm-4">Agent: </label>
-								<div class="col-sm-8">
-                                <input type="text" name="companyagent" required class="form-control">
-								</div>
-							</div><br>
-							<div class="row">
 								<label class="col-sm-4">Agent Contact Number: </label>
 								<div class="col-sm-8">
                                 <input type="number" name="companyagentnum" required class="form-control">

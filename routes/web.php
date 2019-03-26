@@ -57,7 +57,23 @@ Route::get('/orders',function(){
 Route::get('/supply/reports',function(){
 	return view('Supply.reports');
 });
+Route::post('/add/supplier', [
+	'uses' => 'SupplierController@store'
+]);
+Route::get('/trash/supplier/{id}', [
+	'uses' => 'SupplierController@destroy',
+	'as' => 'supplier.archive'
+]);
 
+Route::get('/supplier/archive', [
+	'uses' => 'SupplierController@trashed',
+	'as' => 'supplier.trashed'
+]);
+
+Route::get('/supplier/delete/{id}', [
+	'uses' => 'SupplierController@kill',
+	'as' => 'supplier.kill'
+]);
 //===============================//
 
 //===============Customer Routes==================//

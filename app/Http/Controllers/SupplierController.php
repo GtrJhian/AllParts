@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\SupplierModel;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,9 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        
+        $supplier = SupplierModel::all();
+
+        return view('Supply.supplier')->with('supplier',$supplier);
     }
 
     /**
@@ -34,7 +37,14 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $supplier = new SupplierModel;
+        $supplier->Company_Name = $request->companyname;
+        $supplier->Company_Address = $request->compaddress;
+        $supplier->Company_Contact = $request->companynumber;
+        $supplier->Company_Email = $request->companyemail;
+        $supplier->save();
+        return redirect()->back();
     }
 
     /**
@@ -79,6 +89,19 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $supplier = SupplierModel::find($id);
+        // dd($supplier);
+        $supplier->delete();
+        return redirect()->back();
+    }
+    public function trashed()
+    {
+        $supplier=SupplierModel::onlyTrashed()->get();
+        // dd($supplier);
+        return view('Supply.archive_supplier')->with('supplier',$supplier);
+    }
+    public function kill($id)
+    {
+
     }
 }

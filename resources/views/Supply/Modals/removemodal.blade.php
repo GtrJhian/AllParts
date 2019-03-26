@@ -20,10 +20,10 @@
 				<div class="modal-footer">
 					<div class="row">
 						<div class="col-sm-6">
-							<input class="btn btn-danger" type="submit" name="aisubmit" value="Archive">
+							<a href="" class="btn btn-danger" name="archive" value="Archive">Archive</a>
 						</div>
 						<div class="col-sm-6">
-							<input type="button" class="close_confirm btn btn-primary" value="Cancel">
+							<input type="button" class="close_confirm btn btn-primary" value="Cancel"data-dismiss="modal">
 						</div>
 					</div>
 				</div>
