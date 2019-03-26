@@ -1,6 +1,8 @@
 @extends('components/main')
 
 @section('content')
+
+<meta name="csrf-token" content='{{csrf_token()}}'>
 <body id="page-top">
 
 	@include('components.nav_sales')
@@ -41,17 +43,17 @@
 												<h6 style="margin-bottom:3px">Sold To:</h6>
 												<div class="form-group">
 													<!--
-													<input type="select" id="customer" class="form-control form-control-sm" placeholder="Sold To:" required="required" autofocus="autofocus">
+													<input type="select" id="customer" class="input_change" placeholder="Sold To:" required="required" autofocus="autofocus">
 													<label for="customer">Sold To:</label>
 													-->
-													<select id="customer" class="form-control form-control-sm" placeholder="Sold To:" required="required" autofocus="autofocus">
+													<select id="customer" class="input_change" placeholder="Sold To:" required="required" autofocus="autofocus">
 													</select>
 													
 												</div>
 											</div>
 											<div class="col-4" style="padding-left: 5px">
 												<div class="form-label-group">
-													<input type="date" id="date" class="form-control form-control" placeholder="Date:" required="required" autofocus="autofocus">
+												<input type="date" id="date" class="form-control form-control" placeholder="Date:" value ="{{(new DateTime())->format('Y-m-d')}}" readonly>
 													<label for="date">Date:</label>
 												</div>
 											</div>
@@ -59,13 +61,13 @@
 										<div class="row justify-content-between" style="padding-top: 3px">
 											<div class="col-8" style="padding-right: 5px">
 												<div class="form-label-group">
-													<input type="text" id="address" class="form-control form-control-sm" placeholder="Address:" required="required" autofocus="autofocus">
+													<input type="text" id="address" class="input_change" placeholder="Address:" required="required" autofocus="autofocus">
 													<label for="address">Address:</label>
 												</div>
 											</div>
 											<div class="col-4" style="padding-left: 5px">
 												<div class="form-label-group">
-													<input type="text" id="ponum" class="form-control form-control-sm" placeholder="P.O. No.:" required="required" autofocus="autofocus">
+													<input type="text" id="ponum" class="input_change" placeholder="P.O. No.:" required="required" autofocus="autofocus">
 													<label for="ponum">P.O.  No.:</label>
 												</div>
 											</div>
@@ -73,19 +75,19 @@
 										<div class="row" style="padding-top: 3px">
 											<div class="col-4" style="padding-right: 5px">
 												<div class="form-label-group">
-													<input type="text" id="TIN" class="form-control form-control-sm" placeholder="TIN No.:" required="required" autofocus="autofocus">
+													<input type="text" id="TIN" class="input_change" placeholder="TIN No.:" required="required" autofocus="autofocus">
 													<label for="TIN">TIN No.:</label>
 												</div>
 											</div>
 											<div class="col-4" style="padding: 0px 5px">
 												<div class="form-label-group">
-													<input type="text" id="BusStyle" class="form-control form-control-sm" placeholder="Bus Style:" required="required" autofocus="autofocus">
+													<input type="text" id="BusStyle" class="input_change" placeholder="Bus Style:" required="required" autofocus="autofocus">
 													<label for="BusStyle">Bus Style:</label>
 												</div>
 											</div>
 											<div class="col-4" style="padding-left: 5px">
 												<div class="form-label-group">
-													<input type="text" id="otherID" class="form-control form-control-sm" placeholder="OSCA/PWD ID No.:" required="required" autofocus="autofocus">
+													<input type="text" id="otherID" class="input_change" placeholder="OSCA/PWD ID No.:" required="required" autofocus="autofocus">
 													<label for="otherID">OSCA/PWD ID No.:</label>
 												</div>
 											</div>
@@ -94,22 +96,28 @@
 											<div class="col-4" style="padding-right: 5px">
 												<h6 style="margin-bottom:0.5px;font-size:12px">Term of Payment:</h6>
 												<div class="form-group">
-													<select id="tofp" class="form-control form-control-sm" required="required" autofocus="autofocus">
-														<option>Cash</option>
-														<option>Others</option>
+													<select id="tofp" class="input_change" required="required" autofocus="autofocus">
+														<option value="Cash">Cash</option>
+														<option value="Check">Check</option>
+														<option value ="15 Days">15 Days</option>
+														<option value="30 Days">30 Days</option>
+														<option value="45 Days">45 Days</option>
+														<option value="60 Days">60 Days</option>
+														<option value="90 Days">90 Days</option>
+														<option value="120 Days">120 Days</option>
 													</select>
 													<!-- <label for="tofp">Term of Payment:</label> -->
 												</div>
 											</div>
 											<div class="col-4" style="padding: 0px 5px">
 												<div class="form-label-group">
-													<input type="text" id="drnum" class="form-control form-control-sm" placeholder="D.R. No.:" required="required" autofocus="autofocus">
+													<input type="text" id="drnum" class="input_change" placeholder="D.R. No.:" required="required" autofocus="autofocus">
 													<label for="drnum">D.R. No.:</label>
 												</div>
 											</div>
 											<div class="col-4" style="padding-left: 5px">
 												<div class="form-label-group">
-													<input type="text" id="otherSig" class="form-control form-control-sm" placeholder="OSCA/PWD Signature:" required="required" autofocus="autofocus">
+													<input type="text" id="otherSig" class="input_change" placeholder="OSCA/PWD Signature:" required="required" autofocus="autofocus">
 													<label for="otherSig">OSCA/PWD Signature:</label>
 												</div>
 											</div>
@@ -127,9 +135,10 @@
 											</div> -->
 										</div>
 										<hr>
-										<form method="POST" action="/Store/submit">
+										<form id ="cart" method="POST" action="/Store/submit">
 											@csrf
 											<input type="hidden" name="Cus_ID" id="Cus_ID" required>
+											<input type="hidden" name="termOfPayment" id="termOfPayment" value="Cash">
 											<div class="row">
 												<div class="col">
 													<table class="table table-bordered" id="items_added">
@@ -160,28 +169,28 @@
 												</div>
 											</div>
 											<hr>
+											<div id="errors">
+											</div>
 											<div class="row">
 												<div class="offset-7 col-3">
 													<h6 style="font-weight: normal;">VATable Sales:</h6>
-													<h6 style="font-weight: normal;">VATable Amount:</h6>
+													<h6 style="font-weight: normal;">VAT Amount:</h6>
 													<h6 style="font-weight: normal;">Total Amount Rendered: </h6>
 													<h6 style="font-weight: normal;">Amount Received:</h6>
-													<h6 style="font-weight: normal;padding-top:5px">Change:</h6>
-													<h6 style="font-weight: normal;">Balance:</h6>
+													<h6 style="font-weight: normal;padding-top:5px">Balance:</h6>
 												</div>
 												<div class="col-2 text-right">
-													<h6 style="font-weight: normal;">0</h6>
-													<h6 style="font-weight: normal;">0</h6>
+													<h6 style="font-weight: normal;" id = "vatableSales">0</h6>
+													<h6 style="font-weight: normal;" id = "vatAmount">0</h6>
 													<h6 style="font-weight: normal; " id="amountRendered">0</h6>
-													<input type='number' name="ammountReceived" class="input_change text-right" min=0 step=0.01 id="amountReceived">
+													<input type='number' name="amountPayed" class="input_change text-right" min=0 step=0.01 id="amountReceived">
 													<h6 style="font-weight: normal;padding-top:5px" id=change>0</h6>
-													<h6 style="font-weight: normal;">0</h6>
 												</div>
 											</div>
 											<hr>
 											<div class="row">
 												<div class="col-2 offset-5" style="float:right">
-													<input type="submit" class="btn btn-success">
+													<button type="submit" class="btn btn-success">Submit</button>
 												</div>
 											</div>
 										</form>
@@ -257,7 +266,7 @@
 			aoColumnDefs : [
 				{
 					render : function( data , type , row){
-						return '<a><span><button class="btn btn-primary" id = item'+data+' onclick = "addToCart('+data+')"><i class="fa fa-plus"></i></button></span></a>';
+						return '<a><span><div class="btn btn-primary" id = item'+data+' onclick = "addToCart('+data+')"><i class="fa fa-plus"></i></div></span></a>';
 					},
 					targets : 4
 				}
@@ -273,7 +282,7 @@
 				},
 				{
 					render : function(data, type , row){
-						return '<a><span><button class="btn btn-sm btn-danger" id = item'+data+' onclick="removeItem('+data+')"><i class="fa fa-times"></i></button></span></a>';
+						return '<a><span><div class="btn btn-sm btn-danger" id = item'+data+' onclick="removeItem('+data+')"><i class="fa fa-times"></i></div></span></a>';
 					},
 					targets : 5
 				}
@@ -304,6 +313,45 @@
 				$('#otherID').val(customer.OSCA_PWD_ID);
 			});
 		});
+
+		$(window).keydown(function(event){
+			if(event.keyCode==13){
+				event.preventDefault();
+			}
+		});
+
+		$('#tofp').change(function(){
+			$('#termOfPayment').val($(this).val());
+		});
+
+		$('#cart').submit(function(e){
+			e.preventDefault();
+			$.post({
+				url: 'Store/validate',
+				data: $(this).serialize()
+			}).done(function(response){
+				message = JSON.parse(response);
+				if(message.isValid){
+					$.post({
+						url: 'Store/submit',
+						data: $('#cart').serialize()
+					}).done(function(){
+						location.reload();
+					});
+				}else{
+					$('#errors').html("");
+					for(ctr=0 ; ctr<message["errors"].length; ctr++){
+						$('#errors').prepend(formatErrors(message["errors"][ctr]));
+					}
+				}
+			});
+
+		});
+
+		function formatErrors(errors){
+			return '<span style = "color:red;">'+errors+'</span><br/>';
+		}
+
 	});
 	function addToCart(id){
 		//console.log(id);
@@ -317,7 +365,7 @@
 	}
 	function removeItem(id){
 		$('#items_added').DataTable().row($('#item'+id).parents('tr')).remove().draw();
-		$.ajax('/Store/json/item/'+id).done(function(data){
+		$.ajax('Store/json/item/'+id).done(function(data){
 			data = JSON.parse(data);
 			row = [
 				data.Item_Code,
@@ -347,8 +395,10 @@
 		for(x=0; x<cols[0].length ; x++){
 			total+=parseFloat(cols[0][x]);
 		}
-		$('#amountRendered')[0].innerText = total.toFixed(2);
-		$('#change')[0].innerText = ($('#amountReceived').val()-total).toFixed(2);
+		$('#vatableSales').text(total.toFixed(2));
+		$('#vatAmount').text((Math.round(parseFloat(total*1.12))/100).toFixed(2));
+		$('#amountRendered')[0].innerText = ( parseFloat($('#vatableSales').text()) + parseFloat($('#vatAmount').text())).toFixed(2);
+		$('#change')[0].innerText = (parseFloat($('#amountRendered').text())-$('#amountReceived').val()).toFixed(2);
 	}
 	
 </script>

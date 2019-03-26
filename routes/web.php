@@ -55,6 +55,7 @@ Route::get('/Store/json/item/{id}','StoreController@jsonItem');
 //===================Store====================//
 
 Route::post('/Store/submit','StoreController@Submit');
+Route::post('/Store/validate','StoreController@ValidateForm');
 
 //============================================//
 
