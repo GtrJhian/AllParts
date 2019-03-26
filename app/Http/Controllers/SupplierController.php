@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\SupplierModel;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
@@ -13,7 +13,7 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        return view('Supply.supplier');
+        
     }
 
     /**
