@@ -3,14 +3,7 @@
 @section('content')
 
 
-<script>
-	var msg = '{{Session::get('alert')}}';
-	var exist = '{{Session::has('alert')}}';
-	var evalmsg = msg.replace(/(&quot\;)/g,"\"");
-	if(exist){
-		alert(evalmsg);
-	}
-</script>
+
 <body>
 	@include('components.nav2')
 	<div id="wrapper">
@@ -40,7 +33,7 @@
 					<div class="card-body">
 						<div class="row">
 							<div class="col">
-								<div class="table-responsive">
+								<div class="table-responsive" id="wrapper">
 									<table class="table table-striped" id="itemlist" width="100%" cellspacing="0">
 										<thead>
 											<th>Item Code</th>
@@ -53,57 +46,7 @@
 											<th>Alarm Quantity</th>
 											<th style="width: 15%;">Action</th>
 										</thead>
-										<tbody>
-											@foreach($inventories as $inventory)
-											<tr id="trID_{{$inventory->Item_ID}}">
-												@if($inventory->Item_Quantity<=$inventory->Alarm_Quantity)
-												<td><p style="color:red"><b>{{$inventory->Item_Code}}</b></p></td>
-												@else
-												<td><p><b>{{$inventory->Item_Code}}</b></p></td>
-												@endif
-												<td>{{$inventory->Item_Description}}</td>
-												<td>
-													<?php
-													$brand = \DB::table('item_brands')->where('brand_id',$inventory->Item_Brand)->value('brand_name');
-													?>
-													{{$brand}}
-												</td>
-												<td>
-													<?php
-													$category = \DB::table('item_categories')->where('category_id',$inventory->Item_Category)->value('item_category');
-													?>
-													{{$category}}
-												</td>
-												<td><?php
-												if($inventory->Item_Type==0){
-													echo "Item";
-												}
-												else{
-													echo "Package";
-												}
-												?>
-											</td>
-											<td>{{$inventory->Item_Quantity}} {{$inventory->Item_Unit}}s</td>
-											<td>₱{{$inventory->Item_Price}}</td>
-											<td>{{$inventory->Alarm_Quantity}} {{$inventory->Item_Unit}}s</td>
-											<td>
-												<button class="view_btn btn btn-primary btn-action-invt">
-													<i class="fa fa-eye"></i>
-												</button>
-												@if($inventory->Item_Type==0)
-												<button class="update_item_btn btn btn-primary btn-action-invt">
-													<i class="fa fa-edit"></i>
-												</button>
-												@else
-												<button class="update_pckg_btn btn btn-primary btn-action-invt">
-													<i class="fa fa-edit"></i>
-												</button>
-												@endif
-												<button class="archive_btn btn btn-danger btn-action-invt">
-													<i class="fa fa-times"></i>
-												</button>
-											</td></tr>
-											@endforeach
+										<tbody id="itemlist_body">
 										</tbody>
 									</table>
 								</div>
@@ -156,33 +99,52 @@
 	@stop
 
 	@section('script')
+	<script>
+	var msg = '{{Session::get('alert')}}';
+	var exist = '{{Session::has('alert')}}';
+	var evalmsg = msg.replace(/(&quot\;)/g,"\"");
+	if(exist){
+		alert(evalmsg);
+	}
+	evalmsg=null;
+</script>
+
+
+
 	<script type="text/javascript">
+
+		//ready inventory table with refresh every minute
 		$(document).ready(function() {
-			$('#itemlist').DataTable();
-		});
+			function load_item_table()
+    {
+    	$.ajax({
+    		method: "POST",
+    		url: "{{ route('getInvItems') }}",
+    		data:{'_token':"{{csrf_token()}}"},
+    		success: function (data){
+    			var array = jQuery.parseJSON(data);
+    		//	$('#table_body').html(array.notification);
+    			$("#itemlist").dataTable().fnDestroy()
+    			$("#itemlist_body").empty();
+    			$('#itemlist').find('tbody').append(array.notification);
+    			$('#itemlist').DataTable();
+    			   
+    		}
+    	});
 
-	// $('#zoomBtn').click(function() {
-	// 	$('.zoom-btn-sm').toggleClass('scale-out');
-	// 	if (!$('.zoom-card').hasClass('scale-out')) {
-	// 		$('.zoom-card').toggleClass('scale-out');
-	// 	}
-	// });
-	// $(document).ready(function(){
-	// 	$("#sidebarBtn").click(function(){
-	// 		if($("#sidebarInvt").hasClass('sidebar-hide')){
-	// 			$("#sidebarInvt").removeClass('sidebar-hide').addClass('sidebar');
-	// 		}
-	// 		else{
-	// 			$("#sidebarInvt").addClass('sidebar-hide');
-	// 		}
-			
-	// 	});
-	// });
 
-	
+    }
+
+    load_item_table();
+
+//refresh every 5 minute
+setInterval(function(){
+	load_item_table();;
+}, 300000);
+
 
 //function for update item button	
-$('.update_item_btn').click(function(){
+$(document).delegate('.update_item_btn', 'click', function(){
 	var $row = $(this).closest('tr');
 	var rowID = $row.attr('id').split('_')[1];
 	$('#uid').val(rowID);
@@ -210,7 +172,7 @@ $('.update_item_btn').click(function(){
 
 
 //function for update button	
-$('.update_pckg_btn').click(function(){
+$(document).delegate('.update_pckg_btn', 'click', function(){
 	var $row = $(this).closest('tr');
 	var rowID = $row.attr('id').split('_')[1];
 	$('#upd').val(rowID);
@@ -251,12 +213,12 @@ function getPackageItems(package_id){
 }
 
 
-$('.close_confirm').click(function(){	
+$(document).delegate('.close_confirm', 'click', function(){	
 	$('#removeItem').modal('toggle');
 });
-
 //function for archive button
-$('.archive_btn').click(function(){
+
+$(document).delegate('.archive_btn', 'click', function(){
 	var $row = $(this).closest('tr');
 	var rowID = $row.attr('id').split('_')[1];
 	var $paragraph = $('#item_name');
@@ -277,24 +239,128 @@ $('.archive_btn').click(function(){
 	$('#removeItem').modal('show');
 });
 
+
+
 //function for view button
-$('.view_btn').click(function(){
+$(document).delegate('.view_btn', 'click', function(){
 	$('#viewItem').modal('show');
+	var row = $(this).closest('tr');
+	var rowID = row.attr('id').split('_')[1];
+	var itemcode = $('#itemcode');
+	var brand = $('#brand');
+	var category = $('#category');
+	var quantity = $('#quantity');
+	var description = $('#description');
+	var price = $('#price');
+	var plist = $('#package_itemlist');
+	var type = $('#itemtype');
+	$.ajax({
+		method: "POST",
+		url: "{{ route('viewItem') }}",
+		data:{itemID:rowID,'_token':"{{csrf_token()}}"},
+		success: function (data){
+			var array = jQuery.parseJSON(data);
+			itemcode.text(array[0].ic);
+			brand.text(array[0].ib);
+			category.text(array[0].icateg);
+			quantity.text(array[0].iq);
+			description.text(array[0].idesc);
+			price.text(array[0].ip);
+			plist.html(array[0].plist);
+			type.text(array[0].type);
+			document.getElementById("brandpic").src=array[0].bpic;
+			document.getElementById("categorypic").src=array[0].cpic;
+		//	document.getElementById("aic").value = array[0].Item_Code;
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("ERROR IN REQUEST");
+		} 
+	});
+});
+ $('#ic').on('blur', function(){
+ 		var nc=$('#ic').val();
+	$.ajax({
+		method: "POST",
+		url: "{{ route('checkCode') }}",
+		data:{itemCode:nc,'_token':"{{csrf_token()}}"},
+		success: function (data){
+			var array = jQuery.parseJSON(data);
+			$("#icwarnm").html(array[0].message);	
+			if(array[0].exist==0){
+				$('#cisubmit').prop('disabled', false);
+			}
+			else{
+				$('#cisubmit').prop('disabled', true);
+			}
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("ERROR IN REQUEST");
+		} 
+	});
 });
 
+ $(document).delegate('#cireset', 'click', function(){	
+$('#cisubmit').prop('disabled', false);
+ });
+
+
+$('#pc').on('blur', function(){
+ 		var nc=$('#pc').val();
+	$.ajax({
+		method: "POST",
+		url: "{{ route('checkCode') }}",
+		data:{itemCode:nc,'_token':"{{csrf_token()}}"},
+		success: function (data){
+			var array = jQuery.parseJSON(data);
+			$("#pcwarnm").html(array[0].message);	
+			if(array[0].exist==0){
+				$('#cpsubmit').prop('disabled', false);
+			}
+			else{
+				$('#cpsubmit').prop('disabled', true);
+			}
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("ERROR IN REQUEST");
+		} 
+	});
+});
+
+$(document).delegate('.package_item', 'change', function(){
+	var option 			= $('#items option');
+	var output 			= $('#output');
+	var val = this.value;
+		if($(option).filter(function(){
+			return this.value === val;
+		}).length) {
+			output.html("");
+		}else{
+			this.value="";
+			output.html("Item doesn't Exist");
+		}     
+
+});
+
+$("#ItemCount").change(function(){
 /*function for multiple item in packages create*/
-function numOfLines(choice)
-{
+
+	var choice=$('#ItemCount').val();
 	document.getElementById("input_items").innerHTML='';
 	for(var i = 0; i < choice; ++i)
 	{
 		document.getElementById("input_items").innerHTML+= '<div class="row">' +
-		'<div class="col-sm-6"><label>Item Code:</label><input class="form-control" list="items" name="in-'+i+'" size="50" maxlength="50" required ></div> ' +
+		'<div class="col-sm-6"><label>Item Code:</label><input class="package_item form-control" list="items" name="in-'+i+'" size="50" maxlength="50" required ></div> ' +
 		'<div class="form-group col-sm-6"><label>Quantity Needed:</label><input class="form-control" type="number" name="iq-'+i+'" size="6" maxlength="6" value="1" min="1" required ></div>'+
 		'</div>';
 	}
-}
 
+});
+
+
+
+
+
+	});
 </script>
 
 @stop

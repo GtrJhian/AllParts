@@ -2,14 +2,7 @@
 
 @section('content')
 
-<script>
-	var msg = '{{Session::get('alert')}}';
-	var exist = '{{Session::has('alert')}}';
-	var evalmsg = msg.replace(/(&quot\;)/g,"\"");
-	if(exist){
-		alert(evalmsg);
-	}
-</script>
+
 
 
 <body>
@@ -140,7 +133,12 @@
 			@include('components.footer2')
 		</div>
 	</div>
-
+	<div class="zoom">
+		<a class="zoom-fab zoom-btn-blue zoom-btn-large tooltip-iventory-blue" href="/category&brands">
+			<i class="fa fa-arrow-left"></i>
+			<span class="tooltip-iventorytext-blue">Back</span>
+		</a>
+	</div>
 
 
 
@@ -284,6 +282,18 @@
 @stop
 
 @section('script')
+<script>
+	var msg = '{{Session::get('alert')}}';
+	var exist = '{{Session::has('alert')}}';
+	var evalmsg = msg.replace(/(&quot\;)/g,"\"");
+	if(exist){
+		alert(evalmsg);
+
+	}
+	evalmsg=null;
+</script>
+
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#categoryTable').DataTable();

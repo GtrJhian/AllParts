@@ -476,20 +476,19 @@ function getInvAlerts(Request $req)
     $output = '';
     $count=0;
     foreach($results as $result){
+      $category = \DB::table('item_categories')->where('category_id',$result->Item_Category)->value('item_category');
         if($result->Item_Quantity<=$result->Alarm_Quantity){
-            $output .= '
-            <li>
-            <p>
-            <strong>'.$result->Item_Code.'</strong></p><p style=color:red>
-            <small><em>';
             if($result->Item_Quantity>0){
-                $output .=
+            /*    $output .=
                 'Running Out('.$result->Item_Quantity.')</em></small>
                 </p>
                 </li>
                 <hr>    
-                ';
+                ';*/ 
+                
+                $output.='<tr><td>'.$category.'</td><td>'.$result->Item_Code.'</td><td>'.$result->Item_Quantity.' '.$result->Item_Unit.'/s left</td></tr>';
             }
+
             else{
               $output .=
               'Out of Stock('.$result->Item_Quantity.')</em></small>
@@ -497,13 +496,11 @@ function getInvAlerts(Request $req)
               </li>
               <hr>    
               ';  
+               $output.='<tr><td>'.$category.'</td><td>'.$result->Item_Code.'</td><td> Out of Stock [0 '.$result->Item_Unit.'/s left]</td></tr>';
           }
           $count+=1;
       }
   }
-  if($count==0){
-    $output .= '<li><a href="#" class="text-bold text-italic">No Alerts :)</a></li>';
-}
 $record = array(
    'notification' => $output,
    'unseen_notification'  => $count
@@ -514,6 +511,79 @@ echo json_encode($record);
 
 
 /*-----------------------------------------------------------------------------------*/
+//Get Inventory Alerts
+function getInvItems(Request $req)
+{
+    $inventories= DB::table('inventory')->where('archive',0)->orderBy('item_code','ASC')->get();
+    $output = '';
+    $count=0;
+    foreach($inventories as $inventory){
+                        $output.="<tr id='trID_".$inventory->Item_ID."'>";
+
+                        if($inventory->Item_Quantity<=$inventory->Alarm_Quantity){
+                        $output.="<td><p style='color:red'><b>".$inventory->Item_Code."</b></p></td>";
+                        }
+                        else{
+                        $output.="<td><p><b>".$inventory->Item_Code."</b></p></td>";
+                        }
+                        $output.="<td>".$inventory->Item_Description."</td>
+                        <td>";
+          
+                          $brand = \DB::table('item_brands')->where('brand_id',$inventory->Item_Brand)->value('brand_name');
+                          
+                          $output.=$brand."
+                        </td>
+                        <td>";
+                          
+                          $category = \DB::table('item_categories')->where('category_id',$inventory->Item_Category)->value('item_category');
+                          
+                          $output.=$category.
+                        "</td>
+                        <td>";
+                        
+                        if($inventory->Item_Type==0){
+                          $output.="Item";
+                        }
+                        else{
+                          $output.= "Package";
+                        }
+                        
+                      $output.="</td>
+                      <td>".$inventory->Item_Quantity." ".$inventory->Item_Unit."s</td>
+                      <td>₱".$inventory->Item_Price."</td>
+                      <td>".$inventory->Alarm_Quantity." ".$inventory->Item_Unit."s</td>
+                      <td>
+                        <button class='view_btn btn btn-primary btn-action-invt'>
+                          <i class='fa fa-eye'></i>
+                        </button>";
+
+                        if($inventory->Item_Type==0){
+                        $output.="<button class='update_item_btn btn btn-primary btn-action-invt'>
+                          <i class='fa fa-edit'></i>
+                        </button>";
+                        }
+                        else{
+                        $output.="<button class='update_pckg_btn btn btn-primary btn-action-invt'>
+                          <i class='fa fa-edit'></i>
+                        </button>";
+                        }
+                        $output.="<button class='archive_btn btn btn-danger btn-action-invt'>
+                          <i class='fa fa-times'></i>
+                        </button>
+                      </td></tr>";
+                      }
+$record = array(
+   'notification' => $output,
+   'unseen_notification'  => $count
+);
+
+echo json_encode($record);
+}
+
+
+
+
+/*-----------------------------------------------------------------------------------*/
 //Get Pic URL
 function getPic(Request $req){
     $pic_id=$req->input('pic_id');
@@ -521,6 +591,98 @@ function getPic(Request $req){
     echo json_encode($picinfo);
 }
 
+
+/*-----------------------------------------------------------------------------------*/
+//get item information
+function viewItem(Request $req){
+    $item_id=$req->input('itemID');
+    $iteminfos = DB::table('inventory')->where('Item_ID',$item_id)->get(); 
+    foreach($iteminfos as $iteminfo){
+    $ic=$iteminfo->Item_Code;
+    $icateginfo = \DB::table('item_categories')->where('category_id',$iteminfo->Item_Category)->first();
+    $icateg=$icateginfo->item_category;
+    if(is_null($icateginfo->categ_pic)){
+      $cpic="/inventory/none.png";
+    }
+      else{
+    $cpic=\DB::table('item_pics')->where('pic_id',$icateginfo->categ_pic)->value('pic_url');}
+    $ibinfo = \DB::table('item_brands')->where('brand_id',$iteminfo->Item_Brand)->first();
+    $ib=$ibinfo->brand_name;
+    if(is_null($ibinfo->brand_pic)){
+      $bpic="/inventory/none.png";
+    }
+      else{
+    $bpic=\DB::table('item_pics')->where('pic_id',$ibinfo->brand_pic)->value('pic_url');}
+    $ip="₱".$iteminfo->Item_Price;
+    $idesc=$iteminfo->Item_Description;
+    $iq=$iteminfo->Item_Quantity." ".$iteminfo->Item_Unit."/s";
+
+    if($iteminfo->Item_Type==0){
+      $type="ITEM INFORMATION";
+      $plist="";
+    }
+    else{
+      $type="PACKAGE INFORMATION";
+      $plist="<h4 class='info-labels'>Items Included</h4><br>";
+      $package = DB::table('item_packages')->where('item_id',$item_id)->get(); 
+      foreach($package as $ipackage){
+        $items=DB::table('inventory')->where('Item_ID',$ipackage->needed_item)->first(); 
+        $plist.="<p>".$ipackage->needed_quantity." ".$items->Item_Unit."/s ".$items->Item_Code."</p><br>";
+      }
+
+    }
+
+
+  }
+  $array=array(array('ic'=>$ic,'icateg'=>$icateg,'ib'=>$ib,'ip'=>$ip,'idesc'=>$idesc, 'iq'=>$iq,'type'=>$type,'plist'=>$plist,'bpic'=>$bpic,'cpic'=>$cpic));
+  echo json_encode($array);
+}
+
+
+function checkCode(Request $req){
+ $new_code=$req->input('itemCode');
+ $exists = DB::table('inventory')->where('Item_Code',$new_code)->get();
+ if($exists->isEmpty()){
+ $message=""; 
+ $exist=0; 
+ }
+ else{
+  $message="<p style='color:red;'>Code already Exists!</p>";
+  $exist=1;
+ }
+ $array=array(array('exist'=>$exist,'message'=>$message));
+echo json_encode($array);
+}
+
+function checkCateg(Request $req){
+ $new_code=$req->input('itemCategory');
+ $exists = DB::table('item_categories')->where('item_category',$new_code)->get();
+ if($exists->isEmpty()){
+ $message=""; 
+ $exist=0; 
+ }
+ else{
+  $message="<p style='color:red;'>Category already Exists!</p>";
+  $exist=1;
+ }
+ $array=array(array('exist'=>$exist,'message'=>$message));
+echo json_encode($array);
+}
+
+function checkBrand(Request $req){
+ $new_code=$req->input('brandName');
+ $exists = DB::table('item_brands')->where('brand_name',$new_code)->get();
+ if($exists->isEmpty()){
+ $message=""; 
+ $exist=0; 
+ }
+ else{
+  $message="<p style='color:red;'>Brand already Exists!</p>";
+  $exist=1;
+ }
+ $array=array(array('exist'=>$exist,'message'=>$message));
+echo json_encode($array);
+}
 
 }
 
