@@ -1,8 +1,8 @@
-<!-- <datalist id="items">
-		@foreach($inventories as $inventory)
-		<option value="{{$inventory->Item_Code}}">
-			@endforeach
-		</datalist> -->
+//  <datalist id="supply">
+// 		@foreach($supplier as $supply)
+// 		<option value="{{$supply->Supplier_ID}}">
+// 			@endforeach
+// 		</datalist>
 
 <script type="text/javascript">
 		$(document).ready(function() {

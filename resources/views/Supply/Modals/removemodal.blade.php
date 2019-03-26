@@ -20,7 +20,7 @@
 				<div class="modal-footer">
 					<div class="row">
 						<div class="col-sm-6">
-							<a href="{{ route('supplier.archive',['id' => $supply->Supplier_ID])}}" class="btn btn-danger" name="archive" value="Archive">Archive</a>
+							<a href="" class="btn btn-danger" name="archive" value="Archive">Archive</a>
 						</div>
 						<div class="col-sm-6">
 							<input type="button" class="close_confirm btn btn-primary" value="Cancel"data-dismiss="modal">

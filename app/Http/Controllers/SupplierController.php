@@ -96,7 +96,12 @@ class SupplierController extends Controller
     }
     public function trashed()
     {
-        $supplier=SupplierModel::onlyTrached()->get();
-        dd($supplier);
+        $supplier=SupplierModel::onlyTrashed()->get();
+        // dd($supplier);
+        return view('Supply.archive_supplier')->with('supplier',$supplier);
+    }
+    public function kill($id)
+    {
+
     }
 }

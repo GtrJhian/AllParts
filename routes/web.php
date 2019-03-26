@@ -60,18 +60,20 @@ Route::get('/supply/reports',function(){
 Route::post('/add/supplier', [
 	'uses' => 'SupplierController@store'
 ]);
-Route::get('/archive/supplier/{id}', [
+Route::get('/trash/supplier/{id}', [
 	'uses' => 'SupplierController@destroy',
 	'as' => 'supplier.archive'
 ]);
-Route::get('/supplier/archive',function(){
-	return view('Supply.archive_supplier');
-});
 
-// Route::get('/supply/archive', [
-// 	'uses' => 'SupplierController@trashed',
-// 	'as' => 'supplier.trashed'
-// ]);
+Route::get('/supplier/archive', [
+	'uses' => 'SupplierController@trashed',
+	'as' => 'supplier.trashed'
+]);
+
+Route::get('/supplier/delete/{id}', [
+	'uses' => 'SupplierController@kill',
+	'as' => 'supplier.kill'
+]);
 //===============================//
 
 //===============Customer Routes==================//
