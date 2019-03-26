@@ -1,6 +1,9 @@
 @extends('components/main')
 
 @section('content')
+
+<meta name = 'csrf_token' content = '{{csrf_token()}}'/>
+
 <body>
 	@include('components.nav_sales')
 	<div id="wrapper" class="offset1">
@@ -160,13 +163,11 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#customerlist').DataTable({
-			ajax: '/Customer/All',
+			ajax: '/Customer/archived',
 			aoColumnDefs:[
 				{
 					render : function(data, type, row) {
-						return '<button class="btn btn-sm btn-primary hi-icon1" data-target="#view_arch_cus" data-toggle="modal" ><i class="fa fa-eye"><span class="tooltiptext">View</span></i></button>\
-								<button class="btn btn-sm btn-success hi-icon1" data-target="#restore" data-toggle="modal"><i class="fa fa-redo"><span class="tooltiptext">Restore</span></i></button>\
-								<button class="btn btn-sm btn-danger hi-icon1" data-target="#double_check" data-toggle="modal"><i class="fa fa-times"><span class="tooltiptext">Remove</span></i></button>';
+						return '<button id = "btnRestore'+row[0]+'" class="btn btn-sm btn-success hi-icon1" data-target="#restore" onclick = "restore('+row[0]+')"><i class="fa fa-redo"><span class="tooltiptext">Restore</span></i></button>';
 					},
 					targets: 2
 				},
@@ -179,5 +180,17 @@
 			]
 		});
 	});
+
+	function restore(id){
+		$.post({
+			url: '/Customer/restore',
+			data: {
+				_token: $('meta[name="csrf_token"]').attr('content'),
+				id: id
+			}
+		}).done(function(response){
+			$('#customerlist').DataTable().row($('#btnRestore'+id).parents('tr')).remove().draw();
+		});
+	}
 </script>
 @stop

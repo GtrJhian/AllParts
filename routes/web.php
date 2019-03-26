@@ -41,6 +41,9 @@ Route::get('/archive_users',function(){
 Route::get('/logs',function(){
 	return view ('users.activity_logs');
 });
+Route::get('/profile',function(){
+	return view ('profile');
+});
 //================AJAX ROUTES====================//
 
 Route::get('/Store/json/{param}','StoreController@json');
@@ -64,6 +67,11 @@ Route::get('/Store/json/item/{id}','StoreController@jsonItem');
 Route::post('/Customer/Create','CustomerController@Create');
 Route::get('/Customer/All','CustomerController@ShowAll');
 Route::get('/Customer/id/{id}','CustomerController@Select');
+Route::get('/Customer/archived','CustomerController@Archived');
+Route::post('/Customer/update','CustomerController@Update');
+Route::post('/Customer/delete','CustomerController@Delete');
+Route::post('/Customer/restore','CustomerController@Restore');
+
 //Route::resource('/Customer', 'Customer');
 //---Zild was here
 //================================================//
@@ -77,7 +85,9 @@ Route::get('/Billing/{id}/edit','BillingController@editBill');
 Route::post('/Billing/addPayment','BillingController@addPayment');
 Route::get('/Billing/archive/{id}','BillingController@archiveBill');
 Route::get('/Billing/Receipt/{id}','BillingController@receipt');
-Route::get('/Billing/Excel/','BillingController@excel');
+Route::get('/Billing/Excel/{month}/{archived}','BillingController@excel');
+Route::get('/Billing/viewArchived/','BillingController@viewArchived');
+Route::get('/Billing/unarchive/{id}','BillingController@unarchiveBill');
 //End of Billing Routes
 //--Fred 
 //================================================//

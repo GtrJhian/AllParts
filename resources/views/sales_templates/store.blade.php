@@ -241,7 +241,7 @@
 				<div class="modal-body">
 					<div class="container">
 						<button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-						<legend class="text-center">ITEMS</legend>
+						<legend class="text-center">Items</legend>
 						<div class="table-responsive">
 							<table class="table table-striped" id="itemlist" style='width:100%;' >
 								<thead>
