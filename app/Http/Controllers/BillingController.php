@@ -152,14 +152,22 @@ class BillingController extends Controller
 		}
 
 		function excel($month, $archived){
-			if(sizeof(BillingPost::billingQuery($month, $archived)->get())>0){
+			$save = false;
+			if(sizeof(BillingPost::billingQueryAll($month, $archived)->get())>0 && $month=="All"){
+				$save = true;
+			}else if(sizeof(BillingPost::billingQuery($month, $archived)->get())>0 && $month!="All"){
+				$save = true;
+			}
+			else{
+				echo "<h1>NO DATA TO GENERATE</h1>";
+			}
+
+			if($save==true){
 				//Save to Logs
 				$actionParam = "Generate Reports with Month ->".$month;
 				$this->saveLog(1, $actionParam);
-	
+
 				return (new BillingExport($month, $archived))->download('Billing Data.xlsx', \Maatwebsite\Excel\Excel::XLSX);
-			}else{
-				echo "<h1>NO DATA TO GENERATE</h1>";
 			}
 			
 			// echo (sizeof(BillingPost::billingQuery($month, $archived)->get()));
