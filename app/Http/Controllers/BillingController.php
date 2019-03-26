@@ -5,9 +5,11 @@ use Illuminate\Support\Facades\DB;
 use App\BillingPost;
 use App\Exports\BillingExport;
 use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class BillingController extends Controller
 {
+	public $Acc_ID=1;
     /**
      * Display a listing of the resource.
      *
@@ -15,11 +17,9 @@ class BillingController extends Controller
      */
     public function index()
     {
-			// $billingpost = BillingPost::all();
-			// return view('billing.index')->with('billingposts', $billingposts);
 			$dataIndex = DB::table('sale')
 							->join('customer','customer.Cus_ID', 'sale.Cus_ID')
-							->select('F_Name', 'L_Name', 'Sale_Date', 'Company', 'Address', 'sale.Sale_ID', 'debit', 'credit')
+							->select('F_Name', 'L_Name', 'Sale_Date', 'Company', 'Address', 'sale.Sale_ID', 'sales_invoice_no', 'debit', 'credit')
 							->where('Sale_Archived', '=', '0')
 							->get();
 			return view('billing.index')->with('indexPost', $dataIndex);
@@ -107,7 +107,7 @@ class BillingController extends Controller
 
 				//Save to Logs
 				$actionParam = "Add Payment For Sale ID ->".$request->id;
-				$this->saveLog(1, $actionParam);
+				$this->saveLog($this->Acc_ID, $actionParam);
 
 				$dataAccDetails = DB::table('accounting')
 											->select('Acc_Date', 'Acc_Payment')
@@ -141,7 +141,7 @@ class BillingController extends Controller
 				else {
 					//Save to Logs
 					$actionParam = "Archived Sale ID ->".$request->id;
-					$this->saveLog(1, $actionParam);
+					$this->saveLog($this->Acc_ID, $actionParam);
 
 					return "Success";
 				}
@@ -176,7 +176,7 @@ class BillingController extends Controller
 			if($save==true){
 				//Save to Logs
 				$actionParam = "Generate Reports with Month ->".$month;
-				$this->saveLog(1, $actionParam);
+				$this->saveLog($this->Acc_ID, $actionParam);
 
 				return (new BillingExport($month, $archived))->download('Billing Data.xlsx', \Maatwebsite\Excel\Excel::XLSX);
 			}
@@ -187,7 +187,7 @@ class BillingController extends Controller
 		function viewArchived(){
 			$dataArchived = DB::table('sale')
 									->join('customer','customer.Cus_ID', 'sale.Cus_ID')
-									->select('F_Name', 'L_Name', 'Company', 'Address', 'sale.Sale_ID', 'debit', 'credit')
+									->select('F_Name', 'L_Name', 'Company', 'Address', 'sale.Sale_ID', 'debit', 'sales_invoice_no', 'credit')
 									->where('Sale_Archived', '=', '1')
 									->get();
 
@@ -203,11 +203,10 @@ class BillingController extends Controller
 				else {	
 					//Save to Logs
 					$actionParam = "Unarchived Sale ID ->".$request->id;
-					$this->saveLog(1, $actionParam);
+					$this->saveLog($this->Acc_ID, $actionParam);
 
 					return "Success";
 				}
 			}else return "Something went wrong";
 		}
-
 }

@@ -38,11 +38,11 @@
 												<div class="table-responsive">
 													<table class="table table-striped" id="billingList" width="100%" cellspacing="0">
 														<thead>
-															<th width=10%>TR No.</th>
-															<th width=20%>NAME</th>
+															<th width=10%>Inv No.</th>
+															<th width=20%>Name</th>
 															<th width=10%>Date</th>
-															<th width=20%>COMPANY</th>
-															<th width=20%>ADDRESS</th>
+															<th width=20%>Company</th>
+															<th width=20%>Address</th>
 															<th width=10%>Status</th>
 															<th width=10%>Action</th>
 														</thead>
@@ -51,7 +51,7 @@
 															@if(count($indexPost) > 0)
 																@foreach($indexPost as $post)
 																	<tr>
-																		<td>{{$post->Sale_ID}}</td>
+																		<td>{{$post->sales_invoice_no}}</td>
 																		<td>{{$post->F_Name.' '.$post->L_Name}}</td>
 																		<td>{{$post->Sale_Date}}</td>
 																		<td>{{$post->Company}}</td>
@@ -110,7 +110,7 @@
 												<div class="row" style="padding-bottom: 20px">
 														<div class="col-4"></div>
 														<div class="col-2">
-															<input type="radio" name="reportsArchived" id="reportsArchived" value="1"> Unarchived
+															<input type="radio" name="reportsArchived" id="reportsArchived" value="1" checked> Unarchived
 														</div>
 														<div class="col-2">
 															<input type="radio" name="reportsArchived" id="reportsUnarchived" value="0"> Archived
@@ -138,10 +138,10 @@
 												<div class="table-responsive">
 													<table class="table table-striped" id="itemlist2" width="100%" cellspacing="0">
 														<thead>
-															<th width=10%>TR No.</th>
-															<th width=20%>NAME</th>
-															<th width=20%>COMPANY</th>
-															<th width=20%>ADDRESS</th>
+															<th width=10%>Inv No.</th>
+															<th width=20%>Name</th>
+															<th width=20%>Company</th>
+															<th width=20%>Address</th>
 															<th width=10%>Status</th>
 															<th width=10%>Action</th>
 														</thead>
@@ -162,6 +162,7 @@
 				</div>	
 			</div>
 			@include('Billing.modal.modal')
+			@include('Billing.modal.modalCheck')
 			@include('components.footer2')
 		</div>
 	</div>
@@ -265,23 +266,27 @@
 	//Modal Archive
 	$('body').delegate('#billing-info #archiveBill', 'click', function(e){
 		var id = $(this).data('id');
-		if(confirm('Are you sure you want to archive this record?')){
-			$.ajax({
-				url: "Billing/archive/" + id,
-				type: "GET",
-				data: { id:id, _token:_token },
-				success: function(data){
-					if(data=="Success"){
-						location.reload();
-					}else{
-						alert(data);
-					}
-				},
-				error: function(err){
-					alert("Something Went Wrong");
+		$('#checkArchiveYes').data('id', id);
+		$('#modal-archive').modal('show');
+	})
+
+	$('body').delegate('#checkArchiveYes', 'click', function(e){
+		var id = $(this).data('id');
+		$.ajax({
+			url: "Billing/archive/" + id,
+			type: "GET",
+			data: { id:id, _token:_token },
+			success: function(data){
+				if(data=="Success"){
+					location.reload();
+				}else{
+					alert(data);
 				}
-			})
-		}
+			},
+			error: function(err){
+				alert("Something Went Wrong");
+			}
+		})
 	})
 
 	function receipt(){
@@ -379,7 +384,7 @@
 				for(var i=0; i<data.length; i++){
 					var status = "";
 					$('#archivedTBody').append("<tr>");
-					$('#archivedTBody').append("<td>" + data[i].Sale_ID + "</td>");
+					$('#archivedTBody').append("<td>" + data[i].sales_invoice_no + "</td>");
 					$('#archivedTBody').append("<td>" + data[i].F_Name + " " + data[i].L_Name + "</td>");
 					$('#archivedTBody').append("<td>" + data[i].Company + "</td>");
 					$('#archivedTBody').append("<td>" + data[i].Address + "</td>");
@@ -403,23 +408,27 @@
 
 	$('body').delegate('#UnarchiveBill', 'click', function(e){
 		var id = $(this).data('id');
-		if(confirm('Are you sure you want to unarchive this record?')){
-			$.ajax({
-				url: "Billing/unarchive/" + id,
-				type: "GET",
-				data: { id:id, _token:_token },
-				success: function(data){
-					if(data=="Success"){
-						location.reload();
-					}else{
-						alert(data);
-					}
-				},
-				error: function(err){
-					alert("Something Went Wrong");
+		$('#checkUnarchiveYes').data('id', id);
+		$('#modal-unarchive').modal('show');
+	})
+
+	$('body').delegate('#checkUnarchiveYes', 'click', function(e){
+		var id = $(this).data('id');
+		$.ajax({
+			url: "Billing/unarchive/" + id,
+			type: "GET",
+			data: { id:id, _token:_token },
+			success: function(data){
+				if(data=="Success"){
+					location.reload();
+				}else{
+					alert(data);
 				}
-			})
-		}
+			},
+			error: function(err){
+				alert("Something Went Wrong");
+			}
+		})
 	})
 
 	function generateReports(){
