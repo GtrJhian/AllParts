@@ -102,10 +102,10 @@
 
 
 
-//refresh every 5 secs
+//refresh every 5 minutes
 setInterval(function(){
 	load_unseen_notification();;
-}, 60000);
+}, 300000);
 
 });
 

@@ -132,10 +132,10 @@
 
     load_item_table();
 
-//refresh every 1 minute
+//refresh every 5 minute
 setInterval(function(){
 	load_item_table();;
-}, 60000);
+}, 300000);
 
 
 //function for update item button	
@@ -246,17 +246,25 @@ $(document).delegate('.view_btn', 'click', function(){
 	var $category = $('#category');
 	var $quantity = $('#quantity');
 	var $description = $('#description');
+	var $price =$('#price');
+	var $plist =$('#package_itemlist');
+	var $type = $('#itemtype');
 	$.ajax({
 		method: "POST",
 		url: "{{ route('viewItem') }}",
 		data:{itemID:rowID,'_token':"{{csrf_token()}}"},
 		success: function (data){
 			var array = jQuery.parseJSON(data);
-			$itemcode.text(array[0].Item_Code);
-			$brand.text(array[0].Item_Brand);
-			$category.text(array[0].Item_Category);
-			$quantity.text(array[0].Item_Quantity+' '+array[0].Item_Unit+'s');
-			$description.text(array[0].Item_Description);
+			$itemcode.text(array[0].ic);
+			$brand.text(array[0].ib);
+			$category.text(array[0].icateg);
+			$quantity.text(array[0].iq);
+			$description.text(array[0].idesc);
+			$price.text(array[0].ip);
+			$plist.html(array[0].plist);
+			$type.text(array[0].type);
+			document.getElementById("brandpic").src=array[0].bpic;
+			document.getElementById("categorypic").src=array[0].cpic;
 		//	document.getElementById("aic").value = array[0].Item_Code;
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown) {

@@ -476,6 +476,7 @@ function getInvAlerts(Request $req)
     $output = '';
     $count=0;
     foreach($results as $result){
+      $category = \DB::table('item_categories')->where('category_id',$result->Item_Category)->value('item_category');
         if($result->Item_Quantity<=$result->Alarm_Quantity){
             if($result->Item_Quantity>0){
             /*    $output .=
@@ -483,8 +484,9 @@ function getInvAlerts(Request $req)
                 </p>
                 </li>
                 <hr>    
-                ';*/
-                $output.='<tr><td>'.$result->Item_Category.'</td><td>'.$result->Item_Code.'</td><td>'.$result->Item_Quantity.' '.$result->Item_Unit.'/s left</td></tr>';
+                ';*/ 
+                
+                $output.='<tr><td>'.$category.'</td><td>'.$result->Item_Code.'</td><td>'.$result->Item_Quantity.' '.$result->Item_Unit.'/s left</td></tr>';
             }
 
             else{
@@ -494,7 +496,7 @@ function getInvAlerts(Request $req)
               </li>
               <hr>    
               ';  
-               $output.='<tr><td>'.$result->Item_Category.'</td><td>'.$result->Item_Code.'</td><td> Out of Stock [0 '.$result->Item_Unit.'/s left]</td></tr>';
+               $output.='<tr><td>'.$category.'</td><td>'.$result->Item_Code.'</td><td> Out of Stock [0 '.$result->Item_Unit.'/s left]</td></tr>';
           }
           $count+=1;
       }
@@ -576,30 +578,6 @@ $record = array(
 );
 
 echo json_encode($record);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 
@@ -618,8 +596,46 @@ function getPic(Request $req){
 //get item information
 function viewItem(Request $req){
     $item_id=$req->input('itemID');
-    $iteminfo = DB::table('inventory')->where('Item_ID',$item_id)->get(); 
-  echo json_encode($iteminfo);
+    $iteminfos = DB::table('inventory')->where('Item_ID',$item_id)->get(); 
+    foreach($iteminfos as $iteminfo){
+    $ic=$iteminfo->Item_Code;
+    $icateginfo = \DB::table('item_categories')->where('category_id',$iteminfo->Item_Category)->first();
+    $icateg=$icateginfo->item_category;
+    if(is_null($icateginfo->categ_pic)){
+      $cpic="/inventory/none.png";
+    }
+      else{
+    $cpic=\DB::table('item_pics')->where('pic_id',$icateginfo->categ_pic)->value('pic_url');}
+    $ibinfo = \DB::table('item_brands')->where('brand_id',$iteminfo->Item_Brand)->first();
+    $ib=$ibinfo->brand_name;
+    if(is_null($ibinfo->brand_pic)){
+      $bpic="/inventory/none.png";
+    }
+      else{
+    $bpic=\DB::table('item_pics')->where('pic_id',$ibinfo->brand_pic)->value('pic_url');}
+    $ip="₱".$iteminfo->Item_Price;
+    $idesc=$iteminfo->Item_Description;
+    $iq=$iteminfo->Item_Quantity." ".$iteminfo->Item_Unit."/s";
+
+    if($iteminfo->Item_Type==0){
+      $type="ITEM INFORMATION";
+      $plist="";
+    }
+    else{
+      $type="PACKAGE INFORMATION";
+      $plist="<h4 class='info-labels'>Items Included</h4><br>";
+      $package = DB::table('item_packages')->where('item_id',$item_id)->get(); 
+      foreach($package as $ipackage){
+        $items=DB::table('inventory')->where('Item_ID',$ipackage->needed_item)->first(); 
+        $plist.="<p>".$ipackage->needed_quantity." ".$items->Item_Unit."/s ".$items->Item_Code."</p><br>";
+      }
+
+    }
+
+
+  }
+  $array=array(array('ic'=>$ic,'icateg'=>$icateg,'ib'=>$ib,'ip'=>$ip,'idesc'=>$idesc, 'iq'=>$iq,'type'=>$type,'plist'=>$plist,'bpic'=>$bpic,'cpic'=>$cpic));
+  echo json_encode($array);
 }
 
 
