@@ -175,7 +175,7 @@
 												<h6 style="font-weight: normal;">900</h6>
 												<h6 style="font-weight: normal;">100</h6>
 												<h6 style="font-weight: normal; " id="amountRendered">1000</h6>
-												<input type='number' class="input_change text-right" min=0 step=0.01 id="amountReceived">
+												<input type='number' style="padding:0;" class="input_change text-right" min=0 step=0.01 id="amountReceived">
 												<h6 style="font-weight: normal;padding-top:5px" id=change>0</h6>
 												<h6 style="font-weight: normal;">0</h6>
 											</div>
