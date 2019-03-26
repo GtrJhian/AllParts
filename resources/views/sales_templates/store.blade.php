@@ -127,9 +127,9 @@
 											<div class="col-1">
 												<button class="btn btn-md btn-primary" data-target="#store_items" data-toggle="modal"><i class="fa fa-list"></i> Items</button>
 											</div>
-											<div class="col-2">
+											<!-- <div class="col-2">
 												<button class="btn btn-md btn-primary" data-target="#store_packages" data-toggle="modal"><i class="fa fa-list"></i> Packages</button>
-											</div>
+											</div> -->
 										</div>
 										<hr>
 										<div class="row">
@@ -175,7 +175,7 @@
 												<h6 style="font-weight: normal;">900</h6>
 												<h6 style="font-weight: normal;">100</h6>
 												<h6 style="font-weight: normal; " id="amountRendered">1000</h6>
-												<input type='number' class="form-control-sm form-control text-right" min=0 step=0.01 id="amountReceived">
+												<input type='number' class="input_change text-right" min=0 step=0.01 id="amountReceived">
 												<h6 style="font-weight: normal;padding-top:5px" id=change>0</h6>
 												<h6 style="font-weight: normal;">0</h6>
 											</div>
@@ -204,7 +204,7 @@
 		<!-- /.content-wrapper -->
 
 	</div>
-	<div class="modal fade" id="store_packages" tab-index="-1" role="dialog" aria-labelledby="packages" aria-hidden="true">
+	<!-- <div class="modal fade" id="store_packages" tab-index="-1" role="dialog" aria-labelledby="packages" aria-hidden="true">
 		<div class="modal-dialog" style="min-width:1000px">
 			<div class="modal-content">
 				<div class="modal-body">
@@ -234,7 +234,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<div class="modal fade" id="store_items" tabindex="-1" role="dialog" aria-labelledby="items" aria-hidden="true">
 		<div class="modal-dialog" style="min-width: 1000px">
 			<div class="modal-content">
