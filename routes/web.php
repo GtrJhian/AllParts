@@ -49,7 +49,8 @@ Route::get('/Store/json/item/{id}','StoreController@jsonItem');
 //=================
 
 Route::get('/supplier',[
-	'uses' => 'SupplierController@index'
+	'uses' => 'SupplierController@index',
+	'as' => 'supplier'
 ]);
 Route::get('/orders',function(){
 	return view('Supply.orders');
@@ -74,6 +75,19 @@ Route::get('/supplier/delete/{id}', [
 	'uses' => 'SupplierController@kill',
 	'as' => 'supplier.kill'
 ]);
+Route::get('/supplier/restore/{id}', [
+	'uses' => 'SupplierController@restore',
+	'as' => 'supplier.restore'
+]);
+Route::post('/supplier/edit/{id}',[
+	'uses'=>'SupplierController@edit',
+	'as'=>'supplier.edit'
+]);
+Route::post('/supplier/update/{id}',[
+	'uses'=>'SupplierController@update',
+	'as'=>'supplier.update'
+]);
+Route::post('/supplierForm','SupplierController@popsupForm')->name("supplierForm");
 //===============================//
 
 //===============Customer Routes==================//

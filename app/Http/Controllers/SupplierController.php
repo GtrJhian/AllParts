@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\SupplierModel;
 use Illuminate\Http\Request;
+use DB;
 
 class SupplierController extends Controller
 {
@@ -66,7 +67,8 @@ class SupplierController extends Controller
      */
     public function edit($id)
     {
-        //
+        $supplier = SupplierModel::find($id); 
+        //ishow yung modal
     }
 
     /**
@@ -78,7 +80,12 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $supplier->Company_Name = $request->ic;
+        $supplier->Company_Address = $request->companyadd;
+        $supplier->Company_Contact = $request->companynumber;
+        $supplier->Company_Email = $request->companyemail;
+        $supplier->save(); 
+        return redirect()->back();
     }
 
     /**
@@ -102,6 +109,22 @@ class SupplierController extends Controller
     }
     public function kill($id)
     {
-
+        $supplier=SupplierModel::withTrashed()->where('Supplier_ID',$id)->first();
+        // dd($supplier);
+        $supplier->forceDelete();
+        return redirect()->back();
     }
+    public function restore($id)
+    {
+        $supplier=SupplierModel::withTrashed()->where('Supplier_ID',$id)->first();
+        // dd($supplier);
+        $supplier->restore();
+        return redirect()->route('supplier');
+    }
+    function popsupForm(Request $req)
+    {
+        $supplierid=$req->input('supplierID');
+        $supinfo = DB::table('supplier')->where('Supplier_ID',$supplierid)->get(); 
+        echo json_encode($supinfo);
+    } 
 }

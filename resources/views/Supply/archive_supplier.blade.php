@@ -61,12 +61,12 @@
 												<td>{{$supply->Company_Contact}}</td>
 												<td>{{$supply->Company_Email}}</td>
 												<td>
-													<button class="unarchive_btn btn btn-primary btn-action-invt">
-														<i class="fa fa-check"></i>
-													</button>
-													<button class="delete_btn btn btn-danger btn-action-invt">
+													<a href="{{ route('supplier.restore',['id' => $supply->Supplier_ID])}}" class="unarchive_btn btn btn-primary btn-action-invt">
+														<i class="fa fa-redo"></i>
+													</a>
+													<a href="{{ route('supplier.kill',['id' => $supply->Supplier_ID])}}" class="delete_btn btn btn-danger btn-action-invt">
 														<i class="fa fa-times"></i>
-													</button>
+													</a>
 												</td></tr>
 											@endforeach
 										</tbody>
