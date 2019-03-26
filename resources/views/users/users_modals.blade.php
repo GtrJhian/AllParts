@@ -107,31 +107,31 @@
 								<div class="offset-1 col-8">
                                     <div class="form-check">
                                         <label class="container9">
-                                            <input type="radio" class="form-check-input" name="optradio">Admin
+                                            <input type="checkbox" class="form-check-input" name="optradio">Admin
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="container9">
-                                            <input type="radio" class="form-check-input" name="optradio">Sales Invoice
+                                            <input type="checkbox" class="form-check-input" name="optradio">Sales Invoice
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="container9">
-                                            <input type="radio" class="form-check-input" name="optradio">Inventory
+                                            <input type="checkbox" class="form-check-input" name="optradio">Inventory
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="container9">
-                                            <input type="radio" class="form-check-input" name="optradio">Billings
+                                            <input type="checkbox" class="form-check-input" name="optradio">Billings
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="container9">
-                                            <input type="radio" class="form-check-input" name="optradio">Suppliers
+                                            <input type="checkbox" class="form-check-input" name="optradio">Suppliers
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -290,7 +290,7 @@
 							</div>
 							<div class="row" style="padding-bottom:5px">
 								<div class="col-3">
-									<label for="password">Password:<strong style="color:red">*</strong></label>
+									<label for="password">Edit Password:<strong style="color:red">*</strong></label>
 								</div>
 								<div class="offset-1 col-8">
 									<div class="form-group">
@@ -298,16 +298,6 @@
 									</div>
 								</div>
 							</div>
-                            <div class="row" style="padding-bottom:5px">
-								<div class="col-3">
-									<label for="cpassword">Confirm Password:<strong style="color:red">*</strong></label>
-								</div>
-								<div class="offset-1 col-8">
-									<div class="form-group">
-										<input name='cpassword' type="password" id="cpassword" class="form-control form-control" placeholder="Ex: ******" autofocus="autofocus">
-									</div>
-								</div>
-                            </div>
                             <hr>
                             <div class="row" style="padding-bottom:5px">
 								<div class="col-3">
@@ -316,31 +306,31 @@
 								<div class="offset-1 col-8">
                                     <div class="form-check">
                                         <label class="container9">
-                                            <input type="radio" class="form-check-input" name="optradio">Admin
+                                            <input type="checkbox" class="form-check-input" name="optradio">Admin
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="container9">
-                                            <input type="radio" class="form-check-input" name="optradio">Sales Invoice
+                                            <input type="checkbox" class="form-check-input" name="optradio">Sales Invoice
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="container9">
-                                            <input type="radio" class="form-check-input" name="optradio">Inventory
+                                            <input type="checkbox" class="form-check-input" name="optradio">Inventory
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="container9">
-                                            <input type="radio" class="form-check-input" name="optradio">Billings
+                                            <input type="checkbox" class="form-check-input" name="optradio">Billings
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="container9">
-                                            <input type="radio" class="form-check-input" name="optradio">Suppliers
+                                            <input type="checkbox" class="form-check-input" name="optradio">Suppliers
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>

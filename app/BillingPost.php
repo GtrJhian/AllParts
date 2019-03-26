@@ -12,13 +12,24 @@ class BillingPost extends Model
     //Primary Key
     public $primaryKey = 'Cus_ID';
 
-    public static function billingQuery()
+    public static function billingQuery($month, $archived)
     {
         $billingData = DB::table('sale')
                         ->join('customer','customer.Cus_ID', 'sale.Cus_ID')
-                        ->select('F_Name', 'L_Name', 'Company', 'Address', 'sale.Sale_ID', 'debit', 'credit')
-                        ->where('Sale_Archived', '=', '0')
-                        ->orderBy('sale.Sale_ID');
+                        ->select('sales_invoice_no', 'F_Name', 'L_Name', 'Company', 'Address', 'Sale_Date', 'debit', 'credit', 'term_of_payment', 'Vat_sales')
+                        ->where('Sale_archived', '=', $archived)
+                        ->whereMonth('Sale_Date', '=', $month)
+                        ->orderBy('sale.sales_invoice_no');
+        return $billingData;
+    }
+
+    public static function billingQueryAll($archived)
+    {
+        $billingData = DB::table('sale')
+                        ->join('customer','customer.Cus_ID', 'sale.Cus_ID')
+                        ->select('sales_invoice_no', 'F_Name', 'L_Name', 'Company', 'Address', 'Sale_Date', 'debit', 'credit', 'term_of_payment', 'Vat_sales')
+                        ->where('Sale_archived', '=', $archived)
+                        ->orderBy('sale.sales_invoice_no');
         return $billingData;
     }
 }

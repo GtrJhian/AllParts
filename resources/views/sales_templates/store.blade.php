@@ -119,9 +119,12 @@
 									<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 										
 										<div class="row" style="padding-bottom: 10px">
-											<div class="col-2">
-												<button type="none" class="btn btn-md btn-primary" data-target="#store_items" data-toggle="modal"><i class="fa fa-list"></i> Items</button>
+											<div class="col-1">
+												<button class="btn btn-md btn-primary" data-target="#store_items" data-toggle="modal"><i class="fa fa-list"></i> Items</button>
 											</div>
+											<!-- <div class="col-2">
+												<button class="btn btn-md btn-primary" data-target="#store_packages" data-toggle="modal"><i class="fa fa-list"></i> Packages</button>
+											</div> -->
 										</div>
 										<hr>
 										<form method="POST" action="/Store/submit">
@@ -170,7 +173,7 @@
 													<h6 style="font-weight: normal;">0</h6>
 													<h6 style="font-weight: normal;">0</h6>
 													<h6 style="font-weight: normal; " id="amountRendered">0</h6>
-													<input type='number' name="ammountReceived" class="form-control-sm form-control text-right" min=0 step=0.01 id="amountReceived">
+													<input type='number' name="ammountReceived" class="input_change text-right" min=0 step=0.01 id="amountReceived">
 													<h6 style="font-weight: normal;padding-top:5px" id=change>0</h6>
 													<h6 style="font-weight: normal;">0</h6>
 												</div>
@@ -206,7 +209,7 @@
 				<div class="modal-body">
 					<div class="container">
 						<button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-						<legend class="text-center">ITEMS</legend>
+						<legend class="text-center">Items</legend>
 						<div class="table-responsive">
 							<table class="table table-striped" id="itemlist" style='width:100%;' >
 								<thead>
