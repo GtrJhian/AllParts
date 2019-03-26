@@ -3,14 +3,7 @@
 @section('content')
 
 
-<script>
-	var msg = '{{Session::get('alert')}}';
-	var exist = '{{Session::has('alert')}}';
-	var evalmsg = msg.replace(/(&quot\;)/g,"\"");
-	if(exist){
-		alert(evalmsg);
-	}
-</script>
+
 <body>
 	@include('components.nav2')
 	<div id="wrapper">
@@ -106,6 +99,18 @@
 	@stop
 
 	@section('script')
+	<script>
+	var msg = '{{Session::get('alert')}}';
+	var exist = '{{Session::has('alert')}}';
+	var evalmsg = msg.replace(/(&quot\;)/g,"\"");
+	if(exist){
+		alert(evalmsg);
+	}
+	evalmsg=null;
+</script>
+
+
+
 	<script type="text/javascript">
 
 		//ready inventory table with refresh every minute
