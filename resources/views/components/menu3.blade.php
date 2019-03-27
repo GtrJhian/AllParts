@@ -11,11 +11,11 @@
 									<span class="tooltiptext">Purchasing</span>
 								</a>
 		</li>
-		<li class="nav-item" style="padding: 20px">
+		<!-- <li class="nav-item" style="padding: 20px">
 			<a class="hi-icon" href="/supply/reports">
-									<i class="fa fa-clipboard-list" style="padding: 20%"></i><!-- store to -->
+									<i class="fa fa-clipboard-list" style="padding: 20%"></i>
 									<span class="tooltiptext">Reports</span>
 								</a>
 			
-		</li>
+		</li> -->
 	</ul>

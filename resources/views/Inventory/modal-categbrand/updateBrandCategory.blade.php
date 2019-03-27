@@ -12,12 +12,12 @@
 						<input type="hidden" name="cid" id="cid">
 						<div class="form-horizontal">
 							<div class="row">
-								<div class="col-sm-6">
-									<label>Category Name: </label>
+								<div class="col-sm-12">
+									<label class="text-center">Category Name: </label>
 									<input type="text" name="ucn" id="ucn" required class="form-control">
 									<hr>
-									<label>Preview Image</label>
-									<img id="prevCateg" width="150" height="150">
+									<label class="text-center">Preview Image</label>
+									<img id="prevCateg" width="150" height="150" class="d-block mx-auto">
 									<input name="categ_img" type="file" id="categ_img">
 								</div>
 							</div>
@@ -50,12 +50,12 @@
 						<input type="hidden" name="bid" id="bid">
 						<div class="form-horizontal">
 							<div class="row">
-								<div class="col-sm-6">
+								<div class="col-sm-12">
 									<label>Brand Name: </label>
 									<input type="text" id="ubn" name="ubn" required class="form-control">
 									<hr>
 									<label>Preview Image</label>
-									<img id="prevBrand" width="150" height="150">	
+									<img id="prevBrand" width="150" height="150" class="d-block mx-auto">	
 									<input name="brand_img" type="file" id="brand_img">
 								</div>
 							</div>

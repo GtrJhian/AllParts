@@ -576,6 +576,38 @@ footer.sticky-footer1 {
   .container9 input:checked ~ .checkmark:after {
 	display: block;
   }
+  /**/
+  .boxmark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 25px;
+	width: 25px;
+	background-color: #eee;
+	border-radius: 0;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .container9:hover input ~ .boxmark {
+	background-color: #ccc;
+  }
+  
+  /* When the radio button is checked, add a blue background */
+  .container9 input:checked ~ .boxmark {
+	background-color: #2196F3;
+  }
+  
+  /* Create the indicator (the dot/circle - hidden when not checked) */
+  .boxmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+  }
+  
+  /* Show the indicator (dot/circle) when checked */
+  .container9 input:checked ~ .boxmark:after {
+	display: block;
+  }
 
   .input_change {
 	border: 0;
