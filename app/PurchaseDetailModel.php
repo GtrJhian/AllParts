@@ -10,4 +10,9 @@ class PurchaseDetailModel extends Model
     protected $table = 'order_detail';
     //Primary Key
     public $primaryKey = 'Order_No';
+
+    public function purchase()
+    {
+        return $this->hasMany('App\PurchaseModel');
+    }
 }

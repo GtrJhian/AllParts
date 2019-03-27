@@ -48,12 +48,13 @@ Route::get('/Store/json/item/{id}','StoreController@jsonItem');
 //--Zild Was Here
 //=================
 
+
+//================Supplier Routes====================//
 Route::get('/supplier',[
 	'uses' => 'SupplierController@index'
 ]);
-Route::get('/orders',function(){
-	return view('Supply.orders');
-});
+
+
 Route::get('/supply/reports',function(){
 	return view('Supply.reports');
 });
@@ -75,7 +76,16 @@ Route::get('/supplier/delete/{id}', [
 	'as' => 'supplier.kill'
 ]);
 //===============================//
+//================Purchasing Routes====================//
+Route::post('/purchasing/store',[	
+	'uses' => 'PurchasingController@store'
+]);
 
+Route::get('/purchasing',[	
+	'uses' => 'PurchasingController@index'
+]);
+
+//===============================//
 //===============Customer Routes==================//
 Route::post('/Customer/Create','CustomerController@Create');
 Route::get('/Customer/All','CustomerController@ShowAll');

@@ -6,9 +6,9 @@
 								</a>
 		</li>
 		<li class="nav-item" style="padding: 20px">
-			<a class="hi-icon" href="/orders">
+			<a class="hi-icon" href="/purchasing">
 									<i class="fa fa-tasks" style="padding: 20%"></i><!-- store to -->
-									<span class="tooltiptext">Order</span>
+									<span class="tooltiptext">Purchasing</span>
 								</a>
 		</li>
 		<li class="nav-item" style="padding: 20px">

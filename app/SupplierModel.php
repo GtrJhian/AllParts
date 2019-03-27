@@ -16,5 +16,8 @@ class SupplierModel extends Model
     //Primary Key
     public $primaryKey = 'Supplier_ID';
 
-    
+    public function purchase()
+    {
+        return $this->hasMany('App\PurchaseModel');
+    }
 }
