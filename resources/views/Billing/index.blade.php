@@ -208,7 +208,7 @@
 				$('#modal-billing').modal('show');
 			},
 			error: function(){
-				alert("SOMETHING WENT WRONG");
+				showError("SOMETHING WENT WRONG");
 			}
 		})
 	}
@@ -237,7 +237,7 @@
 				$('#modal-billing').modal('show');
 			},
 			error: function(){
-				alert("SOMETHING WENT WRONG");
+				showError("SOMETHING WENT WRONG");
 			}
 		})
 	})
@@ -252,20 +252,24 @@
 		if(!parseInt(payment)){
 			showError("Check Your Input");
 		}else {
-			//Save to DB
-			$.ajax({
-				url: "/Billing/addPayment",
-				type: "POST",
-				data: {id:id, payment:payment, _token:_token},
-				success: function(data){
-					loadDataThirdPart(data);
-					showSucMsg("Saved Successfully");
-					$('#formPayment').val('');
-				},
-				error: function(error){
-					showError("Something Went Wrong");
-				}
-			})
+			if(maxPayment >= payment){
+				//Save to DB
+				$.ajax({
+					url: "/Billing/addPayment",
+					type: "POST",
+					data: {id:id, payment:payment, _token:_token},
+					success: function(data){
+						loadDataThirdPart(data);
+						showSucMsg("Saved Successfully");
+						$('#formPayment').val('');
+					},
+					error: function(error){
+						showError("Something Went Wrong");
+					}
+				})
+			}else{
+				showError("Do not exceed the maximum balance");
+			}
 		}
 	})
 
@@ -286,11 +290,11 @@
 				if(data=="Success"){
 					location.reload();
 				}else{
-					alert(data);
+					showError(data);
 				}
 			},
 			error: function(err){
-				alert("Something Went Wrong");
+				showError("Something Went Wrong");
 			}
 		})
 	})
@@ -330,11 +334,13 @@
 			totalAmount += (objSaleDetails[i].Quantity * objSaleDetails[i].Unit_Price);
 		}
 		$('#totalDebit').html(totalAmount);
+		$('#modalViewTotalBill').html("Total Bill: " + totalAmount);
 		$('#modalTotalItems').html("Total Items: " + totalItems);
 	}
 
 	//Data Of Third Part
 		var totalPayment = 0;
+		var maxPayment = 0;
 	function loadDataThirdPart(objAccDetails){
 		$('#modalAccDetailsTbody').html("");
 		totalPayment = 0;
@@ -346,8 +352,11 @@
 			$('#modalAccDetailsTbody').append("</tr>");
 			totalPayment += parseInt(objAccDetails[i].Acc_Payment);
 		}
-		$('#totalBalance').html(totalAmount-totalPayment);
+		maxPayment = totalAmount-totalPayment;
+		$('#totalBalance').html(maxPayment);
 		$('#modalTotalPayment').html("Total Payment: " + totalPayment);
+		if(totalPayment >= totalAmount) $('#formPayment').attr('disabled', true);
+
 	}
 
 	//Modal Setup
@@ -377,12 +386,8 @@
 	}
 
 	function showError(message){
-		$('#modalNotif').html(message);
-		$("#modalNotif").removeClass("msg-visible").addClass("msg");
-		$('#modalNotif').css('display', 'block');
-		setTimeout(function(){
-			$('#modalNotif').css('display', 'none');
-		}, 2000);
+		$('#errorMsg').html(message);
+		$('#modal-error').modal('show');
 	}
 
 	//This part is for Archived Tab
@@ -413,7 +418,7 @@
 				}
 			},
 			error: function(){
-				alert("SOMETHING WENT WRONG");
+				showError("SOMETHING WENT WRONG");
 			}
 		})
 	})
@@ -434,11 +439,11 @@
 				if(data=="Success"){
 					location.reload();
 				}else{
-					alert(data);
+					showError(data);
 				}
 			},
 			error: function(err){
-				alert("Something Went Wrong");
+				showError("Something Went Wrong");
 			}
 		})
 	})
