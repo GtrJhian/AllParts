@@ -32,7 +32,7 @@
 											<th>Ordered From</th>
 											<th>Date</th>
 											<th>Amount</th>
-											<th style="width: 15%;">Action</th>
+											<!-- <th style="width: 15%;">Action</th> -->
 										</thead>
 										<tbody>
 											@foreach($data['purchasing'] as $purchase)
@@ -42,7 +42,7 @@
 												<td>{{$purchase->supplier->Company_Name}}</td>
 												<td>{{$purchase->Order_Date}}</td>
 												<td>{{$purchase->Amount}}</td>
-												<td>
+												<!-- <td>
 													<a class="update_item_btn btn btn-primary btn-action-invt" data-toggle="modal" data-target="#updatesupplier">
 														<i class="fa fa-edit"></i>
 													</a>
@@ -51,7 +51,7 @@
 														
 														<i class="fa fa-times"></i>
 													</a>
-												</td>
+												</td> -->
 
 											</tr>
 											@endforeach

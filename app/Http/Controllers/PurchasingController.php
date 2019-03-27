@@ -7,6 +7,8 @@ use App\PurchaseModel;
 use App\PurchaseDetailModel;
 use App\InventoryPost;
 use Illuminate\Http\Request;
+use DB;
+
 
 class PurchasingController extends Controller
 {
@@ -51,11 +53,21 @@ class PurchasingController extends Controller
     public function store(Request $request)
     {
         $purchasing = new PurchaseModel;
-        $supplier->Company_Name = $request->companyname;
-        $supplier->Company_Address = $request->compaddress;
-        $supplier->Company_Contact = $request->companynumber;
-        $supplier->Company_Email = $request->companyemail;
-        $supplier->save();
+        $purchasedetail = new PurchaseDetailModel;
+        $purchasing->Supplier_ID = $request->supplier_id;
+        $purchasing->Order_Date = $request->order_date;
+        $purchasing->Invoice_No = $request->ref_inv;
+        $purchasing->Amount = $request->pur_amount;
+        $purchasing->save();
+
+        for($i = 0; $i < sizeof($request->quantity); $i++){
+            $purchasedetail->Order_No = $request->order_no;
+            $purchasedetail->Item_ID = $request->itemcode[$i];
+            $purchasedetail->Quantity = $request->quantity[$i];
+            $purchasedetail->Unit = $request->unit[$i];
+            $purchasedetail->Unit_Price = $request->uprice[$i];
+            $purchasedetail->save();
+        };
         return redirect()->back();
     }
 
