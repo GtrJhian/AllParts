@@ -12,7 +12,7 @@
 					<div class="card mb-3">
 						<div class="card-header">
 							<span class="text5">Purchase Order No. <a style="color:#c73213">
-								@if(count($data['purchaseid']))
+								@if(count($data['purchaseid']) > 0)
 								{{$data['purchaseid']->Order_No + 1}}
 								@else
 								0001
