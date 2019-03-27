@@ -2,18 +2,10 @@
 
 @section('content')
 
-<script>
-	var msg = '{{Session::get('alert')}}';
-	var exist = '{{Session::has('alert')}}';
-	var evalmsg = msg.replace(/(&quot\;)/g,"\"");
-	if(exist){
-		alert(evalmsg);
-	}
-</script>
 
 <body>
-	@include('components.nav2')
-	<div id="wrapper">
+	@include('components.nav_sales')
+	<div id="wrapper" class="offset1">
 		@include('components.menu_inventory')
 		<div id="content-wrapper">
 			<div class="container-fluid">
@@ -113,7 +105,12 @@
 			@include('components.footer2')
 		</div>
 	</div>
-
+	<div class="zoom">
+		<a class="zoom-fab zoom-btn-blue zoom-btn-large tooltip-iventory-blue" href="/inventoryMain">
+			<i class="fa fa-arrow-left"></i>
+			<span class="tooltip-iventorytext-blue">Back</span>
+		</a>
+	</div>
 
 	{{-- Delete item--}}
 	<div class="modal fade" id="deleteItem">
@@ -188,6 +185,18 @@
 @stop
 
 @section('script')
+<script>
+	var msg = '{{Session::get('alert')}}';
+	var exist = '{{Session::has('alert')}}';
+	var evalmsg = msg.replace(/(&quot\;)/g,"\"");
+	if(exist){
+		alert(evalmsg);
+	}
+	evalmsg=null;
+</script>
+
+
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#itemlist').DataTable();

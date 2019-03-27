@@ -21,7 +21,7 @@
 							<div class="nav nav-tabs" id="nav-tab" role="tablist">
 								<a class="nav-item nav-link active" id="bill" data-toggle="tab" href="#billing" role="tab"  aria-selected="true"> <i class="fa fa-calculator "></i>   Billing</a>
 								<a class="nav-item nav-link" id="excel" data-toggle="tab" href="#excelTab" role="tab"  aria-selected="false"> <i class="fa fa-newspaper"></i>   Reports</a>
-								<a class="nav-item nav-link" id="archived" data-toggle="tab" href="#archivedTab" role="tab"  aria-selected="false"> <i class="fa fa-window-close"></i>   Archived</a>
+								<a class="nav-item nav-link" id="archived" data-toggle="tab" href="#archivedTab" role="tab" aria-selected="false"> <i class="fa fa-window-close"></i>   Archived</a>
 								</div>
 							</div>
 						</div>
@@ -38,10 +38,11 @@
 												<div class="table-responsive">
 													<table class="table table-striped" id="billingList" width="100%" cellspacing="0">
 														<thead>
-															<th width=10%>TR No.</th>
-															<th width=20%>NAME</th>
-															<th width=20%>COMPANY</th>
-															<th width=20%>ADDRESS</th>
+															<th width=10%>Inv No.</th>
+															<th width=20%>Name</th>
+															<th width=10%>Date</th>
+															<th width=20%>Company</th>
+															<th width=20%>Address</th>
 															<th width=10%>Status</th>
 															<th width=10%>Action</th>
 														</thead>
@@ -50,8 +51,9 @@
 															@if(count($indexPost) > 0)
 																@foreach($indexPost as $post)
 																	<tr>
-																		<td>{{$post->Sale_ID}}</td>
+																		<td>{{$post->sales_invoice_no}}</td>
 																		<td>{{$post->F_Name.' '.$post->L_Name}}</td>
+																		<td>{{$post->Sale_Date}}</td>
 																		<td>{{$post->Company}}</td>
 																		<td>{{$post->Address}}</td>
 																		<td>
@@ -60,7 +62,7 @@
 																				@endif
 																		</td>
 																		<td>
-																			<a class="btn btn-sm btn-primary" style="font-size:12px" href="#" data-id="{{$post->Sale_ID}}" id="viewBill"><i class="fa fa-eye"></i></a>
+																			<a class="btn btn-sm btn-success" style="font-size:12px" href="#" data-id="{{$post->Sale_ID}}" onclick="viewBilling({{ $post->Sale_ID }})"><i class="fa fa-eye"></i></a>
 																			<a class="btn btn-sm btn-primary" style="font-size:12px" href="#" data-id="{{$post->Sale_ID}}" id="updateBill"><i class="fa fa-edit"></i></a>
 																			<a class="btn btn-sm btn-danger" style="font-size:12px" href="#" data-id="{{$post->Sale_ID}}" id="archiveBill"><i class="fa fa-trash"></i></a>
 																		</td>
@@ -81,24 +83,51 @@
 							<div class="tab-pane fade" id="excelTab" role="tabpanel" aria-labelledby="nav-profile-tab">
 								<!-- <div class="card mb-3">
 									<div class="card-body"> -->
-										<div class="row" style="padding-bottom: 10px;padding-left:10px">
-											<button class="btn btn-success" onclick="window.open('/Billing/Excel')">Generate Reports</button>
-										</div>
 										<div class="row">
 											<div class="col">
-												<div class="table-responsive">
-													<table class="table table-striped" id="itemlist" width="100%" cellspacing="0">
-														<thead>
-															<th width=20%>Billing_ID</th>
-															<th width=30%>Name</th>
-															<th width=35%>Address</th>
-															<th width=15%>Bill</th>
-														</thead>
-														<tbody>
-																							
-																									
-														</tbody>
-													</table>	
+												<div class="row">
+													<div class="col-3"></div>
+													<div class="col-5">
+														<select class="form-control" id="reportMonth">
+															<option value="All">All</option>
+															<option value="01">January</option>
+															<option value="02">February</option>
+															<option value="03">March</option>
+															<option value="04">April</option>
+															<option value="05">May</option>
+															<option value="06">June</option>
+															<option value="07">July</option>
+															<option value="08">August</option>
+															<option value="09">September</option>
+															<option value="10">October</option>
+															<option value="11">November</option>
+															<option value="12">December</option>
+														</select> 
+													</div>
+													<div class="col-2"></div>
+												</div>
+												<div class="row" style="padding-bottom: 20px"></div>
+												<div class="row" style="padding-bottom: 20px">
+														<div class="col-4"></div>
+														<div class="col-2">
+															<label class="container9">
+																<input type="radio" name="reportsArchived" id="reportsArchived" value="1" checked> Unarchived
+																<span class="checkmark"></span>
+															</label>
+														</div>
+														<div class="col-2">
+															<label class="container9">
+																<input type="radio" name="reportsArchived" id="reportsUnarchived" value="0"> Archived
+																<span class="checkmark"></span>
+															</label>
+														</div>
+												</div>
+												<div class="row">
+													<div class="col-5"></div>
+													<div class="col-5">
+														<button class="btn btn-success" onclick="generateReports()">Generate Reports</button>
+													</div>
+													<div class="col-2"></div>
 												</div>
 											</div>
 										</div>
@@ -115,15 +144,16 @@
 												<div class="table-responsive">
 													<table class="table table-striped" id="itemlist2" width="100%" cellspacing="0">
 														<thead>
-															<th width=20%>Billing_ID</th>
-															<th width=30%>Name</th>
-															<th width=35%>Address</th>
-															<th width=15%>Bill</th>
+															<th width=10%>Inv No.</th>
+															<th width=20%>Name</th>
+															<th width=20%>Company</th>
+															<th width=20%>Address</th>
+															<th width=10%>Status</th>
+															<th width=10%>Action</th>
 														</thead>
-														<tbody>
+														<tbody id="archivedTBody">
 												
-												
-												</tbody>
+														</tbody>
 											</table>	
 												</div>
 											</div>
@@ -138,6 +168,7 @@
 				</div>	
 			</div>
 			@include('Billing.modal.modal')
+			@include('Billing.modal.modalCheck')
 			@include('components.footer2')
 		</div>
 	</div>
@@ -156,8 +187,7 @@
 	});
 
 	//MODAL VIEWING
-	$('body').delegate('#billing-info #viewBill', 'click', function(e){
-		var id = $(this).data('id');
+	function viewBilling(id){
 		$('#modalReceiptBtn').attr('data-id', id);
 
 		$.ajax({
@@ -178,10 +208,10 @@
 				$('#modal-billing').modal('show');
 			},
 			error: function(){
-				alert("SOMETHING WENT WRONG");
+				showError("SOMETHING WENT WRONG");
 			}
 		})
-	})
+	}
 	//End of Modal Viewing
 
 	//Modal Edit
@@ -207,7 +237,7 @@
 				$('#modal-billing').modal('show');
 			},
 			error: function(){
-				alert("SOMETHING WENT WRONG");
+				showError("SOMETHING WENT WRONG");
 			}
 		})
 	})
@@ -222,43 +252,51 @@
 		if(!parseInt(payment)){
 			showError("Check Your Input");
 		}else {
-			//Save to DB
-			$.ajax({
-				url: "/Billing/addPayment",
-				type: "POST",
-				data: {id:id, payment:payment, _token:_token},
-				success: function(data){
-					loadDataThirdPart(data);
-					showSucMsg("Saved Successfully");
-					$('#formPayment').val('');
-				},
-				error: function(error){
-					showError("Something Went Wrong");
-				}
-			})
+			if(maxPayment >= payment){
+				//Save to DB
+				$.ajax({
+					url: "/Billing/addPayment",
+					type: "POST",
+					data: {id:id, payment:payment, _token:_token},
+					success: function(data){
+						loadDataThirdPart(data);
+						showSucMsg("Saved Successfully");
+						$('#formPayment').val('');
+					},
+					error: function(error){
+						showError("Something Went Wrong");
+					}
+				})
+			}else{
+				showError("Do not exceed the maximum balance");
+			}
 		}
 	})
 
 	//Modal Archive
 	$('body').delegate('#billing-info #archiveBill', 'click', function(e){
 		var id = $(this).data('id');
-		if(confirm('Are you sure you want to archive this record?')){
-			$.ajax({
-				url: "Billing/archive/" + id,
-				type: "GET",
-				data: { id:id, _token:_token },
-				success: function(data){
-					if(data=="Success"){
-						location.reload();
-					}else{
-						alert()
-					}
-				},
-				error: function(err){
-					alert("Something Went Wrong");
+		$('#checkArchiveYes').data('id', id);
+		$('#modal-archive').modal('show');
+	})
+
+	$('body').delegate('#checkArchiveYes', 'click', function(e){
+		var id = $(this).data('id');
+		$.ajax({
+			url: "Billing/archive/" + id,
+			type: "GET",
+			data: { id:id, _token:_token },
+			success: function(data){
+				if(data=="Success"){
+					location.reload();
+				}else{
+					showError(data);
 				}
-			})
-		}
+			},
+			error: function(err){
+				showError("Something Went Wrong");
+			}
+		})
 	})
 
 	function receipt(){
@@ -278,26 +316,34 @@
 	}
 
 	//Data Of Second Part
+		var totalAmount = 0;
 	function loadDataSecondPart(objSaleDetails){
 		$('#modalSaleDetailsTbody').html("");
 		var totalItems = 0;
+			totalAmount=0;
 		for(var i=0; i<objSaleDetails.length; i++){
 			totalItems++;
 			$('#modalSaleDetailsTbody').append("<tr>");
 			$('#modalSaleDetailsTbody').append("<td>" + totalItems + "</td>");
-			$('#modalSaleDetailsTbody').append("<td>" + objSaleDetails[i].Quantity + "</td>");
+			$('#modalSaleDetailsTbody').append("<td>" + objSaleDetails[i].Item_Description + "</td>");
 			$('#modalSaleDetailsTbody').append("<td>" + objSaleDetails[i].Unit + "</td>");
+			$('#modalSaleDetailsTbody').append("<td>" + objSaleDetails[i].Quantity + "</td>");
 			$('#modalSaleDetailsTbody').append("<td>" + objSaleDetails[i].Unit_Price + "</td>");
 			$('#modalSaleDetailsTbody').append("<td>" + (objSaleDetails[i].Quantity * objSaleDetails[i].Unit_Price) + "</td>");
 			$('#modalSaleDetailsTbody').append("</tr>");
+			totalAmount += (objSaleDetails[i].Quantity * objSaleDetails[i].Unit_Price);
 		}
+		$('#totalDebit').html(totalAmount);
+		$('#modalViewTotalBill').html("Total Bill: " + totalAmount);
 		$('#modalTotalItems').html("Total Items: " + totalItems);
 	}
 
 	//Data Of Third Part
+		var totalPayment = 0;
+		var maxPayment = 0;
 	function loadDataThirdPart(objAccDetails){
 		$('#modalAccDetailsTbody').html("");
-		var totalPayment = 0;
+		totalPayment = 0;
 		for(var i=0; i<objAccDetails.length; i++){
 			$('#modalAccDetailsTbody').append("<tr>");
 			$('#modalAccDetailsTbody').append("<td>" + (i+1) + "</td>");
@@ -306,7 +352,11 @@
 			$('#modalAccDetailsTbody').append("</tr>");
 			totalPayment += parseInt(objAccDetails[i].Acc_Payment);
 		}
+		maxPayment = totalAmount-totalPayment;
+		$('#totalBalance').html(maxPayment);
 		$('#modalTotalPayment').html("Total Payment: " + totalPayment);
+		if(totalPayment >= totalAmount) $('#formPayment').attr('disabled', true);
+
 	}
 
 	//Modal Setup
@@ -336,13 +386,73 @@
 	}
 
 	function showError(message){
-		$('#modalNotif').html(message);
-		$("#modalNotif").removeClass("msg-visible").addClass("msg");
-		$('#modalNotif').css('display', 'block');
-		setTimeout(function(){
-			$('#modalNotif').css('display', 'none');
-		}, 2000);
+		$('#errorMsg').html(message);
+		$('#modal-error').modal('show');
 	}
 
+	//This part is for Archived Tab
+	$('body').delegate('#archived', 'click', function(e){
+		$.ajax({
+			url: "Billing/viewArchived/",
+			type: "GET",
+			dataType: "JSON",
+			success: function(data){
+				$('#archivedTBody').html("");
+				for(var i=0; i<data.length; i++){
+					var status = "";
+					$('#archivedTBody').append("<tr>");
+					$('#archivedTBody').append("<td>" + data[i].sales_invoice_no + "</td>");
+					$('#archivedTBody').append("<td>" + data[i].F_Name + " " + data[i].L_Name + "</td>");
+					$('#archivedTBody').append("<td>" + data[i].Company + "</td>");
+					$('#archivedTBody').append("<td>" + data[i].Address + "</td>");
+					if((data[i].debit - data[i].credit) > 0)  status = "PENDING";
+					else	status = "PAID";
+					$('#archivedTBody').append("<td>" + status + "</td>");
+					$('#archivedTBody').append(
+						"<td>"
+						+	"<a class='btn btn-sm btn-primary' style='font-size:12px; margin-right:10px' href='#' data-id='" + data[i].Sale_ID +"' onclick='viewBilling(" + data[i].Sale_ID + ")'><i class='fa fa-eye'></i></a>"
+						+	"<a class='btn btn-sm btn-success' style='font-size:12px' href='#' data-id='" + data[i].Sale_ID +"' id='UnarchiveBill'><i class='fa fa-redo'></i></a>"
+						+ "</td>"
+					);
+					$('#archivedTBody').append("</tr>");
+				}
+			},
+			error: function(){
+				showError("SOMETHING WENT WRONG");
+			}
+		})
+	})
+
+	$('body').delegate('#UnarchiveBill', 'click', function(e){
+		var id = $(this).data('id');
+		$('#checkUnarchiveYes').data('id', id);
+		$('#modal-unarchive').modal('show');
+	})
+
+	$('body').delegate('#checkUnarchiveYes', 'click', function(e){
+		var id = $(this).data('id');
+		$.ajax({
+			url: "Billing/unarchive/" + id,
+			type: "GET",
+			data: { id:id, _token:_token },
+			success: function(data){
+				if(data=="Success"){
+					location.reload();
+				}else{
+					showError(data);
+				}
+			},
+			error: function(err){
+				showError("Something Went Wrong");
+			}
+		})
+	})
+
+	function generateReports(){
+		var reportMonth = $('#reportMonth').val();
+		if($('#reportsArchived').is(":checked")) var archived = 0;
+		else if($('#reportsUnarchived').is(":checked")) var archived = 1;
+		window.open('/Billing/Excel/' + reportMonth + "/" + archived);
+	}
 </script>
 @stop

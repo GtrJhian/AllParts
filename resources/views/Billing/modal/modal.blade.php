@@ -69,8 +69,9 @@
 											<table class="table table-striped" width="100%" cellspacing="0">
 												<thead>
 													<th>No.</th>
-													<th>Quantity</th>
+													<th>Description</th>
 													<th>Unit</th>
+													<th>Quantity</th>
 													<th>Unit Price</th>
 													<th>Total Price</th>
 												</thead>
@@ -116,21 +117,28 @@
 						<div class="card mb-3">
 							<div class="card-body">
 								<div class="row">
-									<div class="col"><legend class="text-center">Add Payment</legend>
-										{{-- <form method="POST" id="modalPaymentFormID"> --}}
-											{{ csrf_field() }}
-											<div class="row">
-												<div class="col-4"></div>
-												<div class="col-3">
-														{{-- <input type="text" id="formID" name="id"> --}}
-														<input type="number" class="form-control" id="formPayment" name="payment" min="1" placeholder="Enter Amount">
-												</div>
-												<div class="col-3">
-														<button class="btn btn-primary" id="formSave" data-id="">Save</button>
-												</div>
-											</div>
-										{{-- </form> --}}
+									<div class="col-4">
+										Total Bill: <label id="totalDebit"></label>
 									</div>
+									<div class="col-4">
+										<legend class="text-center">Add Payment</legend>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-4">
+										Balance: <label id="totalBalance"></label>
+									</div>
+									{{-- <form method="POST" id="modalPaymentFormID"> --}}
+										{{ csrf_field() }}
+										<div class="col-4">
+											{{-- <input type="text" id="formID" name="id"> --}}
+											<input type="number" class="form-control" id="formPayment" name="payment" min="1" placeholder="Enter Amount">
+										</div>
+										<div class="col-2">
+											<button class="btn btn-primary" id="formSave" data-id="">Save</button>
+										</div>
+									</div>
+									{{-- </form> --}}
 								</div>
 							</div>
 						</div>
@@ -144,4 +152,4 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div>	

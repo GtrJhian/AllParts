@@ -25,7 +25,7 @@
 							<div class="row">
 								<label class="col-sm-3">Code: </label>
 								<div class="col-sm-9">
-									<input type="text" name="ic" required class="form-control">
+									<input type="text" name="ic" id="ic"required class="form-control" ><div id="icwarnm"></div>
 								</div>
 							</div><br>
 							<div class="row">
@@ -65,7 +65,7 @@
 							<div class="row">
 								<div class="col-sm-6">
 									<label>Price: ₱</label>
-									<input class="form-control" type="number" name="ip" min="0" step=".01" value="0" required>
+									<input class="form-control" type="number" name="ip" min="0.01" step=".01" value="1" required>
 								</div>
 								<div class="col-sm-6">
 									<label>Unit:</label>
@@ -84,10 +84,10 @@
 							</div><br>
 							<div class="row">
 								<div class="col-sm-6">
-									<input class="btn btn-success btn-block" type="submit" name="cisubmit" value="Create">
+									<input class="btn btn-success btn-block" type="submit" id="cisubmit" name="cisubmit" value="Create">
 								</div>
 								<div class="col-sm-6">
-									<input class="btn btn-danger btn-block" type="reset" name="cireset" value="Clear">
+									<input class="btn btn-danger btn-block" type="reset" id="cireset"name="cireset" value="Clear">
 								</div>
 							</div>
 						</div>
@@ -102,8 +102,8 @@
 					<div class="row">
 						<label class="col-sm-3">Code: </label>
 						<div class="col-sm-9">
-							<input type="text" name="pc" required class="form-control">
-						</div>
+							<input type="text" id="pc"name="pc" required class="form-control">
+						</div><div id="pcwarnm"></div>
 					</div>
 					<br>
 					<div class="row">
@@ -143,7 +143,7 @@
 					<div class="row">
 						<div class="col-sm-6">
 							<label>Price: ₱</label>
-							<input class="form-control" type="number" name="pp" min="0" step=".01" value="0" required>
+							<input class="form-control" type="number" name="pp" min="0.01" step=".01" value="1" required>
 						</div>
 						<div class="col-sm-6">
 							<label>Unit:</label>
@@ -163,14 +163,15 @@
 					<div class="row">
 						<label class="col-sm-4">Number of Items Required: </label>
 						<div class="col-sm-3">
-							<input class="form-control" type="number" name="ItemList" maxlength=3 min=1 onChange="numOfLines(this.value);" required>
+							<input class="form-control" type="number" id="ItemCount" name="ItemList" maxlength=3 min=1 onChange="numOfLines(this.value);" required>
 						</div>
 					</div>
 					<hr>
 					<div id="input_items">			
 					</div>
+					<center><p id="output"></p></center>
 					<div class="row">
-						<input class="btn btn-info d-block mx-auto button-view" type="submit" name="cpsubmit" value="Create Package">
+						<input class="btn btn-info d-block mx-auto button-view" type="submit" name="cpsubmit" value="Create Package" id="cpsubmit">
 					</div>
 				</form>
 			</div>

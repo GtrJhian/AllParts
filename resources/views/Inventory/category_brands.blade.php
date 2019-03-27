@@ -3,19 +3,12 @@
 @section('content')
 
 
-<script>
-	var msg = '{{Session::get('alert')}}';
-	var exist = '{{Session::has('alert')}}';
-	var evalmsg = msg.replace(/(&quot\;)/g,"\"");
-	if(exist){
-		alert(evalmsg);
-	}
-</script>
+
 
 
 <body>
-	@include('components.nav2')
-	<div id="wrapper">
+	@include('components.nav_sales')
+	<div id="wrapper" class="offset1">
 		@include('components.menu_inventory')
 		<div id="content-wrapper">
 			<div class="container-fluid">
@@ -172,6 +165,17 @@
 @stop
 
 @section('script')
+<script>
+	var msg = '{{Session::get('alert')}}';
+	var exist = '{{Session::has('alert')}}';
+	var evalmsg = msg.replace(/(&quot\;)/g,"\"");
+	if(exist){
+		alert(evalmsg);
+	}
+	evalmsg=null;
+</script>
+
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#categoryTable').DataTable();
@@ -320,6 +324,55 @@ $('.archive_btn_br').click(function(){
 	});
 	$('#removeBrand').modal('show');
 });
+
+
+
+ $('#cn').on('blur', function(){
+ 		var nc=$('#cn').val();
+	$.ajax({
+		method: "POST",
+		url: "{{ route('checkCateg') }}",
+		data:{itemCategory:nc,'_token':"{{csrf_token()}}"},
+		success: function (data){
+			var array = jQuery.parseJSON(data);
+			$("#cnwarnm").html(array[0].message);	
+			if(array[0].exist==0){
+				$('#cnsubmit').prop('disabled', false);
+			}
+			else{
+				$('#cnsubmit').prop('disabled', true);
+			}
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("ERROR IN REQUEST");
+		} 
+	});
+});
+
+
+ $('#bn').on('blur', function(){
+ 		var nc=$('#bn').val();
+	$.ajax({
+		method: "POST",
+		url: "{{ route('checkBrand') }}",
+		data:{brandName:nc,'_token':"{{csrf_token()}}"},
+		success: function (data){
+			var array = jQuery.parseJSON(data);
+			$("#bnwarnm").html(array[0].message);	
+			if(array[0].exist==0){
+				$('#bnsubmit').prop('disabled', false);
+			}
+			else{
+				$('#bnsubmit').prop('disabled', true);
+			}
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("ERROR IN REQUEST");
+		} 
+	});
+});
+
+
 
 </script>
 

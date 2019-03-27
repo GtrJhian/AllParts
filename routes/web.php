@@ -41,6 +41,9 @@ Route::get('/archive_users',function(){
 Route::get('/logs',function(){
 	return view ('users.activity_logs');
 });
+Route::get('/profile',function(){
+	return view ('profile');
+});
 //================AJAX ROUTES====================//
 
 Route::get('/Store/json/{param}','StoreController@json');
@@ -49,6 +52,7 @@ Route::get('/Store/json/item/{id}','StoreController@jsonItem');
 //=================
 
 
+<<<<<<< HEAD
 //================Supplier Routes====================//
 Route::get('/supplier',[
 	'uses' => 'SupplierController@index',
@@ -71,6 +75,21 @@ Route::get('/supplier/archive', [
 	'uses' => 'SupplierController@trashed',
 	'as' => 'supplier.trashed'
 ]);
+=======
+//===================Store====================//
+
+Route::post('/Store/submit','StoreController@Submit');
+Route::post('/Store/validate','StoreController@ValidateForm');
+
+//============================================//
+
+
+
+
+
+
+
+>>>>>>> ryan
 
 Route::get('/supplier/delete/{id}', [
 	'uses' => 'SupplierController@kill',
@@ -103,6 +122,11 @@ Route::get('/purchasing',[
 Route::post('/Customer/Create','CustomerController@Create');
 Route::get('/Customer/All','CustomerController@ShowAll');
 Route::get('/Customer/id/{id}','CustomerController@Select');
+Route::get('/Customer/archived','CustomerController@Archived');
+Route::post('/Customer/update','CustomerController@Update');
+Route::post('/Customer/delete','CustomerController@Delete');
+Route::post('/Customer/restore','CustomerController@Restore');
+
 //Route::resource('/Customer', 'Customer');
 //---Zild was here
 //================================================//
@@ -116,10 +140,17 @@ Route::get('/Billing/{id}/edit','BillingController@editBill');
 Route::post('/Billing/addPayment','BillingController@addPayment');
 Route::get('/Billing/archive/{id}','BillingController@archiveBill');
 Route::get('/Billing/Receipt/{id}','BillingController@receipt');
-Route::get('/Billing/Excel/','BillingController@excel');
+Route::get('/Billing/Excel/{month}/{archived}','BillingController@excel');
+Route::get('/Billing/viewArchived/','BillingController@viewArchived');
+Route::get('/Billing/unarchive/{id}','BillingController@unarchiveBill');
 //End of Billing Routes
 //--Fred 
 //================================================//
+
+//================================================//
+//Inventory Routes
+// Route::resource('Inventory', 'InventoryController');
+
 Route::get('/selectInventory',function(){
 	$inventories = \DB::table('inventory')->where('archive',0)->where('Item_Type',0)->orderBy('item_code','ASC')->get();
 	return view('inventory.index_inventory')->with('inventories',$inventories);
@@ -170,6 +201,13 @@ Route::post('/popPckgList','InventoryController@popPckgList')->name("popPckgList
 Route::post('/popBrandForm','InventoryController@popBrandForm')->name("popBrandForm");
 Route::post('/popCategoryForm','InventoryController@popCategoryForm')->name("popCategoryForm");
 Route::post('/getInvAlerts','InventoryController@getInvAlerts')->name("getInvAlerts");
+Route::post('/getInvItems','InventoryController@getInvItems')->name("getInvItems");
 Route::post('/getPic','InventoryController@getPic')->name("getPic");
-//--Keith
+Route::post('/viewItem','InventoryController@viewItem')->name("viewItem");
+Route::post('/checkCode','InventoryController@checkCode')->name("checkCode");
+Route::post('/checkCateg','InventoryController@checkCateg')->name("checkCateg");
+Route::post('/checkBrand','InventoryController@checkBrand')->name("checkBrand");
+//End of Inventory Routes
+//--KasperBK
+//================================================//
 ?>
