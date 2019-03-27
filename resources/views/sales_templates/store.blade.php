@@ -7,7 +7,7 @@
 
 	@include('components.nav_sales')
 
-	<div id="wrapper">
+	<div id="wrapper" class="offset1">
 
 		<!-- Sidebar -->
 		@include('components.menu_sales')
@@ -17,9 +17,9 @@
 			<div class="container-fluid">
 
 				<!-- Breadcrumbs-->
-				<ol class="breadcrumb" style="border-radius: 0px">
+				<ol class="breadcrumb" style="border-radius: 0px;background-color:#fff">
 					<li class="breadcrumb-item">
-						<a href="#" class="text5" style="letter-spacing: .25em; text-transform: uppercase;">Store</a>
+						<h6 class="text5" style="letter-spacing: .15em; text-transform: uppercase;"><strong><i class="fa fa-store" style="font-size:23px"></i> Store</strong></h6>
 					</li>
 				</ol>
 
@@ -53,7 +53,7 @@
 											</div>
 											<div class="col-4" style="padding-left: 5px">
 												<div class="form-label-group">
-												<input type="date" id="date" class="form-control form-control" placeholder="Date:" value ="{{(new DateTime())->format('Y-m-d')}}" readonly>
+												<input type="date" id="date" class="input_change" placeholder="Date:" value ="{{(new DateTime())->format('Y-m-d')}}" readonly>
 													<label for="date">Date:</label>
 												</div>
 											</div>
@@ -96,7 +96,7 @@
 											<div class="col-4" style="padding-right: 5px">
 												<h6 style="margin-bottom:0.5px;font-size:12px">Term of Payment:</h6>
 												<div class="form-group">
-													<select id="tofp" class="input_change" required="required" autofocus="autofocus">
+													<select id="tofp" class="input_change" required="required" autofocus="autofocus" style="padding:5px 0px">
 														<option value="Cash">Cash</option>
 														<option value="Check">Check</option>
 														<option value ="15 Days">15 Days</option>
@@ -183,7 +183,7 @@
 													<h6 style="font-weight: normal;" id = "vatableSales">0</h6>
 													<h6 style="font-weight: normal;" id = "vatAmount">0</h6>
 													<h6 style="font-weight: normal; " id="amountRendered">0</h6>
-													<input type='number' name="amountPayed" class="input_change text-right" min=0 step=0.01 id="amountReceived">
+													<input type='number' name="amountPayed" class="input_change text-right" min=0 step=0.01 id="amountReceived" style="padding:0px">
 													<h6 style="font-weight: normal;padding-top:5px" id=change>0</h6>
 												</div>
 											</div>

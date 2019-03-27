@@ -4,9 +4,9 @@
 
 
 <body>
-	@include('components.nav2')
+	@include('components.nav_sales')
 	
-	<div id="wrapper">
+	<div id="wrapper" class="offset1">
 		@include('components.menu_inventory')
 		<div id="content-wrapper">
 			<div class="container-fluid">
