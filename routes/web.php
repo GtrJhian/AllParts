@@ -52,7 +52,6 @@ Route::get('/Store/json/item/{id}','StoreController@jsonItem');
 //=================
 
 
-<<<<<<< HEAD
 //================Supplier Routes====================//
 Route::get('/supplier',[
 	'uses' => 'SupplierController@index',
@@ -75,7 +74,7 @@ Route::get('/supplier/archive', [
 	'uses' => 'SupplierController@trashed',
 	'as' => 'supplier.trashed'
 ]);
-=======
+
 //===================Store====================//
 
 Route::post('/Store/submit','StoreController@Submit');
@@ -84,12 +83,6 @@ Route::post('/Store/validate','StoreController@ValidateForm');
 //============================================//
 
 
-
-
-
-
-
->>>>>>> ryan
 
 Route::get('/supplier/delete/{id}', [
 	'uses' => 'SupplierController@kill',
