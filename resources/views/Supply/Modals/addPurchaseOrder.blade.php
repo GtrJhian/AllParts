@@ -98,7 +98,7 @@
 																</td>
 																<td><input type="number" class="form-control-sm form-control" onkeyup="updateAmount(0)" min=0 name="quantity[0]"></td>
 																<td><input type="text" class="form-control-sm form-control" name="unit"></td>
-																<td><input type="text" class="form-control-sm form-control" name="desc" value="{{$inventory->Item_Description}}"></td>
+																<td><input type="text" class="form-control-sm form-control" name="desc" value=""></td>
 																<td><input type="text" class="form-control-sm form-control" onkeyup="updateAmount(0)" min=0 name="uprice[0]"></td>
 																<td><span id="amount0"></span></td>
 																<td class="text-center">
@@ -154,7 +154,6 @@
 				itemIndex++;
 			});
 		});
-
 
 		function updateAmount(index){
 			var q = $("input[name='quantity["+index+"]'").val();
