@@ -73,8 +73,11 @@
 										</div>
 									</div><br>
                                     <div class="row">
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-6">
                                             <input class="btn btn-success btn-block" type="submit" name="uisubmit" value="Update Supplier">
+                                        </div>
+										<div class="col-sm-6">
+                                            <a href="{{route('supplier')}}" class="btn btn-danger btn-block" >Cancel</a>
                                         </div>
                                     </div>
                                 </div>
