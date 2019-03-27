@@ -44,18 +44,21 @@
 											<th>Address</th>
 											<th>Telephone Number</th>
 											<th>Company E-mail</th>
+											<th>Company Tin Number</th>
 											<th style="width: 15%;">Action</th>
 										</thead>
 										<tbody>
 												@foreach($supplier as $supply)
-													<tr id="{{$supply->Supplier_ID}}">
+													<tr id="trID_{{$supply->Supplier_ID}}">
 														
 														<td><p style="color:red"><b>{{$supply->Company_Name}}</b></p></td>
 														<td>{{$supply->Company_Address}}</td>
 														<td>{{$supply->Company_Contact}}</td>
 														<td>{{$supply->Company_Email}}</td>
+														<td>{{$supply->TIN_No}}</td>
 													<td>
-														<a class="update_item_btn btn btn-primary btn-action-invt" data-toggle="modal" data-target="#updatesupplier">
+														
+														<a href="{{ route('supplier.edit',['id' => $supply->Supplier_ID])}}" class="update_item_btn btn btn-primary btn-action-invt">
 															<i class="fa fa-edit"></i>
 														</a>
 														
@@ -66,8 +69,8 @@
 													</td>
 													
 													</tr>
+							
 												@endforeach
-											
 										</tbody>
 									</table>
 								</div>
@@ -98,15 +101,11 @@
 		</a> 
 	</div>
 	
-
-	<!---REMOVE ITEM FORM ----->
-	@include('Supply.Modals.removemodal')
-	<!---UPDATE ITEM FORM ----->
-	@include('Supply.Modals.updatemodal')
-	<!-- CREATE INVENTORY MODAL -->
+	
+	<!-- CREATE SUPPLIER MODAL -->
 	@include('Supply.Modals.addmodal')
-
-
+	
+	
 	
 
 	</body>
@@ -117,7 +116,7 @@
 	$(document).ready(function() {
 		$('#itemlist').DataTable();
 	});
-	</script>
 	
-
+	
+</script>
 @stop

@@ -51,7 +51,8 @@ Route::get('/Store/json/item/{id}','StoreController@jsonItem');
 
 //================Supplier Routes====================//
 Route::get('/supplier',[
-	'uses' => 'SupplierController@index'
+	'uses' => 'SupplierController@index',
+	'as' => 'supplier'
 ]);
 
 
@@ -74,6 +75,18 @@ Route::get('/supplier/archive', [
 Route::get('/supplier/delete/{id}', [
 	'uses' => 'SupplierController@kill',
 	'as' => 'supplier.kill'
+]);
+Route::get('/supplier/restore/{id}', [
+	'uses' => 'SupplierController@restore',
+	'as' => 'supplier.restore'
+]);
+Route::get('/supplier/edit/{id}',[
+	'uses'=>'SupplierController@edit',
+	'as'=>'supplier.edit'
+]);
+Route::post('/supplier/update/{id}',[
+	'uses'=>'SupplierController@update',
+	'as'=>'supplier.update'
 ]);
 //===============================//
 //================Purchasing Routes====================//

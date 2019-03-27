@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\SupplierModel;
 use Illuminate\Http\Request;
+use DB;
 
 class SupplierController extends Controller
 {
@@ -43,6 +44,7 @@ class SupplierController extends Controller
         $supplier->Company_Address = $request->compaddress;
         $supplier->Company_Contact = $request->companynumber;
         $supplier->Company_Email = $request->companyemail;
+        $supplier->TIN_No = $request->companytin;
         $supplier->save();
         return redirect()->back();
     }
@@ -66,7 +68,8 @@ class SupplierController extends Controller
      */
     public function edit($id)
     {
-        //
+        $supplier = SupplierModel::find($id); 
+        return view('Supply.updatesupplier')->with('supplier',$supplier);
     }
 
     /**
@@ -78,7 +81,21 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'companyname'=>'required',
+            'companyadd'=>'required',
+            'companynumber'=>'required',
+            'companyemail'=>'required'
+        ]);
+        $supplier = SupplierModel::find($id);
+
+        $supplier->Company_Name = $request->companyname;
+        $supplier->Company_Address = $request->companyadd;
+        $supplier->Company_Contact = $request->companynumber;
+        $supplier->Company_Email = $request->companyemail;
+        $supplier->TIN_No = $request->companytin;
+        $supplier->save(); 
+        return redirect()->route('supplier');
     }
 
     /**
@@ -102,6 +119,18 @@ class SupplierController extends Controller
     }
     public function kill($id)
     {
-
+        $supplier=SupplierModel::withTrashed()->where('Supplier_ID',$id)->first();
+        // dd($supplier);
+        $supplier->forceDelete();
+        return redirect()->back();
     }
+    public function restore($id)
+    {
+        $supplier=SupplierModel::withTrashed()->where('Supplier_ID',$id)->first();
+        // dd($supplier);
+        $supplier->restore();
+        return redirect()->route('supplier');
+    }
+     
+    
 }
