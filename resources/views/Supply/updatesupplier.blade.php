@@ -55,9 +55,9 @@
                                         </div>
                                     </div><br>
                                     <div class="row">
-                                        <label class="col-sm-6">Company Number: </label>
+                                        <label class="col-sm-6">Company Number: (format:XXXX XXX XXXX)</label>
                                         <div class="col-sm-12">
-                                            <input type="text" id="companynumber" name="companynumber" required class="form-control" value="{{$supplier->Company_Contact}}">
+                                            <input type="tel" pattern="[0-9]{4} [0-9]{3} [0-9]{4}" min="0" maxlength="13" id="companynumber" name="companynumber" required class="form-control" value="{{$supplier->Company_Contact}}">
                                         </div>
                                     </div><br>
                                     <div class="row">
@@ -66,6 +66,12 @@
                                             <input type="text" id="companyemail" name="companyemail" required class="form-control" value="{{$supplier->Company_Email}}">
                                         </div>
                                     </div><br>
+									<div class="row">
+										<label class="col-sm-6">Tin No.: (format:XXX-XX-XXXX)</label>
+										<div class="col-sm-12">
+										<input maxlength="11" min="0" type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}" name="companytin" required class="form-control" maxlength="9" value="{{$supplier->TIN_No}}">
+										</div>
+									</div><br>
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <input class="btn btn-success btn-block" type="submit" name="uisubmit" value="Update Supplier">

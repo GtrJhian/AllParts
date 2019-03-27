@@ -44,6 +44,7 @@ class SupplierController extends Controller
         $supplier->Company_Address = $request->compaddress;
         $supplier->Company_Contact = $request->companynumber;
         $supplier->Company_Email = $request->companyemail;
+        $supplier->TIN_No = $request->companytin;
         $supplier->save();
         return redirect()->back();
     }
@@ -92,6 +93,7 @@ class SupplierController extends Controller
         $supplier->Company_Address = $request->companyadd;
         $supplier->Company_Contact = $request->companynumber;
         $supplier->Company_Email = $request->companyemail;
+        $supplier->TIN_No = $request->companytin;
         $supplier->save(); 
         return redirect()->route('supplier');
     }

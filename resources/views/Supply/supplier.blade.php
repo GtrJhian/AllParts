@@ -44,6 +44,7 @@
 											<th>Address</th>
 											<th>Telephone Number</th>
 											<th>Company E-mail</th>
+											<th>Company Tin Number</th>
 											<th style="width: 15%;">Action</th>
 										</thead>
 										<tbody>
@@ -54,6 +55,7 @@
 														<td>{{$supply->Company_Address}}</td>
 														<td>{{$supply->Company_Contact}}</td>
 														<td>{{$supply->Company_Email}}</td>
+														<td>{{$supply->TIN_No}}</td>
 													<td>
 														
 														<a href="{{ route('supplier.edit',['id' => $supply->Supplier_ID])}}" class="update_item_btn btn btn-primary btn-action-invt">

@@ -28,9 +28,9 @@
 								</div>
 							</div><br>
 							<div class="row">
-								<label class="col-sm-4">Contact Number: </label>
+								<label class="col-sm-4">Contact Number:<br/>(format:XXXX XXX XXXX)</label>
 								<div class="col-sm-8">
-                                <input type="number" name="companynumber" required class="form-control">
+                                <input type="tel" pattern="[0-9]{4} [0-9]{3} [0-9]{4}" name="companynumber" required class="form-control" maxlength="13" min="0">
 								</div>
 							</div><br>
 							<div class="row">
@@ -39,7 +39,12 @@
                                 <input type="email" name="companyemail" required class="form-control">
 								</div>
 							</div><br>
-							
+							<div class="row">
+								<label class="col-sm-4">Tin No.:<br/>(format:XXX-XX-XXXX)</label>
+								<div class="col-sm-8">
+                                <input name="companytin" required class="form-control" maxlength="11" min="0" type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}">
+								</div>
+							</div><br>
 							
 							<div class="row">
 								<div class="col-sm-6">
