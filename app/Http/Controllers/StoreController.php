@@ -117,6 +117,13 @@ class SaleData{
         foreach($this->items_assoc as $item_id => $quantity){
             DB::update('UPDATE inventory SET Item_Quantity = Item_Quantity - ? WHERE Item_ID = ?', [$quantity, $item_id]);
         }
+
+        DB::insert('INSERT INTO accounting(sale_id,acc_date,acc_payment) VALUES(?,?,?)',
+                                            [
+                                                $sale_id,
+                                                $this->date,
+                                                $this->credit
+                                            ]);
         $this->updateAllPackages();
         return back();
     }
