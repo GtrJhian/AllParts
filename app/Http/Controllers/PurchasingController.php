@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\SupplierModel;
 use App\PurchaseModel;
 use App\PurchaseDetailModel;
+use App\InventoryPost;
 use Illuminate\Http\Request;
 
 class PurchasingController extends Controller
@@ -19,10 +20,12 @@ class PurchasingController extends Controller
         $supplier = SupplierModel::all();
         $newpurchase = PurchaseModel::find(\DB::table('purchase_order')->max('Order_No'));
         $purchasing = PurchaseModel::with('supplier')->get();
+        $inventory = InventoryPost::all();
         $data = [
             'supplier' => $supplier,
             'purchasing' => $purchasing,
-            'purchaseid' => $newpurchase
+            'purchaseid' => $newpurchase,
+            'inventory' => $inventory
         ];
 
         return view('Supply.orders')->with('data',$data);

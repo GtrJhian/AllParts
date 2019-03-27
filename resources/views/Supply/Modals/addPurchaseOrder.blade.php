@@ -9,14 +9,12 @@
 				
 				<!---- ADD FORM----->
 				<div class="container-fluid">
-					<div class="card mb-3">
+					<div class="card">
 						<div class="card-header">
 							<span class="text5">Purchase Order No. <a style="color:#c73213">
-								@if(count($data['purchaseid']) > 0)
+								
 								{{$data['purchaseid']->Order_No + 1}}
-								@else
-								0001
-								@endif
+								
 							</a></span>
 						</div>
 						<div class="card-body">
@@ -77,6 +75,7 @@
 												<div class="col">
 													<table class="table table-bordered" id="items_added">
 														<thead>
+															<th>Item Code</th>
 															<th>Quantity</th>
 															<th>Unit</th>
 															<th>Description of Goods</th>
@@ -86,9 +85,20 @@
 														</thead>
 														<tbody id="baseitemform">
 															<tr>
+																<td>
+																	<select id="item_code"  class="form-control form-control-sm" placeholder="Order From:" required="required" autofocus="autofocus">
+																	@if(count($data['inventory']) > 0)
+																	@foreach($data['inventory'] as $inventory)
+																	<option>{{$inventory->Item_Code}}</option>
+																	@endforeach
+																	@else
+																	<option>No item available</option>
+																	@endif
+																	</select>
+																</td>
 																<td><input type="number" class="form-control-sm form-control" onkeyup="updateAmount(0)" min=0 name="quantity[0]"></td>
 																<td><input type="text" class="form-control-sm form-control" name="unit"></td>
-																<td><input type="text" class="form-control-sm form-control" name="desc"></td>
+																<td><input type="text" class="form-control-sm form-control" name="desc" value="{{$inventory->Item_Description}}"></td>
 																<td><input type="text" class="form-control-sm form-control" onkeyup="updateAmount(0)" min=0 name="uprice[0]"></td>
 																<td><span id="amount0"></span></td>
 																<td class="text-center">
@@ -138,7 +148,7 @@
 		$(document).ready(function() {
 			$("#additem").click(function(){
 				$("#baseitemform").append(
-					'<tr><td><input type="number" class="form-control-sm form-control" onkeyup="updateAmount(' + itemIndex + ')" name="quantity[' + itemIndex + ']"></td><td><input type="text" class="form-control-sm form-control" name="unit[' + itemIndex + ']"></td><td><input type="text" class="form-control-sm form-control" name="desc[' + itemIndex + ']"></td><td><input type="text" class="form-control-sm form-control" onkeyup="updateAmount(' + itemIndex + ')" name="uprice[' + itemIndex + ']"></td><td><span id="amount' + itemIndex + '"></span></td><td class="text-center"><a><span><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></span></a></td></tr>'
+					'<tr><td><select id="item_code"  class="form-control form-control-sm" placeholder="Order From:" required="required" autofocus="autofocus">@if(count($data['inventory']) > 0)@foreach($data['inventory'] as $inventory)<option>{{$inventory->Item_Code}}</option>@endforeach@else<option>No item available</option>@endif</select></td><td><input type="number" class="form-control-sm form-control" onkeyup="updateAmount(' + itemIndex + ')" name="quantity[' + itemIndex + ']"></td><td><input type="text" class="form-control-sm form-control" name="unit[' + itemIndex + ']"></td><td><input type="text" class="form-control-sm form-control" name="desc[' + itemIndex + ']"></td><td><input type="text" class="form-control-sm form-control" onkeyup="updateAmount(' + itemIndex + ')" name="uprice[' + itemIndex + ']"></td><td><span id="amount' + itemIndex + '"></span></td><td class="text-center"><a><span><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></span></a></td></tr>'
 					);
 				pAmount[itemIndex] = 0;
 				itemIndex++;
@@ -160,4 +170,5 @@
 				$("#totalamount").val(totalAmount);
 			}
 		}
+
 	</script>
