@@ -203,4 +203,13 @@ Route::post('/checkBrand','InventoryController@checkBrand')->name("checkBrand");
 //End of Inventory Routes
 //--KasperBK
 //================================================//
+
+//===============USERS============================//
+
+Route::post('/User/register','UserController@Register');
+Route::post('/User/login','UserController@Login');
+Route::get('/User/logout','UserController@Logout');
+
+//--Zild
+//===============================================//
 ?>

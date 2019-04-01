@@ -33,8 +33,8 @@ class SaleData{
             $this->debit>$this->credit){
                 $isValid = false;
                 array_push($errors, "Insufficient Payment for CASH/CHECK");
-            }
-
+        }
+            
 
         //============cusID validation=================//
         if(count(DB::select('SELECT * FROM customer WHERE Cus_ID = ?',[$this->cusID]))==0){
@@ -215,14 +215,10 @@ class StoreController extends Controller
     }
 
     function Submit(Request $request){
-        //return $this->ValidateForm($request);
         if(!$request->has('items')){
             return ["isValid" => false , "errors" => ["No Items Added."]];
         }
         $sale = new SaleData($request->input('Cus_ID'), $request->input('items') ,$request->input('amountPayed') ,$request->input('termOfPayment'));
-        echo json_encode($sale->validate());
-        echo json_encode($sale);
-        //return $request->all();
         return $sale->Submit();
     }
     function ValidateForm(Request $request){
@@ -235,9 +231,6 @@ class StoreController extends Controller
         }
         $sale = new SaleData($request->input('Cus_ID'), $request->input('items') ,$request->input('amountPayed') ,$request->input('termOfPayment'));
         return json_encode($sale->validate());
-        //echo json_encode($saleData->validate());
-        
-        //echo json_encode($saleData);
     }
 
     private function auth(){

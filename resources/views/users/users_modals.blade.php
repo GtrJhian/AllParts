@@ -6,7 +6,7 @@
 						<button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
 						<legend class="text-center">Add User</legend>
 						<hr>
-						<form method="POST" action='/Customer/Create'>
+						<form method="POST" action='/User/register'>
 							@csrf
 							<p class="text-secondary"><i>Note: <strong style="color:red">*</strong> are required</i></p>
 							<div class="row" style="padding-bottom:5px">
@@ -75,7 +75,7 @@
 								</div>
 								<div class="offset-1 col-8">
 									<div class="form-group">
-										<input name='username' type="number" id="username" class="form-control form-control" placeholder="Ex: jdelacruz" autofocus="autofocus">
+										<input name='username' id="username" class="form-control form-control" placeholder="Ex: jdelacruz" autofocus="autofocus">
 									</div>
 								</div>
 							</div>
@@ -95,7 +95,7 @@
 								</div>
 								<div class="offset-1 col-8">
 									<div class="form-group">
-										<input name='cpassword' type="password" id="cpassword" class="form-control form-control" placeholder="Ex: ******" autofocus="autofocus">
+										<input type="password" id="cpassword" class="form-control form-control" placeholder="Ex: ******" autofocus="autofocus">
 									</div>
 								</div>
                             </div>
@@ -107,31 +107,31 @@
 								<div class="offset-1 col-8">
                                     <div class="form-check">
                                         <label class="container9">
-                                            <input type="checkbox" class="form-check-input" name="optradio">Admin
+                                            <input type="checkbox" class="form-check-input" name="access[0]">Admin
                                             <span class="boxmark"></span>
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="container9">
-                                            <input type="checkbox" class="form-check-input" name="optradio">Sales Invoice
+                                            <input type="checkbox" class="form-check-input" name="access[1]">Sales Invoice
                                             <span class="boxmark"></span>
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="container9">
-                                            <input type="checkbox" class="form-check-input" name="optradio">Inventory
+                                            <input type="checkbox" class="form-check-input" name="access[2]">Inventory
                                             <span class="boxmark"></span>
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="container9">
-                                            <input type="checkbox" class="form-check-input" name="optradio">Billings
+                                            <input type="checkbox" class="form-check-input" name="access[3]">Billings
                                             <span class="boxmark"></span>
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="container9">
-                                            <input type="checkbox" class="form-check-input" name="optradio">Suppliers
+                                            <input type="checkbox" class="form-check-input" name="access[4]">Suppliers
                                             <span class="boxmark"></span>
                                         </label>
                                     </div>

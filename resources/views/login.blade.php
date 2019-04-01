@@ -14,20 +14,21 @@
 							<div class="row">
 								<img src="{{asset('vendor/img/allparts.png')}}" style="width: 300px;height: 250px;" class="centering">	
 							</div>
-							<form>
+							<form method = "POST" action = "/User/login">
+								@csrf
 								<div class="form-group" style="padding-top: 10px">
 									<div class="form-group">
 										<label for="inputEmail">Username:</label>
-										<input type="email" id="inputEmail" class="form-control" placeholder="Username" required="required" autofocus="autofocus">
+										<input type="text" id="inputEmail" name = "username" class="form-control" placeholder="Username" required="required" autofocus="autofocus">
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="form-group">
 										<label for="inputPassword">Password:</label>
-										<input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
+										<input type="password" name ="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
 									</div>
 								</div>
-								<a class="btn btn-primary btn-block" href="">Login</a>
+								<input type="submit" class="btn btn-primary btn-block" value = "Login">
 							</form>
 							<div class="text-center">
 								<a class="d-block small" href="forgot-password.html" style="padding-top: 5px">Forgot Password?</a>

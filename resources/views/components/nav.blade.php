@@ -4,6 +4,6 @@
 	<div class="dropdown-content">
 		<a href="" class="content1" style="text-decoration: none">Settings</a>
 		<div class="dropdown-divider" style="text-decoration: none"></div>
-		<a href="" class="content1" style="text-decoration: none">Logout</a>
+		<a href="/User/logout" class="content1" style="text-decoration: none">Logout</a>
 	</div>
 </div>
