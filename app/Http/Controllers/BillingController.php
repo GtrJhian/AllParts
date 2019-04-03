@@ -3,7 +3,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\BillingPost;
+use App\AccountingPost;
 use App\Exports\BillingExport;
+use App\Exports\AccountingExport;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 
@@ -162,23 +164,32 @@ class BillingController extends Controller
 			return view('Billing.Receipt.sales')->with('receiptPost', $data);
 		}
 
-		function excel($month, $archived){
+		function excel($month, $archived, $reportType){
 			$save = false;
-			if(sizeof(BillingPost::billingQueryAll($month, $archived)->get())>0 && $month=="All"){
-				$save = true;
-			}else if(sizeof(BillingPost::billingQuery($month, $archived)->get())>0 && $month!="All"){
-				$save = true;
+			if($reportType == "Billing"){
+				if(sizeof(BillingPost::billingQueryAll($month, $archived)->get())>0 && $month=="All"){
+					$save = true;
+				}else if(sizeof(BillingPost::billingQuery($month, $archived)->get())>0 && $month!="All"){
+					$save = true;
+				}
+			}else if($reportType == "Accounting"){
+				if(sizeof(AccountingPost::accountingQueryAll()->get())>0 && $month=="All"){
+					$save = true;
+				}else if(sizeof(AccountingPost::accountingQuery($month)->get())>0 && $month!="All"){
+					$save = true;
+				}
 			}
-			else{
-				echo "<h1>NO DATA TO GENERATE</h1>";
-			}
+			
 
 			if($save==true){
 				//Save to Logs
-				$actionParam = "Generate Reports with Month ->".$month;
+				$actionParam = "Generate Reports ". $reportType ." with Month ->".$month;
 				$this->saveLog($this->Acc_ID, $actionParam);
-
-				return (new BillingExport($month, $archived))->download('Billing Data.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+				if($reportType == "Billing") return (new BillingExport($month, $archived))->download('Billing Data.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+				if($reportType == "Accounting") return (new AccountingExport($month))->download('Accounting Data.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+				
+			}else{
+				echo "<h1>NO DATA TO GENERATE</h1>";
 			}
 			
 			// echo (sizeof(BillingPost::billingQuery($month, $archived)->get()));
@@ -208,5 +219,14 @@ class BillingController extends Controller
 					return "Success";
 				}
 			}else return "Something went wrong";
+		}
+
+		function viewAccounting(){
+			$dataAccounting = DB::table('accounting')
+												->join('sale', 'sale.Sale_ID', 'accounting.Sale_ID')
+												->select('TR_Acc', 'sale.Sale_ID', 'sales_invoice_no', 'Acc_Date', 'term_of_payment')
+												->get();
+			
+			return $dataAccounting;
 		}
 }

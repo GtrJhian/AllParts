@@ -19,12 +19,13 @@
 						<div class="row" style="margin-bottom:20px">
 							<div class="col-md-12">
 							<div class="nav nav-tabs" id="nav-tab" role="tablist">
-								<a class="nav-item nav-link active" id="bill" data-toggle="tab" href="#billing" role="tab"  aria-selected="true"> <i class="fa fa-calculator "></i>   Billing</a>
+								<a class="nav-item nav-link active" id="bill" data-toggle="tab" href="#billing" role="tab"  aria-selected="true"> <i class="fa fa-credit-card"></i>   Billing</a>
+								<a class="nav-item nav-link" id="accounting" data-toggle="tab" href="#accountingTab" role="tab"  aria-selected="false"> <i class="fa fa-calculator"></i>   Accounting</a>
 								<a class="nav-item nav-link" id="excel" data-toggle="tab" href="#excelTab" role="tab"  aria-selected="false"> <i class="fa fa-newspaper"></i>   Reports</a>
 								<a class="nav-item nav-link" id="archived" data-toggle="tab" href="#archivedTab" role="tab" aria-selected="false"> <i class="fa fa-window-close"></i>   Archived</a>
-								</div>
 							</div>
 						</div>
+					</div>
 				<!-- </div> -->
 
 				<!-- tab contents -->
@@ -85,6 +86,23 @@
 									<div class="card-body"> -->
 										<div class="row">
 											<div class="col">
+												<div class="row">
+													<div class="col-4"></div>
+													<div class="col-3" style="text-align: center">
+														<h3>Select Report Type</h3>
+													</div>
+													<div class="col-4"></div>
+												</div>
+												<br>
+												<div class="row">
+													<div class="col-4"></div>
+													<div class="col-2">
+														<input type="radio" name="reportsAccounting" id="reportsBilling" value="1" onclick="enableArchive()" checked> Billing
+													</div>
+													<div class="col-2">
+														<input type="radio" name="reportsAccounting" id="reportsAccounting" value="0" onclick="disableArchive()"> Accounting
+													</div>
+												</div>
 												<div class="row">
 													<div class="col-3"></div>
 													<div class="col-5">
@@ -161,7 +179,32 @@
 									<!-- </div>
 								</div>  -->
 							</div> 
-							<!-- end of content 3 -->		
+							<!-- end of content 3 -->
+							<!-- tab4 -->
+							<div class="tab-pane fade" id="accountingTab" role="tabpanel" aria-labelledby="nav-contact-tab">
+								<div class="card mb-3">
+									<div class="card-body"> 
+										<div class="row">
+											<div class="col">
+												<div class="table-responsive">
+													<table class="table table-striped" id="itemlist3" width="100%" cellspacing="0">
+														<thead>
+															<th width=10%>Inv No.</th>
+															<th width=20%>Date</th>
+															<th width=10%>Term Of Payment</th>
+															<th width=10%>Action</th>
+														</thead>
+														<tbody id="accountingTBody">
+												
+														</tbody>
+											</table>	
+												</div>
+											</div>
+										</div>
+								 	</div>
+								</div> 
+							</div> 
+							<!-- end of content 4 -->		
 						</div>
 				<!-- end of contents -->
 					</div>
@@ -184,6 +227,7 @@
 		$('#billingList').DataTable();
 		$('#itemlist').DataTable();
 		$('#itemlist2').DataTable();
+		$('#itemlist3').DataTable();
 	});
 
 	//MODAL VIEWING
@@ -452,7 +496,46 @@
 		var reportMonth = $('#reportMonth').val();
 		if($('#reportsArchived').is(":checked")) var archived = 0;
 		else if($('#reportsUnarchived').is(":checked")) var archived = 1;
-		window.open('/Billing/Excel/' + reportMonth + "/" + archived);
+		if($('#reportsBilling').is(":checked")) var reportType = "Billing";
+		else if($('#reportsAccounting').is(":checked")) var reportType = "Accounting";
+		window.open('/Billing/Excel/' + reportMonth + "/" + archived + "/" + reportType);
 	}
+
+	function disableArchive(){
+		$('#reportsUnarchived').attr('disabled', true);
+		document.getElementById('reportsArchived').checked = true;
+	}
+
+	function enableArchive(){
+		$('#reportsUnarchived').attr('disabled', false);
+	}
+
+	//This part is for Archived Tab
+	$('body').delegate('#accounting', 'click', function(e){
+		$.ajax({
+			url: "Billing/Accounting/",
+			type: "GET",
+			dataType: "JSON",
+			success: function(data){
+				$('#accountingTBody').html("");
+				for(var i=0; i<data.length; i++){
+					$('#accountingTBody').append("<tr>");
+					$('#accountingTBody').append("<td>" + data[i].sales_invoice_no + "</td>");
+					$('#accountingTBody').append("<td>" + data[i].Acc_Date + "</td>");
+					$('#accountingTBody').append("<td>" + data[i].term_of_payment + "</td>");
+					$('#accountingTBody').append(
+						"<td>"
+						+	"<a class='btn btn-sm btn-primary' style='font-size:12px; margin-right:10px' href='#' data-id='" + data[i].Sale_ID +"' onclick='viewBilling(" + data[i].Sale_ID + ")'><i class='fa fa-eye'></i></a>"
+						+ "</td>"
+					);
+					$('#accountingTBody').append("</tr>");
+				}
+				console.log(data);
+			},
+			error: function(){
+				showError("SOMETHING WENT WRONG");
+			}
+		})
+	})
 </script>
 @stop
