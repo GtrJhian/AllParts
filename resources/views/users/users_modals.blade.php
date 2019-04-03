@@ -51,6 +51,16 @@
 							</div>
 							<div class="row" style="padding-bottom:5px">
 								<div class="col-3">
+									<label for="address">Address:<strong style="color:red">*</strong></label>
+								</div>
+								<div class="offset-1 col-8">
+									<div class="form-group">
+										<input name='address' type="text" id="position" class="form-control form-control" placeholder="Ex: Brgy.South Triangle, Quezon City" required="required" autofocus="autofocus">
+									</div>
+								</div>
+							</div>
+							<div class="row" style="padding-bottom:5px">
+								<div class="col-3">
 									<label for="Contact">Contact Number:<strong style="color:red">*</strong></label>
 								</div>
 								<div class="offset-1 col-8">
@@ -69,6 +79,16 @@
 									</div>
 								</div>
 							</div> -->
+							<div class="row" style="padding-bottom:5px">
+								<div class="col-3">
+									<label for="email">Email:<strong style="color:red">*</strong></label>
+								</div>
+								<div class="offset-1 col-8">
+									<div class="form-group">
+										<input name='email' id="email" class="form-control form-control" placeholder="Ex: jdelacruz" autofocus="autofocus">
+									</div>
+								</div>
+							</div>
 							<div class="row" style="padding-bottom:5px">
 								<div class="col-3">
 									<label for="username">Username:<strong style="color:red">*</strong></label>

@@ -209,6 +209,8 @@ Route::post('/checkBrand','InventoryController@checkBrand')->name("checkBrand");
 Route::post('/User/register','UserController@Register');
 Route::post('/User/login','UserController@Login');
 Route::get('/User/logout','UserController@Logout');
+Route::get('/User/show','UserController@ShowAll');
+Route::get('/User/current','UserController@Current');
 
 //--Zild
 //===============================================//
