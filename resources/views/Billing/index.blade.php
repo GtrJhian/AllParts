@@ -87,25 +87,28 @@
 										<div class="row">
 											<div class="col">
 												<div class="row">
-													<div class="col-4"></div>
-													<div class="col-3" style="text-align: center">
+													<div class="col-3 offset-4" style="text-align: center">
 														<h3>Select Report Type</h3>
 													</div>
-													<div class="col-4"></div>
 												</div>
 												<br>
 												<div class="row">
-													<div class="col-4"></div>
-													<div class="col-2">
-														<input type="radio" name="reportsAccounting" id="reportsBilling" value="1" onclick="enableArchive()" checked> Billing
+
+													<div class="offset-4 col-2">
+														<label class="container9">
+															<input type="radio" name="reportsAccounting" id="reportsBilling" value="1" onclick="enableArchive()" checked> Billing
+															<span class="checkmark"></span>
+														</label>
 													</div>
 													<div class="col-2">
-														<input type="radio" name="reportsAccounting" id="reportsAccounting" value="0" onclick="disableArchive()"> Accounting
+														<label class="container9">
+															<input type="radio" name="reportsAccounting" id="reportsAccounting" value="0" onclick="disableArchive()"> Accounting
+															<span class="checkmark"></span>
+														</label>
 													</div>
 												</div>
 												<div class="row">
-													<div class="col-3"></div>
-													<div class="col-5">
+													<div class="offset-3 col-5">
 														<select class="form-control" id="reportMonth">
 															<option value="All">All</option>
 															<option value="01">January</option>
@@ -126,8 +129,7 @@
 												</div>
 												<div class="row" style="padding-bottom: 20px"></div>
 												<div class="row" style="padding-bottom: 20px">
-														<div class="col-4"></div>
-														<div class="col-2">
+														<div class="offset-4 col-2">
 															<label class="container9">
 																<input type="radio" name="reportsArchived" id="reportsArchived" value="1" checked> Unarchived
 																<span class="checkmark"></span>
@@ -141,11 +143,9 @@
 														</div>
 												</div>
 												<div class="row">
-													<div class="col-5"></div>
-													<div class="col-5">
-														<button class="btn btn-success" onclick="generateReports()">Generate Reports</button>
+													<div class="offset-4 col-4">
+														<button class="btn btn-success" onclick="generateReports()" style="margin-left:15%">Generate Reports</button>
 													</div>
-													<div class="col-2"></div>
 												</div>
 											</div>
 										</div>
