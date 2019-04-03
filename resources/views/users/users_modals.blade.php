@@ -289,12 +289,12 @@
 								</div>
 							</div>
 							<div class="row" style="padding-bottom:5px">
-								<div class="col-3">
+								<!-- <div class="col-3">
 									<label for="password">Edit Password:<strong style="color:red">*</strong></label>
-								</div>
-								<div class="offset-1 col-8">
+								</div> -->
+								<div class="col-2 offset-4">
 									<div class="form-group">
-										<input name='password' type="password" id="password" class="form-control form-control" placeholder="Ex: ******" autofocus="autofocus">
+										<button name='password' data-target="#chnge_pass" data-toggle="modal"  class="btn btn-md btn-primary" autofocus="autofocus">Change Password</button>
 									</div>
 								</div>
 							</div>
@@ -367,4 +367,64 @@
             </div>
         </div>
     </div>
+</div>
+<div class="modal fade" id="chnge_pass" tabindex="-1" role="dialog" aria-labelledby="chnge_pass" aria-hidden="true">
+	<div class="modal-dialog" style="min-width: 700px">
+		<div class="modal-content">
+			<div class="modal-body">
+				<button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+				<legend class="text-left">Change Password</legend>
+				<hr>
+				<div class="row" style="padding-bottom:5px">
+					<div class="col-3">
+						<label for="ch_password">Password:<strong style="color:red">*</strong></label>
+					</div>
+					<div class="offset-1 col-8">
+						<div class="form-group">
+							<input name='password' type="password" id="password" class="form-control form-control" placeholder="Ex: ******" autofocus="autofocus">
+						</div>
+					</div>
+				</div>
+                <div class="row" style="padding-bottom:5px">
+					<div class="col-3">
+						<label for="ch_cpassword">Confirm Password:<strong style="color:red">*</strong></label>
+					</div>
+					<div class="offset-1 col-8">
+						<div class="form-group">
+							<input name='cpassword' type="password" id="cpassword" class="form-control form-control" placeholder="Ex: ******" autofocus="autofocus">
+						</div>
+					</div>
+                </div>
+				<div class="row">
+                    <div class="offset-8 col-1">
+                        <button type="button" name="Confirm" class="btn btn-md btn-success">Confirm</button>
+                    </div>
+                    <div class="offset-1 col-1">
+                        <button type="button" name="Cancel" class="btn btn-md btn-danger">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="double_check1" tabindex="-1" role="dialog" aria-labelledby="check" aria-hidden="true">
+	<div class="modal-dialog" style="min-width: 700px">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="container">
+					<button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+					<legend class="text-center">Are you sure to delete this user?</legend>
+					<hr>
+					<div class="row">
+						<div class="offset-4 col-1">
+							<input type="button" name="Yes" value="Yes" class="btn btn-md btn-success">
+						</div>
+						<div class="offset-1 scol-1">
+							<input type="button" name="No" value="No" class="btn btn-md btn-danger">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
