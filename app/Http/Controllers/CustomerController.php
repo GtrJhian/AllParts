@@ -9,7 +9,9 @@ use DB;
 class CustomerController extends Controller
 {
     //
-    
+    function __construct(){
+        $this->middleware(['auth','authSales']);
+    }
     function Create(Request $request){
        // var_dump($request->input());
        DB::insert('INSERT into Customer(F_Name, L_Name, M_Name, Contact_No, Address, TIN_no, OSCA_PWD_ID , Company) VALUES(?,?,?,?,?,?,?,?)',[

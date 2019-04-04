@@ -39,7 +39,7 @@ class UserController extends Controller
         if(Auth::attempt($credentials, true)){
             return redirect('/');
         }
-        return view('login');
+        return redirect('login');
     }
     public function Logout(){
         Auth::logout();
@@ -57,7 +57,7 @@ class UserController extends Controller
         return ['data' => $array];
     }
     public function Current(Request $request){
-        return $request->session()->all();
+        return Auth::user();
     }
     public function Delete(Request $request){
         DB::update('UPDATE users SET user_archived = 1 WHERE id = ?', [$request->input('id')]);

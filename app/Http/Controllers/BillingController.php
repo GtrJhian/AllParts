@@ -11,6 +11,11 @@ use PDF;
 
 class BillingController extends Controller
 {
+
+	function __construct(){
+		$this->middleware(['auth','authBillings']);
+	}
+
 	public $Acc_ID=1;
     /**
      * Display a listing of the resource.

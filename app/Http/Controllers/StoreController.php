@@ -162,6 +162,9 @@ class SaleData{
 class StoreController extends Controller
 {
     //
+    function __construct(){
+        $this->middleware(['auth','authSales']);
+    }
     function json($param){
         if(!$this->auth()) return "Missing page";
         switch($param){

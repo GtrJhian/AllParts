@@ -13,6 +13,9 @@ class SupplierupdateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */ 
+    function __construct(){
+        $this->middleware(['auth','authSuppliers']);
+    }
     public function index()
     {
         //
