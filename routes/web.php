@@ -212,6 +212,10 @@ Route::post('/User/login','UserController@Login');
 Route::get('/User/logout','UserController@Logout');
 Route::get('/User/show','UserController@ShowAll');
 Route::get('/User/current','UserController@Current');
+Route::post('/User/delete','UserController@Delete');
+Route::post('/User/edit','UserController@Edit');
+Route::post('/User/select','UserController@Select');
+Route::post('/User/changepassword','UserController@ChangePassword');
 
 //--Zild
 //===============================================//

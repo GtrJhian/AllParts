@@ -172,61 +172,7 @@
 		</div>
 	</div>
 </div>
-    <div class="modal fade" id="view_user" tabindex="-1" role="dialog" aria-labelledby="view" aria-hidden="true">
-		<div class="modal-dialog" style="min-width: 700px">
-			<div class="modal-content">
-				<div class="modal-body">
-					<div class="container">
-						<button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-						<legend class="text-center">About the User</legend>
-						<hr>
-						<div class="row">
-							<div class="offset-1 col-3">
-								<label>Name:</label>
-							</div>
-							<div class="offset-2 col-6">
-								<label>John Santos</label>
-							</div>
-						</div>
-						<div class="row">
-							<div class="offset-1 col-3">
-								<label>Contact No.:</label>
-							</div>
-							<div class="offset-2 col-6">
-								<label>09123456789</label>
-							</div>
-						</div>
-						<div class="row">
-							<div class="offset-1 col-3">
-								<label>Position:</label>
-							</div>
-							<div class="offset-2 col-6">
-								<label>Operations Manager</label>
-							</div>
-						</div>
-						<div class="row">
-							<div class="offset-1 col-3">
-								<label>Username:</label>
-							</div>
-							<div class="offset-2 col-6">
-								<label>jdelacruz</label>
-							</div>
-						</div>
-						<div class="row">
-							<div class="offset-1 col-3">
-								<label>User Access:</label>
-							</div>
-							<div class="offset-2 col-6">
-								<label>XXX-XX-XXXX</label>
-							</div>
-						</div>
-						<hr>
 
-					</div>
-				</div>
-			</div>
-		</div>
-    </div>
 <div class="modal fade" id="edit_user" tabindex="-1" role="dialog" aria-labelledby="customer" aria-hidden="true">
 		<div class="modal-dialog" style="min-width: 700px">
 			<div class="modal-content">
@@ -235,8 +181,9 @@
 						<button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
 						<legend class="text-center">Edit User</legend>
 						<hr>
-						<form method="POST" action='/Customer/Create'>
+						<form method="POST" action='/User/edit'>
 							@csrf
+							<input type = "hidden" name = "id">
 							<p class="text-secondary"><i>Note: <strong style="color:red">*</strong> are required</i></p>
 							<div class="row" style="padding-bottom:5px">
 								<div class="col-3">
@@ -304,7 +251,7 @@
 								</div>
 								<div class="offset-1 col-8">
 									<div class="form-group">
-										<input name='username' type="number" id="username" class="form-control form-control" placeholder="Ex: jdelacruz" autofocus="autofocus">
+										<input name='username' type="text" id="username" class="form-control form-control" placeholder="Ex: jdelacruz" autofocus="autofocus">
 									</div>
 								</div>
 							</div>
@@ -314,7 +261,7 @@
 								</div> -->
 								<div class="col-2 offset-4">
 									<div class="form-group">
-										<button name='password' data-target="#chnge_pass" data-toggle="modal"  class="btn btn-md btn-primary" autofocus="autofocus">Change Password</button>
+										<div data-target="#chnge_pass" data-toggle="modal"  class="btn btn-md btn-primary" >Change Password</div>
 									</div>
 								</div>
 							</div>
@@ -326,31 +273,31 @@
 								<div class="offset-1 col-8">
                                     <div class="form-check">
                                         <label class="container9">
-                                            <input type="checkbox" class="form-check-input" name="optradio">Admin
+                                            <input type="checkbox" class="form-check-input" name="access[0]">Admin
                                             <span class="boxmark"></span>
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="container9">
-                                            <input type="checkbox" class="form-check-input" name="optradio">Sales Invoice
+                                            <input type="checkbox" class="form-check-input" name="access[1]">Sales Invoice
                                             <span class="boxmark"></span>
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="container9">
-                                            <input type="checkbox" class="form-check-input" name="optradio">Inventory
+                                            <input type="checkbox" class="form-check-input" name="access[2]">Inventory
                                             <span class="boxmark"></span>
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="container9">
-                                            <input type="checkbox" class="form-check-input" name="optradio">Billings
+                                            <input type="checkbox" class="form-check-input" name="access[3]">Billings
                                             <span class="boxmark"></span>
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="container9">
-                                            <input type="checkbox" class="form-check-input" name="optradio">Suppliers
+                                            <input type="checkbox" class="form-check-input" name="access[4]">Suppliers
                                             <span class="boxmark"></span>
                                         </label>
                                     </div>
@@ -392,37 +339,41 @@
 	<div class="modal-dialog" style="min-width: 700px">
 		<div class="modal-content">
 			<div class="modal-body">
-				<button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-				<legend class="text-left">Change Password</legend>
-				<hr>
-				<div class="row" style="padding-bottom:5px">
-					<div class="col-3">
-						<label for="ch_password">Password:<strong style="color:red">*</strong></label>
-					</div>
-					<div class="offset-1 col-8">
-						<div class="form-group">
-							<input name='password' type="password" id="password" class="form-control form-control" placeholder="Ex: ******" autofocus="autofocus">
+				<form method = "POST" action = "/User/changepassword">
+					@csrf
+					<input type = "hidden" name = "id">
+					<button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+					<legend class="text-left">Change Password</legend>
+					<hr>
+					<div class="row" style="padding-bottom:5px">
+						<div class="col-3">
+							<label for="ch_password">Password:<strong style="color:red">*</strong></label>
+						</div>
+						<div class="offset-1 col-8">
+							<div class="form-group">
+								<input name='password' type="password" id="password" class="form-control form-control" placeholder="Ex: ******" autofocus="autofocus">
+							</div>
 						</div>
 					</div>
-				</div>
-                <div class="row" style="padding-bottom:5px">
-					<div class="col-3">
-						<label for="ch_cpassword">Confirm Password:<strong style="color:red">*</strong></label>
-					</div>
-					<div class="offset-1 col-8">
-						<div class="form-group">
-							<input name='cpassword' type="password" id="cpassword" class="form-control form-control" placeholder="Ex: ******" autofocus="autofocus">
+					<div class="row" style="padding-bottom:5px">
+						<div class="col-3">
+							<label for="ch_cpassword">Confirm Password:<strong style="color:red">*</strong></label>
+						</div>
+						<div class="offset-1 col-8">
+							<div class="form-group">
+								<input name='cpassword' type="password" id="cpassword" class="form-control form-control" placeholder="Ex: ******" autofocus="autofocus">
+							</div>
 						</div>
 					</div>
-                </div>
-				<div class="row">
-                    <div class="offset-8 col-1">
-                        <button type="button" name="Confirm" class="btn btn-md btn-success">Confirm</button>
-                    </div>
-                    <div class="offset-1 col-1">
-                        <button type="button" name="Cancel" class="btn btn-md btn-danger">Cancel</button>
-                    </div>
-                </div>
+					<div class="row">
+						<div class="offset-8 col-1">
+							<button type="submit" name="Confirm" class="btn btn-md btn-success">Confirm</button>
+						</div>
+						<div class="offset-1 col-1">
+							<button type="button" name="Cancel" class="btn btn-md btn-danger" data-target="chnge_pass" data-dismiss="modal">Cancel</button>
+						</div>
+					</div>
+				</form>
             </div>
         </div>
     </div>
@@ -437,10 +388,10 @@
 					<hr>
 					<div class="row">
 						<div class="offset-4 col-1">
-							<input type="button" name="Yes" value="Yes" class="btn btn-md btn-success">
+							<input id="deleteUser" type="button" name="Yes" value="Yes" class="btn btn-md btn-success" userID="yes" onclick = 'confirmedDelete(this)'>
 						</div>
 						<div class="offset-1 scol-1">
-							<input type="button" name="No" value="No" class="btn btn-md btn-danger">
+							<input type="button" name="No" value="No" class="btn btn-md btn-danger" data-target="double_check1" data-dismiss="modal">
 						</div>
 					</div>
 				</div>

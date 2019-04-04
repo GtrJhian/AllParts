@@ -1,6 +1,9 @@
 @extends('components/main')
 
 @section('content')
+
+<meta name='csrf-token' content="{{csrf_token()}}"/>
+
 <body>
     @include('components.nav_sales')
     <div id="wrapper" class="offset1">
@@ -71,14 +74,54 @@
 			aoColumnDefs:[
 				{
 					render: function(data, type, row){
-						return '<button class="btn btn-sm btn-primary hi-icon1" data-target="#view_user" data-toggle="modal" ><i class="fa fa-eye"><span class="tooltiptext">View</span></i></button>\
-								<button class="btn btn-sm btn-primary hi-icon1" data-target="#edit_user" data-toggle="modal"><i class="fa fa-edit"><span class="tooltiptext">Edit</span></i></button>\
-								<button class="btn btn-sm btn-danger hi-icon1"><i class="fa fa-times"><span class="tooltiptext">Remove</span></i></button>';
+						return '<button  onclick="editUser('+data+')"class="btn btn-sm btn-primary hi-icon1"><i class="fa fa-edit"><span class="tooltiptext">Edit</span></i></button>\
+								<button id = "btnDeleteUser'+data+'" onclick="deleteUser('+data+')" class="btn btn-sm btn-danger hi-icon1" ><i class="fa fa-times"><span class="tooltiptext">Remove</span></i></button>';
 					},
 					targets: 4
 				}
 			]
 		});
 	});
+
+	function editUser(id){
+		$.post({
+			url: '/User/select',
+			data: {
+				_token : $('meta[name = "csrf-token"]').attr('content'),
+				id: id
+			}
+		}).done(function(response){
+			user = JSON.parse(response);
+			$('#edit_user').modal('show');
+			$('#edit_user input[name = "F_Name"]').val(user.F_Name);
+			$('#edit_user input[name = "M_Name"]').val(user.M_Name);
+			$('#edit_user input[name = "L_Name"]').val(user.L_Name);
+			$('#edit_user input[name = "username"]').val(user.username);
+			$('#edit_user input[name = "position"]').val(user.position);
+			$('#edit_user input[name = "Contact_No"]').val(user.Contact_No);
+			$('input[name = "id').val(user.id);
+			//$('#edit_user input[name = "id').val(user.id);
+			for(ctr = 0 ; ctr < 5; ctr++){
+				$('#edit_user input[name = "access['+ctr+']"]').attr('checked',(user.user_access&(1<<ctr))>0?true:false);
+			}
+		});
+	}
+	function deleteUser(id){
+		$('#double_check1').modal('show');
+		$('#deleteUser').attr('userID',id);
+	}
+	function confirmedDelete(userid){
+		userid = $(userid).attr('userid');
+		$.post({
+			url: '/User/delete',
+			data: {
+				_token: $('meta[name = "csrf-token"]').attr('content'),
+				id: userid
+			}
+		}).done(function(response){
+			$('#double_check1').modal('hide');
+			$('#userlist').DataTable().row($('#btnDeleteUser'+userid).parents('tr')).remove().draw();
+		});
+	}
 </script>
 @stop
