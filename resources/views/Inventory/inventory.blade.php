@@ -128,7 +128,13 @@
     			$("#itemlist").dataTable().fnDestroy()
     			$("#itemlist_body").empty();
     			$('#itemlist').find('tbody').append(array.notification);
-    			$('#itemlist').DataTable();
+    			$('#itemlist').DataTable({
+    				 dom:'Bfrtip',
+    				 buttons: [
+            		'excelHtml5',
+           		    'csvHtml5'
+           		    ]
+    			});
     			   
     		}
     	});
