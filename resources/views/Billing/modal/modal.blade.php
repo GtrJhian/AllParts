@@ -118,7 +118,7 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col-4">
-										Total Debit: <label id="totalDebit"></label>
+										Total Bill: <label id="totalDebit"></label>
 									</div>
 									<div class="col-4">
 										<legend class="text-center">Add Payment</legend>
@@ -131,11 +131,11 @@
 									{{-- <form method="POST" id="modalPaymentFormID"> --}}
 										{{ csrf_field() }}
 										<div class="col-4">
-												{{-- <input type="text" id="formID" name="id"> --}}
-												<input type="number" class="form-control" id="formPayment" name="payment" min="1" placeholder="Enter Amount">
+											{{-- <input type="text" id="formID" name="id"> --}}
+											<input type="number" class="form-control" id="formPayment" name="payment" min="1" placeholder="Enter Amount">
 										</div>
 										<div class="col-2">
-												<button class="btn btn-primary" id="formSave" data-id="">Save</button>
+											<button class="btn btn-primary" id="formSave" data-id="">Save</button>
 										</div>
 									</div>
 									{{-- </form> --}}

@@ -10,11 +10,6 @@
 						<div class="offset-md-1 col-sm-4">
 							{{-- <img src="{{asset('inventory/none.png')}}" style="height: 200px; width: 200px; border:1px solid black;"> --}}
 							<div id="itemInformation" class="carousel slide" data-interval="false">
-								<ul class="carousel-indicators">
-									<li data-target="#itemInformation" data-slide-to="0" class="active"></li>
-									<li data-target="#itemInformation" data-slide-to="1"></li>
-									<li data-target="#itemInformation" data-slide-to="2"></li>
-								</ul>
 								<div class="carousel-inner">
 									<div class="carousel-item active">
 										<img src="{{asset('inventory/none.png')}}" alt="Category" id="categorypic" style="height: 200px; width: 200px; border:1px solid black;"> 

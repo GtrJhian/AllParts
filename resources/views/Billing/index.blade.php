@@ -19,12 +19,13 @@
 						<div class="row" style="margin-bottom:20px">
 							<div class="col-md-12">
 							<div class="nav nav-tabs" id="nav-tab" role="tablist">
-								<a class="nav-item nav-link active" id="bill" data-toggle="tab" href="#billing" role="tab"  aria-selected="true"> <i class="fa fa-calculator "></i>   Billing</a>
+								<a class="nav-item nav-link active" id="bill" data-toggle="tab" href="#billing" role="tab"  aria-selected="true"> <i class="fa fa-credit-card"></i>   Billing</a>
+								<a class="nav-item nav-link" id="accounting" data-toggle="tab" href="#accountingTab" role="tab"  aria-selected="false"> <i class="fa fa-calculator"></i>   Accounting</a>
 								<a class="nav-item nav-link" id="excel" data-toggle="tab" href="#excelTab" role="tab"  aria-selected="false"> <i class="fa fa-newspaper"></i>   Reports</a>
 								<a class="nav-item nav-link" id="archived" data-toggle="tab" href="#archivedTab" role="tab" aria-selected="false"> <i class="fa fa-window-close"></i>   Archived</a>
-								</div>
 							</div>
 						</div>
+					</div>
 				<!-- </div> -->
 
 				<!-- tab contents -->
@@ -86,8 +87,28 @@
 										<div class="row">
 											<div class="col">
 												<div class="row">
-													<div class="col-3"></div>
-													<div class="col-5">
+													<div class="col-3 offset-4" style="text-align: center">
+														<h3>Select Report Type</h3>
+													</div>
+												</div>
+												<br>
+												<div class="row">
+
+													<div class="offset-4 col-2">
+														<label class="container9">
+															<input type="radio" name="reportsAccounting" id="reportsBilling" value="1" onclick="enableArchive()" checked> Billing
+															<span class="checkmark"></span>
+														</label>
+													</div>
+													<div class="col-2">
+														<label class="container9">
+															<input type="radio" name="reportsAccounting" id="reportsAccounting" value="0" onclick="disableArchive()"> Accounting
+															<span class="checkmark"></span>
+														</label>
+													</div>
+												</div>
+												<div class="row">
+													<div class="offset-3 col-5">
 														<select class="form-control" id="reportMonth">
 															<option value="All">All</option>
 															<option value="01">January</option>
@@ -108,8 +129,7 @@
 												</div>
 												<div class="row" style="padding-bottom: 20px"></div>
 												<div class="row" style="padding-bottom: 20px">
-														<div class="col-4"></div>
-														<div class="col-2">
+														<div class="offset-4 col-2">
 															<label class="container9">
 																<input type="radio" name="reportsArchived" id="reportsArchived" value="1" checked> Unarchived
 																<span class="checkmark"></span>
@@ -123,11 +143,9 @@
 														</div>
 												</div>
 												<div class="row">
-													<div class="col-5"></div>
-													<div class="col-5">
-														<button class="btn btn-success" onclick="generateReports()">Generate Reports</button>
+													<div class="offset-4 col-4">
+														<button class="btn btn-success" onclick="generateReports()" style="margin-left:15%">Generate Reports</button>
 													</div>
-													<div class="col-2"></div>
 												</div>
 											</div>
 										</div>
@@ -161,7 +179,32 @@
 									<!-- </div>
 								</div>  -->
 							</div> 
-							<!-- end of content 3 -->		
+							<!-- end of content 3 -->
+							<!-- tab4 -->
+							<div class="tab-pane fade" id="accountingTab" role="tabpanel" aria-labelledby="nav-contact-tab">
+								<div class="card mb-3">
+									<div class="card-body"> 
+										<div class="row">
+											<div class="col">
+												<div class="table-responsive">
+													<table class="table table-striped" id="itemlist3" width="100%" cellspacing="0">
+														<thead>
+															<th width=10%>Inv No.</th>
+															<th width=20%>Date</th>
+															<th width=10%>Term Of Payment</th>
+															<th width=10%>Action</th>
+														</thead>
+														<tbody id="accountingTBody">
+												
+														</tbody>
+											</table>	
+												</div>
+											</div>
+										</div>
+								 	</div>
+								</div> 
+							</div> 
+							<!-- end of content 4 -->		
 						</div>
 				<!-- end of contents -->
 					</div>
@@ -184,6 +227,7 @@
 		$('#billingList').DataTable();
 		$('#itemlist').DataTable();
 		$('#itemlist2').DataTable();
+		$('#itemlist3').DataTable();
 	});
 
 	//MODAL VIEWING
@@ -208,7 +252,7 @@
 				$('#modal-billing').modal('show');
 			},
 			error: function(){
-				alert("SOMETHING WENT WRONG");
+				showError("SOMETHING WENT WRONG");
 			}
 		})
 	}
@@ -237,7 +281,7 @@
 				$('#modal-billing').modal('show');
 			},
 			error: function(){
-				alert("SOMETHING WENT WRONG");
+				showError("SOMETHING WENT WRONG");
 			}
 		})
 	})
@@ -252,20 +296,24 @@
 		if(!parseInt(payment)){
 			showError("Check Your Input");
 		}else {
-			//Save to DB
-			$.ajax({
-				url: "/Billing/addPayment",
-				type: "POST",
-				data: {id:id, payment:payment, _token:_token},
-				success: function(data){
-					loadDataThirdPart(data);
-					showSucMsg("Saved Successfully");
-					$('#formPayment').val('');
-				},
-				error: function(error){
-					showError("Something Went Wrong");
-				}
-			})
+			if(maxPayment >= payment){
+				//Save to DB
+				$.ajax({
+					url: "/Billing/addPayment",
+					type: "POST",
+					data: {id:id, payment:payment, _token:_token},
+					success: function(data){
+						loadDataThirdPart(data);
+						showSucMsg("Saved Successfully");
+						$('#formPayment').val('');
+					},
+					error: function(error){
+						showError("Something Went Wrong");
+					}
+				})
+			}else{
+				showError("Do not exceed the maximum balance");
+			}
 		}
 	})
 
@@ -286,11 +334,11 @@
 				if(data=="Success"){
 					location.reload();
 				}else{
-					alert(data);
+					showError(data);
 				}
 			},
 			error: function(err){
-				alert("Something Went Wrong");
+				showError("Something Went Wrong");
 			}
 		})
 	})
@@ -330,11 +378,13 @@
 			totalAmount += (objSaleDetails[i].Quantity * objSaleDetails[i].Unit_Price);
 		}
 		$('#totalDebit').html(totalAmount);
+		$('#modalViewTotalBill').html("Total Bill: " + totalAmount);
 		$('#modalTotalItems').html("Total Items: " + totalItems);
 	}
 
 	//Data Of Third Part
 		var totalPayment = 0;
+		var maxPayment = 0;
 	function loadDataThirdPart(objAccDetails){
 		$('#modalAccDetailsTbody').html("");
 		totalPayment = 0;
@@ -346,8 +396,11 @@
 			$('#modalAccDetailsTbody').append("</tr>");
 			totalPayment += parseInt(objAccDetails[i].Acc_Payment);
 		}
-		$('#totalBalance').html(totalAmount-totalPayment);
+		maxPayment = totalAmount-totalPayment;
+		$('#totalBalance').html(maxPayment);
 		$('#modalTotalPayment').html("Total Payment: " + totalPayment);
+		if(totalPayment >= totalAmount) $('#formPayment').attr('disabled', true);
+
 	}
 
 	//Modal Setup
@@ -377,12 +430,8 @@
 	}
 
 	function showError(message){
-		$('#modalNotif').html(message);
-		$("#modalNotif").removeClass("msg-visible").addClass("msg");
-		$('#modalNotif').css('display', 'block');
-		setTimeout(function(){
-			$('#modalNotif').css('display', 'none');
-		}, 2000);
+		$('#errorMsg').html(message);
+		$('#modal-error').modal('show');
 	}
 
 	//This part is for Archived Tab
@@ -413,7 +462,7 @@
 				}
 			},
 			error: function(){
-				alert("SOMETHING WENT WRONG");
+				showError("SOMETHING WENT WRONG");
 			}
 		})
 	})
@@ -434,11 +483,11 @@
 				if(data=="Success"){
 					location.reload();
 				}else{
-					alert(data);
+					showError(data);
 				}
 			},
 			error: function(err){
-				alert("Something Went Wrong");
+				showError("Something Went Wrong");
 			}
 		})
 	})
@@ -447,7 +496,46 @@
 		var reportMonth = $('#reportMonth').val();
 		if($('#reportsArchived').is(":checked")) var archived = 0;
 		else if($('#reportsUnarchived').is(":checked")) var archived = 1;
-		window.open('/Billing/Excel/' + reportMonth + "/" + archived);
+		if($('#reportsBilling').is(":checked")) var reportType = "Billing";
+		else if($('#reportsAccounting').is(":checked")) var reportType = "Accounting";
+		window.open('/Billing/Excel/' + reportMonth + "/" + archived + "/" + reportType);
 	}
+
+	function disableArchive(){
+		$('#reportsUnarchived').attr('disabled', true);
+		document.getElementById('reportsArchived').checked = true;
+	}
+
+	function enableArchive(){
+		$('#reportsUnarchived').attr('disabled', false);
+	}
+
+	//This part is for Archived Tab
+	$('body').delegate('#accounting', 'click', function(e){
+		$.ajax({
+			url: "Billing/Accounting/",
+			type: "GET",
+			dataType: "JSON",
+			success: function(data){
+				$('#accountingTBody').html("");
+				for(var i=0; i<data.length; i++){
+					$('#accountingTBody').append("<tr>");
+					$('#accountingTBody').append("<td>" + data[i].sales_invoice_no + "</td>");
+					$('#accountingTBody').append("<td>" + data[i].Acc_Date + "</td>");
+					$('#accountingTBody').append("<td>" + data[i].term_of_payment + "</td>");
+					$('#accountingTBody').append(
+						"<td>"
+						+	"<a class='btn btn-sm btn-primary' style='font-size:12px; margin-right:10px' href='#' data-id='" + data[i].Sale_ID +"' onclick='viewBilling(" + data[i].Sale_ID + ")'><i class='fa fa-eye'></i></a>"
+						+ "</td>"
+					);
+					$('#accountingTBody').append("</tr>");
+				}
+				console.log(data);
+			},
+			error: function(){
+				showError("SOMETHING WENT WRONG");
+			}
+		})
+	})
 </script>
 @stop

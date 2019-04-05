@@ -8,6 +8,9 @@ use Session;
 class InventoryController extends Controller
 {
 
+    function __construct(){
+        $this->middleware(['auth','authInventory']);
+    }
     /**
      * Display a listing of the resource.
      *

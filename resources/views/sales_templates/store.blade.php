@@ -183,7 +183,7 @@
 													<h6 style="font-weight: normal;" id = "vatableSales">0</h6>
 													<h6 style="font-weight: normal;" id = "vatAmount">0</h6>
 													<h6 style="font-weight: normal; " id="amountRendered">0</h6>
-													<input type='number' name="amountPayed" class="input_change text-right" min=0 step=0.01 id="amountReceived" style="padding:0px">
+													<input type='number' name="amountPayed" class="input_change text-right" min=0 step=0.01 id="amountReceived" style="padding:0px" value=0>
 													<h6 style="font-weight: normal;padding-top:5px" id=change>0</h6>
 												</div>
 											</div>
