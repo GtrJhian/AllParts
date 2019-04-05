@@ -2,15 +2,6 @@
 
 @section('content')
 
-<
-<script>
-	var msg = '{{Session::get('alert')}}';
-	var exist = '{{Session::has('alert')}}';
-	var evalmsg = msg.replace(/(&quot\;)/g,"\"");
-	if(exist){
-		alert(evalmsg);
-	}
-</script>
 
 
 <body>
@@ -60,3 +51,17 @@
 	</div>
 </body>
 @stop
+
+
+
+
+@section('script')
+<script>
+	var msg = '{{Session::get('alert')}}';
+	var exist = '{{Session::has('alert')}}';
+	var evalmsg = msg.replace(/(&quot\;)/g,"\"");
+	if(exist){
+		alert(evalmsg);
+		evalmsg=null;
+	}
+</script>

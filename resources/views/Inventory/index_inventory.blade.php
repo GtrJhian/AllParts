@@ -85,16 +85,11 @@
     		success: function (data){
     			var array = jQuery.parseJSON(data);
     		//	$('#table_body').html(array.notification);
-
-    			
     			$("#report_table").dataTable().fnDestroy()
     			$("#report_tablebody").empty();
     			$('#report_table').find('tbody').append(array.notification);
     			$('#report_table').DataTable();
-    		},
-    		error: function(XMLHttpRequest, textStatus, errorThrown) {
-    			alert("ERROR IN REQUEST");
-    		} 
+    		}
     	});
     }
 

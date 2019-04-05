@@ -21,11 +21,18 @@
 	<link href="{{asset('vendor/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet">
 	<script src="{{asset('vendor/datatables/jquery.dataTables.js')}}"></script>
 	<script src="{{asset('vendor/datatables/dataTables.bootstrap4.js')}}"></script>
-	
+
+<!--New inclusion of libraries-->
+	<script src="{{asset('vendor/datatables/buttons/dataTables.buttons.min.js')}}"></script>
+	<script src="{{asset('vendor/datatables/buttons/buttons.html5.min.js')}}"></script>
+	<script src="{{asset('vendor/jszip/jszip.min.js')}}"></script>
+<!--end of new inclusion-->
+
 	<link href="{{asset('vendor/custom/sb-inventory.css')}}" rel="stylesheet">
 
 	<link href="{{asset('vendor/select2/css/select2.min.css')}}" rel="stylesheet" />
 	<script src="{{asset('vendor/select2/js/select2.min.js')}}"></script>
+
 
 	<!-- <link href="/css/app.css" rel="stylesheet" >
 	<link href="{{ asset('public/css/toastr.min.css') }}" rel="stylesheet" type="text/css">
