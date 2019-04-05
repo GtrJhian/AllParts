@@ -2,7 +2,7 @@
 	<img src="{{asset('vendor/img/allparts.png')}}" style="width: 100%;height: 100%;padding-top: 20px" class="centering">
 </span> -->
 <!-- <div class="text3 hi-icon-effect-1 hi-icon-effect-1a" style="padding-top: 20px"> -->
-	<ul class="sidebar navbar-nav text4 hi-icon-effect-1 hi-icon-effect-1a" style="padding-top: 20px;background-color: #fff;border-right: 1px #e9ecef solid">
+<ul class="sidebar navbar-nav text4 hi-icon-effect-1b hi-icon-effect-1a" style="padding-top: 20px;background-color: #fff;border-right: 1px #e9ecef solid">
 		<li class="nav-item" style="padding: 20px">
 			<a class="hi-icon" href="/store">
 				<i class="fa fa-store" style="padding: 20%"></i><!-- store to -->
@@ -19,6 +19,12 @@
 			<a class="hi-icon" href="/customers">
 				<i class="fa fa-user" style="padding: 25%"></i><!--customer -->
 				<span class="tooltiptext">Customers</span>
+			</a>
+		</li>
+		<li class="nav-item" style="padding: 20px">
+			<a class="hi-icon" href="/Billing">
+				<i class="fa fa-hand-holding-usd" style="padding: 25%"></i><!--Billing -->
+				<span class="tooltiptext">Billing</span>
 			</a>
 		</li>
 	</ul>
