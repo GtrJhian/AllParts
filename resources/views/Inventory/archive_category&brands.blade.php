@@ -288,9 +288,8 @@
 	var evalmsg = msg.replace(/(&quot\;)/g,"\"");
 	if(exist){
 		alert(evalmsg);
-
+		evalmsg=null;
 	}
-	evalmsg=null;
 </script>
 
 
@@ -318,10 +317,7 @@ $('.unarchive_btn_ca').click(function(){
 			var array = jQuery.parseJSON(data);
 			$paragraph.text(array[0].item_category+"?");
 			document.getElementById("aicat").value = array[0].item_category;
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("ERROR IN REQUEST");
-		} 
+		}
 	});
 	$('#returnCategory').modal('show');
 });
@@ -343,10 +339,7 @@ $('.delete_btn_ca').click(function(){
 			var array = jQuery.parseJSON(data);
 			$paragraph.text(array[0].item_category+"?");
 			document.getElementById("dicat").value = array[0].item_category;
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("ERROR IN REQUEST");
-		} 
+		}
 	});
 	$('#deleteCategory').modal('show');
 });
@@ -369,10 +362,7 @@ $('.unarchive_btn_br').click(function(){
 			var array = jQuery.parseJSON(data);
 			$paragraph.text(array[0].brand_name+"?");
 			document.getElementById("abn").value = array[0].brand_name;
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("ERROR IN REQUEST");
-		} 
+		}
 	});
 	$('#returnBrand').modal('show');
 });
@@ -394,10 +384,7 @@ $('.delete_btn_br').click(function(){
 			var array = jQuery.parseJSON(data);
 			$paragraph.text(array[0].brand_name+"?");
 			document.getElementById("dbn").value = array[0].brand_name;
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("ERROR IN REQUEST");
-		} 
+		}
 	});
 	$('#deleteBrand').modal('show');
 });

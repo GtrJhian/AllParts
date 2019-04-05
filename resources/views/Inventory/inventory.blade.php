@@ -105,8 +105,9 @@
 	var evalmsg = msg.replace(/(&quot\;)/g,"\"");
 	if(exist){
 		alert(evalmsg);
+		evalmsg=null;
 	}
-	evalmsg=null;
+
 </script>
 
 
@@ -162,9 +163,6 @@ $(document).delegate('.update_item_btn', 'click', function(){
 			document.getElementById("uiaq").value = array[0].Alarm_Quantity;
 			$('#uib').val(array[0].Item_Brand);
 			$('#uicat').val(array[0].Item_Category);
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("ERROR IN REQUEST");
 		} 
 	});
 	$('#updateItem').modal('show');
@@ -188,10 +186,7 @@ $(document).delegate('.update_pckg_btn', 'click', function(){
 			$('#upb').val(array[0].Item_Brand);
 			$('#upcat').val(array[0].Item_Category);
 			getPackageItems(rowID);
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("ERROR IN REQUEST");
-		} 
+		}
 	});
 	$('#updatePackage').modal('show');
 });
@@ -205,10 +200,7 @@ function getPackageItems(package_id){
 		data:{itemID:pckg_id,'_token':"{{csrf_token()}}"},
 		success: function (data){
 			$("#list_items").html(data);	
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("ERROR IN REQUEST");
-		} 
+		}
 	});
 }
 
@@ -231,10 +223,7 @@ $(document).delegate('.archive_btn', 'click', function(){
 			var array = jQuery.parseJSON(data);
 			$paragraph.text(array[0].Item_Code+"?");
 			document.getElementById("aic").value = array[0].Item_Code;
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("ERROR IN REQUEST");
-		} 
+		}
 	});
 	$('#removeItem').modal('show');
 });
@@ -271,10 +260,7 @@ $(document).delegate('.view_btn', 'click', function(){
 			document.getElementById("brandpic").src=array[0].bpic;
 			document.getElementById("categorypic").src=array[0].cpic;
 		//	document.getElementById("aic").value = array[0].Item_Code;
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("ERROR IN REQUEST");
-		} 
+		}
 	});
 });
  $('#ic').on('blur', function(){
@@ -292,10 +278,7 @@ $(document).delegate('.view_btn', 'click', function(){
 			else{
 				$('#cisubmit').prop('disabled', true);
 			}
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("ERROR IN REQUEST");
-		} 
+		}
 	});
 });
 
@@ -319,10 +302,7 @@ $('#pc').on('blur', function(){
 			else{
 				$('#cpsubmit').prop('disabled', true);
 			}
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("ERROR IN REQUEST");
-		} 
+		}
 	});
 });
 
