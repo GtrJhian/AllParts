@@ -107,9 +107,45 @@ Route::post('/purchasing/store',[
 ]);
 
 Route::get('/purchasing',[	
-	'uses' => 'PurchasingController@index'
+	'uses' => 'PurchasingController@index',
+	'as' => 'purchasing.index'
 ]);
 
+Route::get('/purchasing/edit',[	
+	'uses' => 'PurchasingController@edit',
+	'as' => 'purchasing.edit'
+]);
+
+Route::post('/purchasing/delete', [
+	'uses' => 'PurchasingController@destroy',
+	'as' => 'purchasing.delete'
+]);
+
+Route::get('/purchasing/archive', [
+	'uses' => 'PurchasingController@trashed',
+	'as' => 'purchasing.trashed'
+]);
+
+Route::post('/purchasing/archive/delete', [
+	'uses' => 'PurchasingController@kill',
+	'as' => 'purchasing.kill'
+]);
+Route::get('/purchasing/archive/restore/{id}', [
+	'uses' => 'PurchasingController@restore',
+	'as' => 'purchasing.restore'
+]);
+Route::get('/purchasing/approve/{id}', [
+	'uses' => 'PurchasingController@approve',
+	'as' => 'purchasing.approve'
+]);
+Route::get('/purchasing/deliver/{id}', [
+	'uses' => 'PurchasingController@deliver',
+	'as' => 'purchasing.deliver'
+]);
+Route::post('/purchasing/deliver/delete', [
+	'uses' => 'PurchasingController@deliver_destroy',
+	'as' => 'purchasing.delete_deliver'
+]);
 //===============================//
 //===============Customer Routes==================//
 Route::post('/Customer/Create','CustomerController@Create');

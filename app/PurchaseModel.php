@@ -15,11 +15,11 @@ class PurchaseModel extends Model
 
     public function supplier()
     {
-        return $this->belongsTo('App\SupplierModel','Supplier_ID', 'Supplier_ID');
+        return $this->belongsTo('App\SupplierModel','Supplier_ID', 'Supplier_ID')->withTrashed();
     }
 
     public function order_detail()
     {
-        return $this->belongsTo('App\PurchaseDetailModel');
+        return $this->hasMany('App\PurchaseDetailModel','Order_No')->withTrashed();
     }
 }

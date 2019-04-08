@@ -47,7 +47,7 @@
 								<div class="table-responsive">
 									<table class="table table-striped" id="itemlist" width="100%" cellspacing="0">
 										<thead>
-                                        	<th>Company Name</th>
+											<th>Company Name</th>
 											<th>Address</th>
 											<th>Telephone Number</th>
 											<th>Company E-mail</th>
@@ -66,36 +66,41 @@
 													<a href="{{ route('supplier.restore',['id' => $supply->Supplier_ID])}}" class="unarchive_btn btn btn-primary btn-action-invt">
 														<i class="fa fa-redo"></i>
 													</a>
-													<a href="{{ route('supplier.kill',['id' => $supply->Supplier_ID])}}" class="delete_btn btn btn-danger btn-action-invt">
+													<!-- <a href="{{ route('supplier.kill',['id' => $supply->Supplier_ID])}}" class="delete_btn btn btn-danger btn-action-invt">
 														<i class="fa fa-times"></i>
-													</a>
+													</a> -->
 												</td></tr>
-											@endforeach
-										</tbody>
-									</table>
+												@endforeach
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				@include('components.footer2')
 			</div>
-			@include('components.footer2')
 		</div>
-	</div>
+
+		<div class="zoom">
+			<a class="zoom-fab zoom-btn-blue zoom-btn-large tooltip-iventory-blue" href="{{route('supplier')}}">
+				<i class="fa fa-arrow-left"></i>
+				<span class="tooltip-iventorytext-blue">BACK</span>
+			</a>
+		</div>
+	</body>
+	@stop
+
+	@section('script')
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#itemlist').DataTable();
+		});
 
 
-</body>
-@stop
 
-@section('script')
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('#itemlist').DataTable();
-	});
-
-	
-
-</script>
+	</script>
 
 
-@stop
+	@stop

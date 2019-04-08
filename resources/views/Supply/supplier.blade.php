@@ -95,9 +95,9 @@
 	</div>
 	<!-- archive -->
 	<div class="zoom-top">
-		<a href="{{route('supplier.trashed')}}" class="zoom-fab zoom-btn-blue zoom-btn-sm tooltip-iventory-blue">
+		<a href="{{route('supplier.trashed')}}" class="zoom-fab zoom-btn-black zoom-btn-sm tooltip-iventory">
 			<i class="fa fa-trash"></i>
-			<span class="tooltip-iventorytext-blue">ARCHIVE</span>
+			<span class="tooltip-iventorytext">ARCHIVE</span>
 		</a> 
 	</div>
 	
