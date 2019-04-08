@@ -191,8 +191,8 @@
 	var evalmsg = msg.replace(/(&quot\;)/g,"\"");
 	if(exist){
 		alert(evalmsg);
+		evalmsg=null;
 	}
-	evalmsg=null;
 </script>
 
 
@@ -223,10 +223,7 @@ $('.unarchive_btn').click(function(){
 			var array = jQuery.parseJSON(data);
 			$paragraph.text(array[0].Item_Code+"?");
 			document.getElementById("aic").value = array[0].Item_Code;
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("ERROR IN REQUEST");
-		} 
+		}
 	});
 	$('#returnItem').modal('show');
 });
@@ -254,10 +251,7 @@ $('.delete_btn').click(function(){
 			var array = jQuery.parseJSON(data);
 			$paragraph.text(array[0].Item_Code+"?");
 			document.getElementById("dic").value = array[0].Item_Code;
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("ERROR IN REQUEST");
-		} 
+		}
 	});
 	$('#deleteItem').modal('show');
 });

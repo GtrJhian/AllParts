@@ -1864,3 +1864,8 @@ INSERT INTO `inventory` (`Item_ID`, `Item_Category`, `Item_Brand`, `Item_Code`, 
 (1836, 12, 1, '7405xM12x106', 'Steel Adaptor 2018', 0, 10, 10706, 'Piece', '1.00', 0),
 (1837, 12, 1, '7405xM15x108', 'Steel Adaptor 2018', 0, 10, 10727, 'Piece', '1.00', 0),
 (1838, 12, 1, '7405xM16x108', 'Steel Adaptor 2018', 0, 10, 10748, 'Piece', '1.00', 0);
+
+
+/*Users Table*/
+INSERT INTO `users` (`id`, `username`, `password`, `position`, `F_Name`, `L_Name`, `M_Name`, `Contact_No`, `Address`, `Email`, `Sex`, `user_access`, `remember_token`, `User_Archived`) VALUES
+(1, 'ADMIN', '$2y$10$S0v88kmlQwkc0aG5nF2AYOWPG0t64IB6mg2LitpNag9WIJszfG9u.', 'Store Owner', 'Donald', 'Yu', 'S', '09219870527', '121', 'dyu.allparts@gmail.com', 0, 31, 'r3chjCsiZEjdp0fJ49FfmOJCub3h3XxHTZwjs7E91nIxa2pa4CNnj2hRuXsv', 0);

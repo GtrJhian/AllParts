@@ -3,9 +3,9 @@
 @section('content')
 <body id="page-top">
 
-	@include('components.nav2')
+	@include('components.nav_sales')
 
-	<div id="wrapper">
+	<div id="wrapper" class="offset1">
 
 		<!-- Sidebar -->
 		@include('components.menu3')

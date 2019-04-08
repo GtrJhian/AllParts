@@ -171,8 +171,9 @@
 	var evalmsg = msg.replace(/(&quot\;)/g,"\"");
 	if(exist){
 		alert(evalmsg);
+		evalmsg=null;
 	}
-	evalmsg=null;
+	
 </script>
 
 
@@ -199,9 +200,6 @@
 				document.getElementById("ubn").value = array[0].brand_name;
 				var idpic=array[0].brand_pic;
 				getbpic(idpic);
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				alert("ERROR IN REQUEST");
 			} 
 		});
 		$('#updateBrand').modal('show');
@@ -221,10 +219,7 @@
 				document.getElementById("ucn").value = array[0].item_category;
 				var idpic=array[0].categ_pic;
 				getcpic(idpic);
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				alert("ERROR IN REQUEST");
-			} 
+			}
 		});
 		$('#updateCategory').modal('show');
 	});
@@ -243,10 +238,7 @@
 				success: function (data){
 					var array = jQuery.parseJSON(data);
 					document.getElementById("prevBrand").src=array[0].pic_url;
-				},
-				error: function(XMLHttpRequest, textStatus, errorThrown) {
-					alert("ERROR IN REQUEST");
-				} 
+				}
 			});
 		}
 		else{
@@ -264,10 +256,7 @@
 				success: function (data){
 					var array = jQuery.parseJSON(data);
 					document.getElementById("prevCateg").src=array[0].pic_url;
-				},
-				error: function(XMLHttpRequest, textStatus, errorThrown) {
-					alert("ERROR IN REQUEST");
-				} 
+				}
 			});
 		}
 		else{
@@ -291,10 +280,7 @@ $('.archive_btn_ca').click(function(){
 			var array = jQuery.parseJSON(data);
 			$paragraph.text(array[0].item_category+"?");
 			document.getElementById("aicat").value = array[0].item_category;
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("ERROR IN REQUEST");
-		} 
+		}
 	});
 	$('#removeCategory').modal('show');
 });
@@ -317,10 +303,7 @@ $('.archive_btn_br').click(function(){
 			var array = jQuery.parseJSON(data);
 			$paragraph.text(array[0].brand_name+"?");
 			document.getElementById("abn").value = array[0].brand_name;
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("ERROR IN REQUEST");
-		} 
+		}
 	});
 	$('#removeBrand').modal('show');
 });
@@ -342,10 +325,7 @@ $('.archive_btn_br').click(function(){
 			else{
 				$('#cnsubmit').prop('disabled', true);
 			}
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("ERROR IN REQUEST");
-		} 
+		}
 	});
 });
 
@@ -365,10 +345,7 @@ $('.archive_btn_br').click(function(){
 			else{
 				$('#bnsubmit').prop('disabled', true);
 			}
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("ERROR IN REQUEST");
-		} 
+		}
 	});
 });
 

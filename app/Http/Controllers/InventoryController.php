@@ -8,6 +8,9 @@ use Session;
 class InventoryController extends Controller
 {
 
+    function __construct(){
+        $this->middleware(['auth','authInventory']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -36,7 +39,7 @@ class InventoryController extends Controller
             foreach($records as $record){
                 $itemdetails = DB::table('inventory')->where('Item_ID', $record->needed_item)->first();
                 if($itemdetails->archive==0){   //check if archive item, if yes, 0 quantity auto
-                    $actualQuantity=($itemdetails->Item_Quantity)/($record->needed_quantity);
+                    $actualQuantity=floor(($itemdetails->Item_Quantity)/($record->needed_quantity));
                     if($actualQuantity<$realQuantity){
                         $realQuantity=$actualQuantity;
                     }
@@ -514,6 +517,8 @@ echo json_encode($record);
 //Get Inventory Alerts
 function getInvItems(Request $req)
 {
+
+  
     $inventories= DB::table('inventory')->where('archive',0)->orderBy('item_code','ASC')->get();
     $output = '';
     $count=0;
@@ -578,6 +583,24 @@ $record = array(
 );
 
 echo json_encode($record);
+
+/*
+ $result = DB::select('SELECT item_code,item_description,item_quantity, concat(item_price,\'/\',item_unit) FROM inventory');
+                $dt['data'] = array();
+                $x = 0;
+                foreach($result as $item){
+                    $y = 0;
+                    $i = json_decode(json_encode($item),false);
+                    $dt['data'][$x] = array();
+                    foreach($i as $col){
+                        $dt['data'][$x][$y] = array();
+                        $dt['data'][$x][$y++] = $col;
+                    }
+                    $x++;
+                }
+                return $dt;
+
+*/
 }
 
 
